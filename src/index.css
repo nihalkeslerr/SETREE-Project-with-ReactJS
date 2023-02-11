@@ -1,13 +1,149 @@
-body {
+body{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+}
+header {
+  margin: 0 auto;
+  width: 1000px;
+}
+img.imglogo {
+  width: 21%;
+  margin: 18px 0px;
+}
+.navbar li {
+  display: inline-flex;
+  list-style: none;
+  margin-right: 68px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.navbar li a {
+  text-decoration: none;
+  color: #9d9d9d;
+}
+.navbar li a:hover{
+
+  transform: scale(1);
+}
+.navbar li a:hover::after,
+.navbar li a:focus::after {
+  opacity: 1;
+  transform: translate3d(0, 0.2em, 0);
+}
+.navbar li a::after {
+  opacity: 1;
+  transform: scale(0);
+  transform-origin: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar li a:hover::after,
+.navbar li a:focus::after{
+  transform: scale(1);
+}
+.navbar li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0.1em;
+  background-color: #9d9d9d;
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+
+.card.health {
+  background: url(./components/ASSETS/images/health\ kopyası.jpeg) no-repeat;
+  background-size: 571px;
+  background-position: 59% 20%;
+  box-shadow: 9px 9px #f8a770;
+}
+.card.marketlist {
+  background: url(./components/ASSETS/images/market.jpeg) no-repeat;
+  background-size: 460px;
+  background-position: 59% 20%;
+  box-shadow: 9px 9px #c7b2d5;
+}
+.card.movies {
+  background: url(./components/ASSETS/images/movie.jpeg) no-repeat;
+  background-size: 571px;
+  background-position: 59% 20%;
+  box-shadow: 9px 9px #E7BBD7;
+}
+.card.books {
+  background: url(./components/ASSETS/images/book.jpeg) no-repeat;
+  background-size: 495px;
+  background-position: 59% 20%;
+  box-shadow: 9px 9px #f27b6f;
+}
+.card.clothes {
+  background: url(./components/ASSETS/images/clothes.jpeg) no-repeat;
+  background-size: 545px;
+  background-position: 59% 20%;
+  box-shadow: 9px 9px #6fdfe5;
+}
+.card.recipes {
+  background: url(./components/ASSETS/images/recipe.jpeg) no-repeat;
+  background-size: 310px;
+  background-position: 59% 20%;
+  box-shadow: 9px 9px #4073af;
+}
+.card.places {
+  background: url(./components/ASSETS/images/places.jpeg) no-repeat;
+  background-size: 545px;
+  background-position: 49% 20%;
+  box-shadow: 9px 9px #e7bbd7;
+}
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
+.card {
+  width: 173px;
+  height: 305px;
+  position: relative;
+  margin: 24px 37px;
+  border-radius: 14%;
+  box-shadow: 9px 9px #747474;
+}
+.cards {
+  width: 1000px;
+  display: inline-flex;
+  flex-flow: wrap;
+  justify-content: center;
+  margin-top: 100px;
+  justify-content: center;
+} 
+
+div.label {
+  position: absolute;
+  bottom: 51px;
+  font-size: 22px;
+  color: aliceblue;
+  background-color: #b3a08966;
+  padding: 6px 0px;
+  width: 100%;
+}
+
+div.count {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  border-radius: 50%;
+  padding: 11px 16px;
+  background-color: antiquewhite;
+  color: white;
+    font-weight: bold;
+}
+.head p {
+  background: #5370ffa8;
+  width: 176px;
+  padding: 10px 38px 10px 65px;
+  text-transform: uppercase;
+  font-size: 17px;
+  position: absolute;
+  text-align: end;
+  color: white;
+  border-radius: 0px 25px 25px 0px;
+  font-weight: bold;
 }

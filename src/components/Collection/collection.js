@@ -1,12 +1,14 @@
 import React from 'react'
-
+import Header from '../header/header';
+import Footer from '../Footer/footer';
 function Collection() {
   return (
     <div>
+
       <div className='head'>
         <p>Collection</p>
       </div>
-    <div className='container collection'>
+     <div className='container collection'>
       <div className='cards'>
 
        <a href='#'> <div className='card health'>
@@ -46,6 +48,7 @@ function Collection() {
         
       </div>
     </div>
+
     </div>
   )
 }

@@ -13,24 +13,50 @@ function Social() {
 
     <div>
 
-        <div className='head'>
-            <p>Following</p>
-        </div>
-        <div className='container'>
+        <div className='container social'>
             <div className='search'>
                 <input placeholder="Search Friends"></input>
                 <button type='submit'></button>
             </div>
+            <div className='followhead'>
+                <h1>Followings</h1>
+            </div>
         
             <div className='profiles'>
-                <NavLink to="/SocialDetail"><div className='profile'>
+                <div className='profile'>
+                <NavLink className="prop" to="/SocialDetail">
                     <div className='profileimg'>
                     </div>
                     <div>
                         <p>Laura Burke</p>
                         <p><span>2</span> List - <span>123</span> Friends</p>
                     </div>
-                </div></NavLink>
+                    </NavLink>
+                </div>
+                <a href='#'><div className='profile'>
+                    <div className='profileimg'>
+                    </div>
+                    <div>
+                        <p>Laura Burke</p>
+                        <p><span>2</span> List - <span>123</span> Friends</p>
+                    </div>
+                </div></a>
+                <a href='#'><div className='profile'>
+                    <div className='profileimg'>
+                    </div>
+                    <div>
+                        <p>Laura Burke</p>
+                        <p><span>2</span> List - <span>123</span> Friends</p>
+                    </div>
+                </div></a>
+                <a href='#'><div className='profile'>
+                    <div className='profileimg'>
+                    </div>
+                    <div>
+                        <p>Laura Burke</p>
+                        <p><span>2</span> List - <span>123</span> Friends</p>
+                    </div>
+                </div></a>
                 <a href='#'><div className='profile'>
                     <div className='profileimg'>
                     </div>

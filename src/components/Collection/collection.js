@@ -5,9 +5,6 @@ function Collection() {
   return (
     <div>
 
-      <div className='head'>
-        <p>Collection</p>
-      </div>
      <div className='container collection'>
       <div className='cards'>
 

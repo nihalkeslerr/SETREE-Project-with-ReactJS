@@ -1,7 +1,9 @@
 body{
   margin: 0;
   padding: 0;
+  text-align: center;
 }
+
 header {
   margin: 0 auto;
   width: 1000px;
@@ -9,6 +11,9 @@ header {
 img.imglogo {
   width: 21%;
   margin: 18px 0px;
+}
+.navbar {
+  margin: 30px 5px;
 }
 .navbar li {
   display: inline-flex;
@@ -36,6 +41,10 @@ img.imglogo {
   transform-origin: center;
 }
 
+.navbar li a:focus{
+  transform: scale(1);
+  opacity: 1;
+}
 .navbar li a:hover::after,
 .navbar li a:focus::after{
   transform: scale(1);
@@ -52,43 +61,43 @@ img.imglogo {
   transition: opacity 300ms, transform 300ms;
 }
 
-.card.health {
+.card.health,.ppDetailCard.health {
   background: url(./components/ASSETS/images/health\ kopyası.jpeg) no-repeat;
   background-size: 571px;
   background-position: 59% 20%;
   box-shadow: 9px 9px #f8a770;
 }
-.card.marketlist {
+.card.marketlist,.ppDetailCard.marketlist {
   background: url(./components/ASSETS/images/market.jpeg) no-repeat;
   background-size: 460px;
   background-position: 59% 20%;
   box-shadow: 9px 9px #c7b2d5;
 }
-.card.movies {
+.card.movies,.ppDetailCard.movies {
   background: url(./components/ASSETS/images/movie.jpeg) no-repeat;
   background-size: 571px;
   background-position: 59% 20%;
   box-shadow: 9px 9px #E7BBD7;
 }
-.card.books {
+.card.books,.ppDetailCard.books {
   background: url(./components/ASSETS/images/book.jpeg) no-repeat;
   background-size: 495px;
   background-position: 59% 20%;
   box-shadow: 9px 9px #f27b6f;
 }
-.card.clothes {
+.card.clothes,.ppDetailCard.clothes {
   background: url(./components/ASSETS/images/clothes.jpeg) no-repeat;
   background-size: 545px;
   background-position: 59% 20%;
   box-shadow: 9px 9px #6fdfe5;
 }
-.card.recipes {
+.card.recipes,.ppDetailCard.recipes {
   background: url(./components/ASSETS/images/recipe.jpeg) no-repeat;
   background-size: 310px;
   background-position: 59% 20%;
   box-shadow: 9px 9px #4073af;
 }
-.card.places {
+.card.places,.ppDetailCard.places {
   background: url(./components/ASSETS/images/places.jpeg) no-repeat;
   background-size: 545px;
   background-position: 49% 20%;
@@ -110,8 +119,6 @@ img.imglogo {
   width: 1000px;
   display: inline-flex;
   flex-flow: wrap;
-  justify-content: center;
-  margin-top: 100px;
   justify-content: center;
 } 
 
@@ -137,8 +144,8 @@ div.count {
 }
 .head p {
   background: #5370ffa8;
-  width: 176px;
-  padding: 10px 38px 10px 65px;
+  width: 276px;
+  padding: 13px 38px 13px 65px;
   text-transform: uppercase;
   font-size: 17px;
   position: absolute;
@@ -164,20 +171,24 @@ footer {
   height: 65px;
   background-position: center;
   border-radius: 32px;
-  width: 65px;
+  width: 70px;
 }
 .profile {
   display: flex;
   align-items: center;
-  margin: 18px 61px;
-  width: 208px;
+  margin: 18px 40px;
+  width: 250px;
+  justify-content: center;
 }
 .profile p {
   margin: 5px 15px;
-  font-size: 18px;
+  font-size: 20px;
   color: #141414;
 }
-
+.followhead h1 {
+  color: #5e6ba8;
+  text-shadow: 1px 2px 2px #a3a9c4;
+}
 .profile p:last-child {
   color: #9a9a9a;
   font-size: 13px;
@@ -185,39 +196,44 @@ footer {
 }
 .profiles {
   display: flex;
-  margin: 40px auto;
+  margin: 30px auto;
   width: 663px;
   flex-wrap: wrap;
   justify-content: center;
 }
+a.prop {
+  display: flex;
+  align-items: center;
+}
 .search input {
-  width: 370px;
+  width: 450px;
   border-radius: 20px;
   height: 45px;
   border: none;
-  background-color: #FF908F;
+  background-color: #ff9f9f;
   margin-top: 43px;
   padding-left: 30px;
-  color: aliceblue;
+  color: #ffe5e4;
+  box-shadow: 0px 2px 4px #ca9291;
 }
 .search input::placeholder {
   padding-left: 10px;
   font-size: 15px;
-  color: #ffffff;
+  color: #ffc9c8;
 }
 .search {
   border-bottom: 1px solid #96969682;
   padding-bottom: 17px;
-  width: 476px;
+  width: 547px;
   margin: 0 auto;
   position: relative;
 }
 
 .search button{
-  background: url(./components/ASSETS/images/search.png);
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABcklEQVR4nO2WwUpCQRiFL5lusnYJvYL1Dtm6FhnlK4hhaT1F+BpmPUoQbbIgJW3fWhe1+uK3c2FWysxcJMgDAxfunP8bZv575ibJSn9FQAGoAXfAAJhq2HNP7wpZQ0+AMYs1AqpZANeAjlP4GbgEysCGxi7QAvrOvBvzxoA7KvQF1OcV0yIbmjuDx2wvKrTv4as48OOQRhrLXA9Y9Lm870Dex1hzztT7rIAc8KIapz7Ge5kufKFOjbZq3PqYhjKVI8DW7aaBj2kiUzECvKkak2WDt0LAwwy2ei/tbB9TT6ZWBPhaNbohn1M/4nN6VY0z3wAZydgIADfltRBa9zVXZbb4q3j4DoBveY98Fz2TbpkUbjGYS+Zvb9OBfgKlJET83jgpHMVgW+FQ1LDuvXLONIWm88PgJrtlFPiL9AEcGszJ6mh43gLfshd4U8hMtaCuda/bSJnCfQVsO38mttid5L/AS862Py4N7MCfgIelgldKpB/hgvXNldcwtQAAAABJRU5ErkJggg==);
   position: absolute;
   height: 29px;
-  width: 30px;
+  width: 28px;
   top: 50px;
   right: 50px;
   border: none;
@@ -226,3 +242,81 @@ footer {
 a {
   text-decoration: none;
 }
+
+.ppDetailimg {
+  background: url(./components/ASSETS/images/profileimg.png) no-repeat;
+  background-size: 100px;
+  height: 100px;
+  background-position: center;
+  border-radius: 59px;
+  width: 100px;
+  margin: 20px auto;
+}
+.ppDetail {
+  /* border: 1px solid; */
+  width: 740px;
+  margin: 40px auto;
+  border-radius: 21px;
+  box-shadow: 0px 5px 20px 4px #dee2ee;
+  padding: 18px 0px;
+
+}
+.ppDetail button:hover {
+  border: 1px solid #8c9aff;
+  background: #8d9aff;
+  color: #ffffff;
+  text-shadow: 1px 2px 2px #c7d3ff;
+  transition: 0.4s;
+}
+.info p {
+  display: inline-grid;
+  margin: 15px 65px;
+  color: #838383;
+  font-size: 15px;
+}
+.ppDetail button {
+  width: 400px;
+  padding: 12px 0px;
+  font-size: 15px;
+  text-transform: uppercase;
+  border: 1px solid #8c9aff;
+  border-radius: 10px;
+  background: white;
+  color: #5e6ba8;
+  text-shadow: 1px 2px 2px #a3a9c4;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.folloeppimg {
+  background: url(./components/ASSETS/images/profileimg.png) no-repeat;
+  background-size: 60px;
+  height: 60px;
+  background-position: center;
+  border-radius: 59px;
+  width: 60px;
+  margin: 20px auto;
+}
+.followers div {
+  display: inline-block;
+  margin: 10px 15px;
+}
+
+.ppDetailCard{
+  width: 130px;
+  height: 225px;
+  position: relative;
+  margin: 0px 25px;
+  border-radius: 14%;
+}
+
+.info span {
+  font-weight: bold;
+  color: black;
+  font-size: 17px;
+}
+label.name {
+  font-weight: bold;
+  font-size: 17px;
+}
+

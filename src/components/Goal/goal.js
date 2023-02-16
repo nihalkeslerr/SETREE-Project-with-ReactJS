@@ -4,7 +4,7 @@ function Goal() {
   return (
     <div className='goal'>
         <div className='target daily'>
-            <label className="containerTarget">Drink water more
+            <label className="containerTarget da">Drink water more
                 <input type="checkbox" defaultChecked="checked"></input>
                 <span className="checkmark"></span>
             </label>
@@ -47,8 +47,8 @@ function Goal() {
             <div className='title'>
                 <label>Monthly</label>
             </div>
-            <div className='goalcount'>
-                <label>2</label>
+            <div className='goalcount '>
+                <label>5</label>
             </div>
         </div>
         <div className='target yearly'>
@@ -72,7 +72,7 @@ function Goal() {
                 <label>yearly</label>
             </div>
             <div className='goalcount'>
-                <label>2</label>
+                <label>8</label>
             </div>
         </div>
     </div>

@@ -6,12 +6,14 @@ body{
 
 header {
   margin: 0 auto;
-  width: 80%;
+  width: 1000px;
 }
 img.imglogo {
-  width: 21%;
+  width: 250px;
   margin: 18px 0px;
 }
+
+
 .navbar {
   margin: 0px 0px 40px auto;
 }
@@ -363,7 +365,7 @@ label.name {
 
 /* On mouse-over, add a grey background color */
 .containerTarget:hover input ~ .checkmark {
-  background-color: #ffe6c6;
+  background-color: #e7e7e7;
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -435,5 +437,53 @@ label.name {
   color: white;
   font-weight: bold;
   font-size: 28px;
+  border: 2px solid #ffedd7;
+}
+.monthly .containerTarget input:checked ~ .checkmark {
+  background-color: #BDDFFF;
+}
+.monthly .checkmark {
+  border: 1.5px solid #bddfff;
+  background-color: #f4f9ff;
+}
+.monthly {
+  box-shadow: 11px 6px #bddfff;
+  border: 1px solid #bddfff;
+  background-color: #f4f9ff;
+}
+.monthly .title {
+  background: #bddfff;
+}
+.monthly .goalcount {
+  background-color: #bddfff;
+  border: 2px solid #f4f9ff;
+}
+.monthly .containerTarget {
+  color: #42719d;
+}
+
+
+
+.yearly .containerTarget input:checked ~ .checkmark {
+  background-color: #8fa8ec;
+}
+.yearly .checkmark {
+  border: 1.5px solid #8fa8ec;
+  background-color: #f4f9ff;
+}
+.yearly {
+  box-shadow: 11px 6px #8fa8ec;
+  border: 1px solid #8fa8ec;
+  background-color: #f4f9ff;
+}
+.yearly .title {
+  background: #8fa8ec;
+}
+.yearly .goalcount {
+  background-color: #8fa8ec;
+  border: 2px solid #f4f9ff;
+}
+.yearly .containerTarget {
+  color: #4d5f91;;
 }
 

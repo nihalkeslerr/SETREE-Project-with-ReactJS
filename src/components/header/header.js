@@ -3,6 +3,7 @@ import logo from '../ASSETS/images/logo.png'
 import Collection from '../Collection/collection'
 import Social from '../Social/social';
 import SocialDetail from '../Social/socialDetail';
+import Goal from '../Goal/goal';
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,15 +29,14 @@ function Header() {
         </div>
     </header>
     <Switch>
+        <Route  path="/goal" component={Goal}>
+        </Route>
         <Route path="/social" component={Social}> 
         </Route>
         <Route exact path="/" component={Collection}>
         </Route>
         <Route  path="/socialDetail" component={SocialDetail}>
         </Route>
-
-
-
 
 
     </Switch>

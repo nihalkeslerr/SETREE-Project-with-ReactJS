@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
         <div>
-            <p>© 2014 All Rights Reserved.</p>
+            <p>© 2023 All Rights Reserved.</p>
         </div>
     </footer>
   )

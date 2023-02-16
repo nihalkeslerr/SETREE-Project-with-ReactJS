@@ -20,13 +20,13 @@ function SocialDetail() {
         <h1>Followers</h1>
       </div>
       <div className='followers'>
-        <div className='folloeppimg'></div>
-        <div className='folloeppimg'></div>
-        <div className='folloeppimg'></div>
-        <div className='folloeppimg'></div>
-        <div className='folloeppimg'></div>
-        <div className='folloeppimg'></div>
-        <div className='folloeppimg'></div>
+        <div className='followppimg'></div>
+        <div className='followppimg'></div>
+        <div className='followppimg'></div>
+        <div className='followppimg'></div>
+        <div className='followppimg'></div>
+        <div className='followppimg'></div>
+        <div className='followppimg'></div>
       </div>
       <div className='followhead'>
         <h1>Lists</h1>

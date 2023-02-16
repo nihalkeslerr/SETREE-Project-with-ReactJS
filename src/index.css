@@ -6,20 +6,24 @@ body{
 
 header {
   margin: 0 auto;
-  width: 1000px;
+  width: 80%;
 }
 img.imglogo {
   width: 21%;
   margin: 18px 0px;
 }
 .navbar {
-  margin: 30px 5px;
+  margin: 0px 0px 40px auto;
+}
+.navbar ul {
+  padding-left: 0;
 }
 .navbar li {
   display: inline-flex;
   list-style: none;
-  margin-right: 68px;
+  margin: 0px 27px;
   font-size: 18px;
+  text-align: center;
   text-transform: uppercase;
 }
 .navbar li a {
@@ -288,7 +292,7 @@ a {
   font-weight: bold;
 }
 
-.folloeppimg {
+.followppimg {
   background: url(./components/ASSETS/images/profileimg.png) no-repeat;
   background-size: 60px;
   height: 60px;
@@ -318,5 +322,118 @@ a {
 label.name {
   font-weight: bold;
   font-size: 17px;
+}
+
+.containerTarget {
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 16px 2px 7px 25px;
+  color: #b06a12;
+}
+
+
+/* Hide the browser's default checkbox */
+.containerTarget input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: -3px;
+  left: -2px;
+  border-radius: 15px;
+  height: 25px;
+  width: 28px;
+  border: 1.5px solid #f4c181;
+  background-color: #ffedd7;
+}
+
+/* On mouse-over, add a grey background color */
+.containerTarget:hover input ~ .checkmark {
+  background-color: #ffe6c6;
+}
+
+/* When the checkbox is checked, add a blue background */
+.containerTarget input:checked ~ .checkmark {
+  background-color: #f4c181;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.containerTarget input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.containerTarget .checkmark:after {
+  left: 10px;
+  top: 0px;
+  width: 8px;
+  height: 17px;
+  border:solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.goal {
+  margin: 0 auto;
+  width: 1000px;
+}
+.target {
+  width: 80%;
+  border: 1px solid #f4c181;
+  margin: 45px auto;
+  border-radius: 30px 30px 0px 30px;
+  background-color: #ffedd7;
+  position: relative;
+  height: 200px;
+  box-shadow: 11px 6px #f4c181;
+}
+.title {
+  text-transform: uppercase;
+  text-align: left;
+  position: absolute;
+  bottom: 0;
+  background: #f4c181;
+  width: 96.5%;
+  height: 37px;
+  border-radius: 1px 1px 1px 29px;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.goalcount {
+  position: absolute;
+  bottom: 0px;
+  right: -4px;
+  border-radius: 50%;
+  padding: 8px 20px;
+  background-color: #f4c181;
+  color: white;
+  font-weight: bold;
+  font-size: 28px;
 }
 

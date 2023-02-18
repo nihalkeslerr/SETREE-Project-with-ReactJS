@@ -1,6 +1,4 @@
 import React from 'react'
-import Header from '../header/header';
-import Footer from '../Footer/footer';
 
 function SocialDetail() {
   return (

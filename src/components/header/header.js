@@ -4,6 +4,7 @@ import Collection from '../Collection/collection'
 import Social from '../Social/social';
 import SocialDetail from '../Social/socialDetail';
 import Goal from '../Goal/goal';
+import CollectionDetail from '../Collection/collectionDetail';
 import {
   BrowserRouter as Router,
   Switch,
@@ -36,6 +37,8 @@ function Header() {
         <Route exact path="/" component={Collection}>
         </Route>
         <Route  path="/socialDetail" component={SocialDetail}>
+        </Route>
+        <Route  path="/collectionDetail" component={CollectionDetail}>
         </Route>
 
 

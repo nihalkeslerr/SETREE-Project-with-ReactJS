@@ -1,6 +1,14 @@
 import React from 'react'
 import Header from '../header/header';
 import Footer from '../Footer/footer';
+import CollectionDetail from './collectionDetail';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
 function Collection() {
   return (
     <div>
@@ -8,10 +16,10 @@ function Collection() {
      <div className='container collection'>
       <div className='cards'>
 
-       <a href='#'> <div className='card health'>
+       <NavLink to='collectionDetail'> <div className='card health'>
           <div className='count' style={{ backgroundColor: "rgb(255 202 166)"}}><label>3</label></div>
           <div className='label'><label>Health</label></div>
-        </div></a>
+        </div></NavLink>
 
         <a href='#'><div className='card marketlist'>
           <div className='count' style={{ backgroundColor: "rgb(236 222 245)"}}><label>9</label></div>

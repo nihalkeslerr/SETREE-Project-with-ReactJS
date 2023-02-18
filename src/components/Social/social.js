@@ -10,9 +10,7 @@ import SocialDetail from './socialDetail';
 
 function Social() {
   return (
-
     <div>
-
         <div className='container social'>
             <div className='search'>
                 <input placeholder="Search Friends"></input>

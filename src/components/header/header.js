@@ -5,6 +5,7 @@ import Social from '../Social/social';
 import SocialDetail from '../Social/socialDetail';
 import Goal from '../Goal/goal';
 import CollectionDetail from '../Collection/collectionDetail';
+import Wheel from '../Wheel/wheel';
 import {
   BrowserRouter as Router,
   Switch,
@@ -37,6 +38,8 @@ function Header() {
         <Route exact path="/" component={Collection}>
         </Route>
         <Route  path="/socialDetail" component={SocialDetail}>
+        </Route>
+        <Route  path="/wheel" component={Wheel}>
         </Route>
         <Route  path="/collectionDetail" component={CollectionDetail}>
         </Route>

@@ -507,7 +507,7 @@ label.name {
   /* border: 1px solid; */
   box-shadow: 0px 0px 12px 2px #979cb9;
   width: 750px;
-  border-radius: 50px 50px 0px 0px;
+  border-radius: 50px;
   margin: 0px auto;
   margin-top: -100px;
   font-size: 18px;
@@ -540,6 +540,47 @@ label.name {
 }
 .item ul li::marker {
   color: #a9722d;
+}
+.ContainerWheel {
+  width: 100%;
+  background: #ffa5a5;
+  height: 610px;
+  position: relative;
+}
+.ContainerWheel h1 {
+  color: white;
+  display: flex;
+  text-shadow: 1px 1px 4px #3e3e3e;
+  font-size: 39px;
+  padding: 30px 200px;
+  margin: 0;
+}
+.ContainerWheel p {
+  color: white;
+  font-size: 23px;
+  margin: 0;
+  display: flex;
+  text-align: center;
+  padding-left: 300px;
+  text-shadow: 1px 1px grey;
+}
+.articles ul {
+  display: table;
+  list-style: auto;
+  text-align: left;
+  color: white;
+  font-size: 23px;
+  margin-left: 174px;
+  margin-top: 110px;
+  text-shadow: 1px 1px #848484;
+}
+
+.imgWheel img {
+  display: block;
+  width: 394px;
+  position: absolute;
+  top: 40px;
+  right: 200px;
 }
 
 

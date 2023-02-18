@@ -15,22 +15,16 @@ function CollectionDetail() {
         <ul>
           <li>Drink Water</li>
           <li>Shopping for Kitchen</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
-          <li>Drink Water</li>
+          <li> Go stay in Poland for at least  2 weeks</li>
+          <li> Learn a new programming language</li>
+          <li>Membership to a gym</li>
+          <li>Join a workshop as a part of a team</li>
+          <li>Have a dog/cat</li>
+          <li> Start a dairy</li>
+
         </ul>
       </div>
-      
+
     </div>
   )
 }

@@ -1,9 +1,8 @@
 import React from 'react'
-import Header from '../header/header';
-import Collection from '../Collection/collection';
+
 import Footer from '../Footer/footer';
-import Social from '../Social/social';
-import SocialDetail from '../Social/socialDetail';
+import Sidebar from '../Menu/Sidebar';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,8 +15,7 @@ function Body() {
   return (
     <Router>
     <div>
-      <Header></Header>
-
+      <Sidebar/>
       <Footer></Footer>
     </div>
     </Router>

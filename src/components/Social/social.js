@@ -13,7 +13,7 @@ function Social() {
     <div>
         <div className='container social'>
             <div className='search'>
-                <input placeholder="Search Friends"></input>
+                <input placeholder="Search Friends" autoFocus></input>
                 <button type='submit'></button>
             </div>
             <div className='followhead'>

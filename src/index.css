@@ -11,8 +11,83 @@ header {
   width: 1000px;
 }
 img.imglogo {
-  width: 250px;
+  width: 200px;
   margin: 18px 0px;
+}
+
+/* SIDEBAR CSS */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background: #a2b1ff;
+}
+.sidebar ul {
+  list-style: none;
+  text-align: initial;
+  padding-left: 0px;
+  margin-top: 170px;
+}
+.sidebar ul li {
+  /* padding: 13px 17px; */
+  /* padding-bottom: 8px; */
+  width: 180px;
+  border-bottom: 1px groove #eef1ff;
+  cursor: pointer;
+  margin: 0px 10px;
+}
+.sidebar ul li:hover {
+  background: #596ed3;
+}
+.sidebar ul li a {
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  width: 136px;
+  padding: 13px 17px;
+  padding-bottom: 13px;
+  /* margin: 0px 10px;*/
+}
+.sidebar ul li a label {
+  margin-left: 24px;
+      cursor: pointer;
+}
+img.logoSidebar {
+  width: 78px;
+  margin-left: 24px;
+}
+.sidebar ul li:first-child {
+  padding-bottom: 12px;
+}
+.sidebar ul li:first-child:hover {
+  background: none;
+}
+
+.open ul li label ,.open img.logoSidebar {
+  display: block;
+  transition:  2s;
+}
+.open ul li{
+  width: 180px;
+  transition: width 1s;
+}
+.close ul li label, .close img.logoSidebar  {
+  display: none;
+  transition: 2s;
+
+}
+.close ul li{
+  width: 65px;
+  transition: width 1s;
+
+}
+button.menu{
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 
@@ -68,6 +143,11 @@ img.imglogo {
   opacity: 0;
   transition: opacity 300ms, transform 300ms;
 }
+
+
+
+
+
 
 .card.health,.ppDetailCard.health {
   background: url(./components/ASSETS/images/health\ kopyası.jpeg) no-repeat;
@@ -131,24 +211,28 @@ img.imglogo {
 } 
 
 div.label {
-  position: absolute;
-  bottom: 51px;
+  position: initial;
+  /* bottom: 51px; */
   font-size: 22px;
   color: aliceblue;
   background-color: #b3a08966;
-  padding: 6px 0px;
+  padding: 7px 0px;
   width: 100%;
+  float: left;
+  margin-top: 100px;
 }
 
 div.count {
-  position: absolute;
-  top: 0;
-  right: 0px;
+  /*position: absolute; */
+  /* top: 0; */
+  /* right: 0px; */
   border-radius: 50%;
+  width: 8%;
+  float: right;
   padding: 11px 16px;
   background-color: antiquewhite;
   color: white;
-    font-weight: bold;
+  font-weight: bold;
 }
 .head p {
   background: #5370ffa8;
@@ -218,17 +302,19 @@ a.prop {
   border-radius: 20px;
   height: 45px;
   border: none;
-  background-color: #ff9f9f;
+  background-color: #a3b0ff;
   margin-top: 43px;
   padding-left: 30px;
-  color: #ffe5e4;
-  box-shadow: 0px 2px 4px #ca9291;
+  font-size: 20px;
+  color: #ffffff;
+  box-shadow: 0px 2px 4px #6f7bc6;
 }
 .search input::placeholder {
   padding-left: 10px;
   font-size: 15px;
-  color: #ffc9c8;
+  color: #ffffff;
 }
+
 .search {
   border-bottom: 1px solid #96969682;
   padding-bottom: 17px;
@@ -313,7 +399,7 @@ a {
 .ppDetailCard{
   width: 130px;
   height: 225px;
-  position: relative;
+  /* position: initial; */
   margin: 0px 25px;
   border-radius: 14%;
 }
@@ -581,6 +667,11 @@ label.name {
   position: absolute;
   top: 40px;
   right: 200px;
+}
+
+
+@media screen and (max-width: 1200px){
+
 }
 
 

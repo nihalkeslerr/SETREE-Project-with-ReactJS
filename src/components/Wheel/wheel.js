@@ -1,7 +1,9 @@
 import React from 'react'
 import wheel from "../ASSETS/images/wheel.png"
+import { useState } from 'react';
 
 function Wheel() {
+
   return (
     <div>
         <div className='ContainerWheel'>
@@ -22,7 +24,10 @@ function Wheel() {
                 </div>
             </div>
             <div className='imgWheel table'>
-                <img src={wheel}></img>
+            <h1>Spinning Prize Wheel React</h1>
+
+
+        
             </div>
         </div>
     </div>

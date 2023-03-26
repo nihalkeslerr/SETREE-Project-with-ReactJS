@@ -17,8 +17,9 @@ function SocialDetail() {
       <div className='followhead'>
         <h1>Followers</h1>
       </div>
+
       <div className='followers'>
-        <div className='followppimg'></div>
+        
         <div className='followppimg'></div>
         <div className='followppimg'></div>
         <div className='followppimg'></div>

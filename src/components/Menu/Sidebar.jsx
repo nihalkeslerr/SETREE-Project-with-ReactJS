@@ -13,6 +13,7 @@ import collectionImg from './images/collection.png'
 import wheelImg from './images/wheel.png'
 import menuImg from './images/menu.png'
 import logoImg from './images/logoImg.png'
+
 import {
     BrowserRouter as Router,
     Switch,
@@ -33,11 +34,11 @@ function Sidebar() {
         </div>
         <div className={`sidebar ${display}`} >
             <ul>
-            <li><NavLink to="">
+            <li>
                     <button className='menu' onClick={()=>setDisplay(display==="open" ? "close" : "open")}>
                     <img src={menuImg}></img></button>
                     <img className='logoSidebar' src={logoImg}/>
-                    </NavLink></li>
+                </li>
 
                 <li><NavLink to="/social">
                     <img src={socialImg}></img>

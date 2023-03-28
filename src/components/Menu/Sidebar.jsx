@@ -6,6 +6,7 @@ import SocialDetail from '../Social/socialDetail';
 import Goal from '../Goal/goal';
 import CollectionDetail from '../Collection/collectionDetail';
 import Wheel from '../Wheel/wheel';
+import Profile from '../Profile/Profile';
 import profileImg from './images/profile.png'
 import socialImg from './images/social.png'
 import goalImg from './images/goal.png'
@@ -55,7 +56,7 @@ function Sidebar() {
                     <label htmlFor="collection">Collection</label>
                     </NavLink></li>
 
-                <li><NavLink to="">
+                <li><NavLink to="/wheel">
                     <img src={wheelImg}></img>
                     <label htmlFor="wheel">Wheel</label>
                     </NavLink></li>
@@ -79,6 +80,8 @@ function Sidebar() {
         <Route  path="/wheel" component={Wheel}>
         </Route>
         <Route  path="/collectionDetail" component={CollectionDetail}>
+        </Route>
+        <Route  path="/profile" component={Profile}>
         </Route>
 
 

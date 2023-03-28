@@ -1,25 +1,16 @@
-import {useState,React} from 'react'
+import React from 'react'
 
-
-function SocialDetail() {
-  const [followinfo, setFollowinfo] = useState("false");
- 
-
+function Profile() {
   return (
     <div>
-      <div className='DetailContainer'>
-      <div className='ppDetail myProfile'>
+        <div className='DetailContainer'>
+      <div className='ppDetail'>
         <div className='ppDetailimg'></div>
         <label className='name'>Laura Burke</label>
         <div className='info'>
           <p><span>14</span>Lists</p>
           <p><span>524</span>Followers</p>
         </div>
-
-        <button className={followinfo} 
-        onClick={()=> setFollowinfo(followinfo==="false" ? "true" : "false")
-  }>Follow</button>
-
       </div>
 
       <div className='followhead'>
@@ -64,4 +55,4 @@ function SocialDetail() {
   )
 }
 
-export default SocialDetail;
+export default Profile

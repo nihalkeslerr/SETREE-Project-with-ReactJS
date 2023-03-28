@@ -372,12 +372,25 @@ a {
   padding: 18px 0px;
 
 }
-.ppDetail button:hover {
+.ppDetail button.false:hover {
   border: 1px solid #8c9aff;
   background: #8d9aff;
   color: #ffffff;
   text-shadow: 1px 2px 2px #c7d3ff;
   transition: 0.4s;
+}
+.myProfile button.true {
+  width: 400px;
+  padding: 12px 0px;
+  font-size: 15px;
+  text-transform: uppercase;
+  border: 1px solid #8c9aff;
+  border-radius: 10px;
+  background: #8d9aff;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 1px 2px 2px #c7d3ff;
 }
 .info p {
   display: inline-grid;
@@ -385,7 +398,7 @@ a {
   color: #838383;
   font-size: 15px;
 }
-.ppDetail button {
+.ppDetail button.false {
   width: 400px;
   padding: 12px 0px;
   font-size: 15px;
@@ -629,36 +642,40 @@ label.matter {
 }
 .ContainerWheel {
   width: 100%;
-  background: #ffa5a5;
-  height: 610px;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 .ContainerWheel h1 {
-  color: white;
+  color: #4A4A4A;
   display: flex;
-  text-shadow: 1px 1px 4px #3e3e3e;
+  text-shadow: 1px 1px 4px #817676;
   font-size: 39px;
   padding: 30px 200px;
   margin: 0;
 }
 .ContainerWheel p {
-  color: white;
+  color: #4A4A4A;
   font-size: 23px;
   margin: 0;
   display: flex;
   text-align: center;
   padding-left: 300px;
-  text-shadow: 1px 1px grey;
+  text-shadow: 0px 1px 2px grey;
+}
+canvas#canvas {
+  width: 80%;
+}
+.table {
+  width: 100%;
 }
 .articles ul {
   display: table;
   list-style: auto;
   text-align: left;
-  color: white;
+  color: #4A4A4A;
   font-size: 23px;
   margin-left: 174px;
   margin-top: 110px;
-  text-shadow: 1px 1px #848484;
 }
 
 .imgWheel img {
@@ -675,3 +692,28 @@ label.matter {
 }
 
 
+
+/*<div className='ContainerWheel'>
+            <div className='table'>
+                <div>
+                    <h1>Wheel Spinner</h1>s
+                    <p>If you can't decide where to <br></br> start, leave it to us!</p>
+                </div>
+                <div className='articles'>
+                    <ul>
+                        <li> Go stay in Poland for at least  2 weeks</li>
+                        <li> Join a workshop as a part of a team</li>
+                        <li> Learn a new programming language</li>
+                        <li> Membership to a gym</li>
+                        <li> Have a dog/cat</li>
+                        <li> Start a dairy</li>
+                    </ul>
+                </div>
+            </div>
+            <div className='imgWheel table'>
+            <h1>Spinning Prize Wheel React</h1>
+
+
+        
+            </div>
+        </div>*/

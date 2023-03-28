@@ -1,12 +1,31 @@
-import React from 'react'
-import wheel from "../ASSETS/images/wheel.png"
-import { useState } from 'react';
+import React, { Component } from 'react'
+
+import WheelComponent from 'react-wheel-of-prizes'
+
 
 function Wheel() {
-
+    const segments = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '6',
+        '7'
+      ]
+      const segColors = [
+        '#F7DDC8',
+        '#F5D3D4',
+        '#E0BDD5',
+        '#C3B3D2',
+        '#C3E3E5',
+        '#AFCCF1'
+      ]
+      const onFinished = (winner) => {
+        console.log(winner)
+      }
   return (
-    <div>
         <div className='ContainerWheel'>
+                
             <div className='table'>
                 <div>
                     <h1>Wheel Spinner</h1>
@@ -24,13 +43,26 @@ function Wheel() {
                 </div>
             </div>
             <div className='imgWheel table'>
-            <h1>Spinning Prize Wheel React</h1>
-
+                <WheelComponent
+                    segments={segments}
+                    segColors={segColors}
+                    onFinished={(winner) => onFinished(winner)}
+                    primaryColor='#2c2c2c'
+                    contrastColor='white'
+                    buttonText='Spin'
+                    isOnlyOnce={false}
+                    size={290}
+                    upDuration={50}
+                    downDuration={140}
+                    fontFamily='Arial'
+                    fontSize="bold 30px"
+                />
 
         
             </div>
+
         </div>
-    </div>
+
   )
 }
 

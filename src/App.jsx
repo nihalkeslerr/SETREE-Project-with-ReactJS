@@ -1,9 +1,8 @@
 
 import './App.css';
 import logo from "./components/ASSETS/images/logo.png"
-
 import Body from './components/Body';
-
+import Main from './Main/Main';
 function App() {
   
   return (
@@ -11,7 +10,9 @@ function App() {
             <div>
         <img className="imglogo" src={logo} alt=""></img>
       </div>
-       <Body></Body> 
+      {/*        <Body></Body>  */}
+
+      <Main></Main>
 
 
 

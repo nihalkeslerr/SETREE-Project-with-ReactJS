@@ -8,15 +8,15 @@ function FormRegister(props) {
         placeholder="firstname"
         name="firstName"
         onChange={props.onChangeInput}
-        value={props.form.firstName}
+        value={props.registermInfo.firstame}
       />{" "}
       <br />
       <input
         type="text"
         placeholder="username"
-        name="userName"
+        name="username"
         onChange={props.onChangeInput}
-        value={props.form.userName}
+        value={props.registermInfo.username}
       />
       <br />
       <input
@@ -24,7 +24,7 @@ function FormRegister(props) {
         placeholder="lastname"
         name="lastName"
         onChange={props.onChangeInput}
-        value={props.form.lastName}
+        value={props.registermInfo.lastName}
       />
       <br />
       <input
@@ -32,7 +32,7 @@ function FormRegister(props) {
         placeholder="email"
         name="email"
         onChange={props.onChangeInput}
-        value={props.form.email}
+        value={props.registermInfo.email}
       />
       <br />
       <input
@@ -40,7 +40,7 @@ function FormRegister(props) {
         placeholder="password"
         name="password"
         onChange={props.onChangeInput}
-        value={props.form.password}
+        value={props.registermInfo.password}
       />
     </div>
   );

@@ -1,33 +1,38 @@
-import React, {  useState } from "react";
+import React, { useContext, useState } from "react";
 import FormRegister from "./FormRegister";
-
-
-const initialformvalues = {
-  firstName: "",
-  userName: "",
-  lastName: "",
-  email: "",
-  password: "",
-};
+import axios from "axios";
+import { GlobalContext } from "./ContextAuth/GlobalContext";
 
 function Register() {
-  const [form, setForm] = useState(initialformvalues);
+  const { registermInfo, setregisterInfo } = useContext(GlobalContext);
+
+  const API_URL = process.env.REACT_APP_REGISTER_URL;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(" Form:", form);
-
-
+    console.log(" registermInfo:", registermInfo);
+    // axios ile POST isteği gönderme
+    axios
+      .post(`${API_URL}/register`, registermInfo)
+      .then((response) => {
+        console.log("API yanıtı:", response.data);
+        setregisterInfo({}); // input alanlarını temizle
+      })
+      .catch((error) => {
+        console.error("API hatası:", error);
+      });
   };
 
   const onChangeInput = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setregisterInfo({ ...registermInfo, [e.target.name]: e.target.value });
   };
-
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
-        <FormRegister onChangeInput={onChangeInput} form={form} />
+        <FormRegister
+          onChangeInput={onChangeInput}
+          registermInfo={registermInfo}
+        />
         <button>Register</button>
       </form>
     </div>

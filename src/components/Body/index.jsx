@@ -1,25 +1,41 @@
-import React from 'react'
+import React from "react";
 
-import Footer from '../Footer/footer';
-import Sidebar from '../Menu/Sidebar';
+import Footer from "../Footer/footer";
+import Sidebar from "./Sidebar";
+import Collection from "../Collection/collection";
+import Social from "../Social/social";
+import SocialDetail from "../Social/socialDetail";
+import Goal from "../Goal/goal";
+import CollectionDetail from "../Collection/collectionDetail";
+import Wheel from "../Wheel/wheel";
+import Profile from "../Profile/Profile";
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  NavLink
+  NavLink,
 } from "react-router-dom";
 
 function Body() {
   return (
     <Router>
-    <div>
-      <Sidebar/>
-      <Footer></Footer>
-    </div>
+      <div>
+        <Sidebar />
+        <Switch>
+          <Route path="/goal" component={Goal}></Route>
+          <Route path="/social" component={Social}></Route>
+          <Route exact path="/" component={Collection}></Route>
+          <Route path="/socialDetail" component={SocialDetail}></Route>
+          <Route path="/wheel" component={Wheel}></Route>
+          <Route path="/collectionDetail" component={CollectionDetail}></Route>
+          <Route path="/profile" component={Profile}></Route>
+        </Switch>
+        <Footer></Footer>
+      </div>
     </Router>
-  )
+  );
 }
 
 export default Body;

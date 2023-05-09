@@ -1,14 +1,19 @@
 
 import './App.css';
+import logo from "./components/ASSETS/images/logo.png"
+
 import Body from './components/Body';
-import Social from './components/Social/social';
-import Header from './components/header/header';
-import Footer from './components/Footer/footer';
 
 function App() {
+  
   return (
     <div className="App">
-     <Body></Body> 
+            <div>
+        <img className="imglogo" src={logo} alt=""></img>
+      </div>
+       <Body></Body> 
+
+
 
   
     </div>

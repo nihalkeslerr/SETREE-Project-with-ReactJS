@@ -379,7 +379,7 @@ a {
   text-shadow: 1px 2px 2px #c7d3ff;
   transition: 0.4s;
 }
-.myProfile button.true {
+.myProfile button.followed {
   width: 400px;
   padding: 12px 0px;
   font-size: 15px;
@@ -398,7 +398,7 @@ a {
   color: #838383;
   font-size: 15px;
 }
-.ppDetail button.false {
+.ppDetail button.follow {
   width: 400px;
   padding: 12px 0px;
   font-size: 15px;

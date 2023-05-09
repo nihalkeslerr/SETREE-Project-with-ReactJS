@@ -10,6 +10,7 @@ function Profile() {
         <div className='info'>
           <p><span>14</span>Lists</p>
           <p><span>524</span>Followers</p>
+          <p><span>123</span>Followings</p>
         </div>
       </div>
 

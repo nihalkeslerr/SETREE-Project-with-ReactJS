@@ -9,6 +9,8 @@ import {
 import SocialDetail from './socialDetail';
 
 function Social() {
+
+    
   return (
     <div>
         <div className='container social'>
@@ -20,8 +22,27 @@ function Social() {
                 <h1>Followings</h1>
             </div>
         
-            <div className='profiles'>
+              <div className='profiles'>
+                  
+
                 <div className='profile'>
+                    <NavLink className="prop" to="/SocialDetail">
+                        <div className='profileimg'>
+                        </div>
+                        <div>
+                            <p>Laura Burke</p>
+                            <p><span>2</span> List - <span>123</span> Friends</p>
+                        </div>
+                    </NavLink>
+                  </div>
+                  
+
+
+
+
+
+
+                {/* <div className='profile'>
                     <NavLink className="prop" to="/SocialDetail">
                         <div className='profileimg'>
                         </div>
@@ -140,17 +161,7 @@ function Social() {
                             <p><span>2</span> List - <span>123</span> Friends</p>
                         </div>
                     </NavLink>
-                </div>
-                <div className='profile'>
-                    <NavLink className="prop" to="/SocialDetail">
-                        <div className='profileimg'>
-                        </div>
-                        <div>
-                            <p>Laura Burke</p>
-                            <p><span>2</span> List - <span>123</span> Friends</p>
-                        </div>
-                    </NavLink>
-                </div>
+                </div> */}
                
             </div>
         </div>

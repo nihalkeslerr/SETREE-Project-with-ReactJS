@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import WheelComponent from 'react-wheel-of-prizes'
 
 
 function Wheel() {
@@ -43,7 +42,7 @@ function Wheel() {
                 </div>
             </div>
             <div className='imgWheel table'>
-                <WheelComponent
+{/*                 <WheelComponent
                     segments={segments}
                     segColors={segColors}
                     onFinished={(winner) => onFinished(winner)}
@@ -51,12 +50,12 @@ function Wheel() {
                     contrastColor='white'
                     buttonText='Spin'
                     isOnlyOnce={false}
-                    size={290}
+                    size={180}
                     upDuration={50}
                     downDuration={140}
                     fontFamily='Arial'
                     fontSize="bold 30px"
-                />
+                /> */}
 
         
             </div>

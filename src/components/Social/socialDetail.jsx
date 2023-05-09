@@ -1,10 +1,16 @@
-import {useState,React} from 'react'
+import {useState,React, useEffect} from 'react'
 
 
 function SocialDetail() {
-  const [followinfo, setFollowinfo] = useState("false");
- 
+  const [followinfo, setFollowinfo] = useState({
+    isfollow: false,
+    buttonName: "follow",
+  });
 
+useEffect(()=>{
+  console.log("followinfo:", followinfo);
+})
+  
   return (
     <div>
       <div className='DetailContainer'>
@@ -16,9 +22,13 @@ function SocialDetail() {
           <p><span>524</span>Followers</p>
         </div>
 
-        <button className={followinfo} 
-        onClick={()=> setFollowinfo(followinfo==="false" ? "true" : "false")
-  }>Follow</button>
+        <button className={followinfo.buttonName} 
+            onClick={() => {
+              setFollowinfo({ ...followinfo,
+                isfollow: !followinfo.isfollow,
+                buttonName: followinfo.isfollow ? "follow" : "followed", })
+            }
+            }>{followinfo.buttonName}</button>
 
       </div>
 

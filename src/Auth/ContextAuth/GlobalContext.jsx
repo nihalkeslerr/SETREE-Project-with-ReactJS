@@ -10,7 +10,7 @@ const initialRegistervalues = {
   password: "",
 };
 const initialLoginvalues = {
-  username: "",
+  email: "",
   password: "",
 };
 
@@ -21,10 +21,13 @@ const initialSatate = {
 
 export const GlobalProvider = ({ children }) => {
   const [registermInfo, setregisterInfo] = useState(initialSatate.registerForm);
+    const [loginInfo, setloginInfo] = useState(initialSatate.loginForm);
 
   const values = {
     registermInfo,
     setregisterInfo,
+    loginInfo,
+    setloginInfo,
   };
 
   return (

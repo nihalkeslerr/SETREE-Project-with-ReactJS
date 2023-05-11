@@ -6,17 +6,16 @@ import { GlobalContext } from "./ContextAuth/GlobalContext";
 function Register() {
   const { registermInfo, setregisterInfo } = useContext(GlobalContext);
 
-  const API_URL = process.env.REACT_APP_REGISTER_URL;
+  const API_URL = process.env.REACT_APP_URL;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(" registermInfo:", registermInfo);
     // axios ile POST isteği gönderme
     axios
       .post(`${API_URL}/register`, registermInfo)
       .then((response) => {
         console.log("API yanıtı:", response.data);
-        setregisterInfo({}); // input alanlarını temizle
+
       })
       .catch((error) => {
         console.error("API hatası:", error);
@@ -26,6 +25,7 @@ function Register() {
   const onChangeInput = (e) => {
     setregisterInfo({ ...registermInfo, [e.target.name]: e.target.value });
   };
+  
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>

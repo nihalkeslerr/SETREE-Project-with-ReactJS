@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import FormRegister from "./FormRegister";
 import axios from "axios";
 import { GlobalContext } from "./ContextAuth/GlobalContext";
+import "./Auth.css";
 
 function Register() {
   const { registermInfo, setregisterInfo } = useContext(GlobalContext);
@@ -15,6 +16,7 @@ function Register() {
       .post(`${API_URL}/register`, registermInfo)
       .then((response) => {
         console.log("API yanıtı:", response.data);
+        window.location.href = "/login";
 
       })
       .catch((error) => {
@@ -25,15 +27,16 @@ function Register() {
   const onChangeInput = (e) => {
     setregisterInfo({ ...registermInfo, [e.target.name]: e.target.value });
   };
-  
+
   return (
     <div className="container">
       <form onSubmit={handleSubmit}>
+        <h1 className="h1Head">Sign Up</h1>
         <FormRegister
           onChangeInput={onChangeInput}
           registermInfo={registermInfo}
         />
-        <button>Register</button>
+        <button className="btn">Sign Up</button>
       </form>
     </div>
   );

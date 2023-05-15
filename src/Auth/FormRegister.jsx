@@ -13,18 +13,18 @@ function FormRegister(props) {
       <br />
       <input
         type="text"
-        placeholder="Username"
-        name="username"
-        onChange={props.onChangeInput}
-        value={props.registermInfo.username}
-      />
-      <br />
-      <input
-        type="text"
         placeholder="Lastname"
         name="lastName"
         onChange={props.onChangeInput}
         value={props.registermInfo.lastName}
+      />
+      <br />
+      <input
+        type="text"
+        placeholder="Username"
+        name="username"
+        onChange={props.onChangeInput}
+        value={props.registermInfo.username}
       />
       <br />
       <input

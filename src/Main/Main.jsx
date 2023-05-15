@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Register from "../Auth/Register";
 import Login from "../Auth/Login";
 import { GlobalProvider } from "../Auth/ContextAuth/GlobalContext";
@@ -29,11 +29,11 @@ function Main() {
           </div>
           </div>
 
-        <Switch>
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/" component={Index} />
-        </Switch>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Index />} />
+        </Routes>
       </Router>
     </GlobalProvider>
   );

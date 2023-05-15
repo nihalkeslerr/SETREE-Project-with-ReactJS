@@ -48,13 +48,13 @@ useEffect(()=>{
       <div className='followhead'>
         <h1>Lists</h1>
       </div>
-      <div className=' cards'>
+      <div className='cardsForProfile'>
       <a href='#'> <div className='ppDetailCard health'>
           <div className='count' style={{ backgroundColor: "rgb(255 202 166)"}}><label>3</label></div>
-          <div className='label'><label>Health</label></div>
+          <div className='label' style={{marginTop: "100px"}}><label>Health</label></div>
         </div></a>
 
-        <a href='#'><div className='ppDetailCard marketlist'>
+{/*         <a href='#'><div className='ppDetailCard marketlist'>
           <div className='count' style={{ backgroundColor: "rgb(236 222 245)"}}><label>9</label></div>
           <div className='label'><label>Market List</label></div> 
         </div></a>
@@ -67,7 +67,7 @@ useEffect(()=>{
         <a href='#'><div className='ppDetailCard books'>
           <div className='count' style={{ backgroundColor: "rgb(255 160 150)"}}><label>5</label></div>
           <div className='label'><label>Books</label></div>
-        </div></a>
+        </div></a> */}
       </div>
     </div>
     </div>

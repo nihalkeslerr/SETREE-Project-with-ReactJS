@@ -28,7 +28,7 @@ function Sidebar() {
             >
               <img src={menuImg}></img>
             </button>
-            <img className="logoSidebar" src={logoImg} />
+            <img style={{width: " 78px;" }} className="logoSidebar" src={logoImg} />
           </li>
 
           <li>

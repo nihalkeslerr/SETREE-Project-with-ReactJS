@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Cabin+Sketch:wght@700&family=Lobster&family=Magra&family=Open+Sans:wght@300&family=Ruda&display=swap');
-body{
+@import url("https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Cabin+Sketch:wght@700&family=Lobster&family=Magra&family=Open+Sans:wght@300&family=Ruda&display=swap");
+body {
   margin: 0;
   padding: 0;
   text-align: center;
-  font-family: 'Abel', sans-serif;
+  font-family: "Abel", sans-serif;
 }
 
 header {
@@ -11,7 +11,7 @@ header {
   width: 1000px;
 }
 img.imglogo {
-  width: 200px;
+  width: 150px;
   margin: 18px 0px;
 }
 
@@ -28,7 +28,6 @@ img.imglogo {
   list-style: none;
   text-align: initial;
   padding-left: 0px;
-
 }
 .sidebar ul li {
   /* padding: 13px 17px; */
@@ -52,11 +51,11 @@ img.imglogo {
 }
 .sidebar ul li a label {
   margin-left: 24px;
-      cursor: pointer;
-      text-transform: uppercase;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 img.logoSidebar {
-  width: 78px;
+  width: 100px;
   margin-left: 24px;
 }
 .sidebar ul li:first-child {
@@ -67,35 +66,34 @@ img.logoSidebar {
   background: none;
 }
 
-.open ul li label ,.open img.logoSidebar {
+.open ul li label,
+.open img.logoSidebar {
   display: block;
-  transition:  2s;
+  transition: 2s;
 }
-.open ul li{
+.open ul li {
   width: 200px;
   transition: width 1s;
 }
-.close ul li label, .close img.logoSidebar  {
+.close ul li label,
+.close img.logoSidebar {
   display: none;
   transition: 2s;
-
 }
-.close ul li{
+.close ul li {
   width: 65px;
   transition: width 1s;
-
 }
 .close ul li a {
   width: 32px;
 }
-button.menu{
+button.menu {
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
   margin-left: 17px;
 }
-
 
 .navbar {
   margin: 0px 0px 40px auto;
@@ -115,8 +113,7 @@ button.menu{
   text-decoration: none;
   color: #9d9d9d;
 }
-.navbar li a:hover{
-
+.navbar li a:hover {
   transform: scale(1);
 }
 .navbar li a:hover::after,
@@ -130,16 +127,16 @@ button.menu{
   transform-origin: center;
 }
 
-.navbar li a:focus{
+.navbar li a:focus {
   transform: scale(1);
   opacity: 1;
 }
 .navbar li a:hover::after,
-.navbar li a:focus::after{
+.navbar li a:focus::after {
   transform: scale(1);
 }
 .navbar li a::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -151,52 +148,6 @@ button.menu{
 }
 
 
-
-
-
-
-.card.health,.ppDetailCard.health {
-  background: url(./components/ASSETS/images/health\ kopyası.jpeg) no-repeat;
-  background-size: 571px;
-  background-position: 59% 20%;
-  box-shadow: 9px 9px #f8a770;
-}
-.card.marketlist,.ppDetailCard.marketlist {
-  background: url(./components/ASSETS/images/market.jpeg) no-repeat;
-  background-size: 460px;
-  background-position: 59% 20%;
-  box-shadow: 9px 9px #c7b2d5;
-}
-.card.movies,.ppDetailCard.movies {
-  background: url(./components/ASSETS/images/movie.jpeg) no-repeat;
-  background-size: 571px;
-  background-position: 59% 20%;
-  box-shadow: 9px 9px #E7BBD7;
-}
-.card.books,.ppDetailCard.books {
-  background: url(./components/ASSETS/images/book.jpeg) no-repeat;
-  background-size: 495px;
-  background-position: 59% 20%;
-  box-shadow: 9px 9px #f27b6f;
-}
-.card.clothes,.ppDetailCard.clothes {
-  background: url(./components/ASSETS/images/clothes.jpeg) no-repeat;
-  background-size: 545px;
-  background-position: 59% 20%;
-  box-shadow: 9px 9px #6fdfe5;
-}
-.card.recipes,.ppDetailCard.recipes {
-  background: url(./components/ASSETS/images/recipe.jpeg) no-repeat;
-  background-size: 310px;
-  background-position: 59% 20%;
-  box-shadow: 9px 9px #4073af;
-}
-.card.places,.ppDetailCard.places {
-  background: url(./components/ASSETS/images/places.jpeg) no-repeat;
-  background-size: 545px;
-  background-position: 49% 20%;
-  box-shadow: 9px 9px #e7bbd7;
-}
 .container {
   width: 80%;
   margin: 0 auto;
@@ -212,7 +163,13 @@ button.menu{
   display: inline-flex;
   flex-flow: wrap;
   justify-content: center;
-} 
+}
+.cardsForProfile{
+    display: inline-flex;
+      flex-flow: wrap;
+      justify-content: center;
+      width: 65%;
+}
 
 div.label {
   position: initial;
@@ -223,7 +180,7 @@ div.label {
   padding: 7px 0px;
   width: 100%;
   float: left;
-  margin-top: 100px;
+  margin-top: 170px;
 }
 
 div.count {
@@ -250,16 +207,17 @@ div.count {
   border-radius: 0px 25px 25px 0px;
   font-weight: bold;
 }
-footer {
-  background: #f6f6f6;
+/* footer {
   width: 100%;
   margin-top: 200px;
   height: 50px;
   display: flex;
   align-items: center;
+  position: absolute;
+  bottom: 0;
   justify-content: center;
   color: #868686;
-}
+} */
 
 .profileimg {
   background: url(./components/ASSETS/images/profileimg.png) no-repeat;
@@ -268,12 +226,12 @@ footer {
   background-position: center;
   border-radius: 32px;
   width: 70px;
-}
+} 
 .profile {
   display: flex;
   align-items: center;
   margin: 18px 40px;
-  width:  228px;
+    width: max-content;
   justify-content: center;
 }
 .profile p {
@@ -283,7 +241,18 @@ footer {
 }
 .followhead h1 {
   color: #5e6ba8;
+  font-size: 25px;
+      text-transform: uppercase;
   text-shadow: 1px 2px 2px #a3a9c4;
+}
+.divider {
+  border-top: 1px solid black;
+  margin: 20px 0;
+}
+div.FollowInfo {
+display: inline-flex;
+  justify-content: space-evenly;
+  width: 70%;
 }
 .profile p:last-child {
   color: #9a9a9a;
@@ -300,6 +269,22 @@ footer {
 a.prop {
   display: flex;
   align-items: center;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex button {
+  width: max-content;
+  padding: 10px 23px;
+  border: 1px solid #a2b1ff;
+  color: white;
+  background-color: #a2b1ff;
+  border-radius: 7px;
+  font-size: 15px;
+  font-family: "Abel", sans-serif;
+  cursor: pointer;
 }
 .search input {
   width: 80%;
@@ -331,7 +316,7 @@ a.prop {
   justify-content: center;
 }
 
-.search button{
+.search button {
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABcklEQVR4nO2WwUpCQRiFL5lusnYJvYL1Dtm6FhnlK4hhaT1F+BpmPUoQbbIgJW3fWhe1+uK3c2FWysxcJMgDAxfunP8bZv575ibJSn9FQAGoAXfAAJhq2HNP7wpZQ0+AMYs1AqpZANeAjlP4GbgEysCGxi7QAvrOvBvzxoA7KvQF1OcV0yIbmjuDx2wvKrTv4as48OOQRhrLXA9Y9Lm870Dex1hzztT7rIAc8KIapz7Ge5kufKFOjbZq3PqYhjKVI8DW7aaBj2kiUzECvKkak2WDt0LAwwy2ei/tbB9TT6ZWBPhaNbohn1M/4nN6VY0z3wAZydgIADfltRBa9zVXZbb4q3j4DoBveY98Fz2TbpkUbjGYS+Zvb9OBfgKlJET83jgpHMVgW+FQ1LDuvXLONIWm88PgJrtlFPiL9AEcGszJ6mh43gLfshd4U8hMtaCuda/bSJnCfQVsO38mttid5L/AS862Py4N7MCfgIelgldKpB/hgvXNldcwtQAAAABJRU5ErkJggg==);
   height: 29px;
   width: 28px;
@@ -365,12 +350,11 @@ a {
 }
 .ppDetail {
   /* border: 1px solid; */
-  width: 740px;
+  width: 65%;
   margin: 40px auto;
   border-radius: 21px;
   box-shadow: 0px 5px 20px 4px #dee2ee;
   padding: 18px 0px;
-
 }
 .ppDetail button.false:hover {
   border: 1px solid #8c9aff;
@@ -386,8 +370,8 @@ a {
   text-transform: uppercase;
   border: 1px solid #8c9aff;
   border-radius: 10px;
-  background: #8d9aff;
-  color: #ffffff;
+  background: #ffff;
+  color: #5e6ba8;
   cursor: pointer;
   font-weight: bold;
   text-shadow: 1px 2px 2px #c7d3ff;
@@ -405,32 +389,33 @@ a {
   text-transform: uppercase;
   border: 1px solid #8c9aff;
   border-radius: 10px;
-  background: white;
-  color: #5e6ba8;
+  background: #8d9aff;
+  color: #ffff;
   text-shadow: 1px 2px 2px #a3a9c4;
   cursor: pointer;
   font-weight: bold;
 }
 
 .followppimg {
-  background: url(./components/ASSETS/images/profileimg.png) no-repeat;
+  background-repeat:no-repeat;
   background-size: 60px;
   height: 60px;
   background-position: center;
   border-radius: 59px;
   width: 60px;
   margin: 20px auto;
+  background-size: cover;
 }
 .followers div {
   display: inline-block;
   margin: 10px 15px;
 }
 
-.ppDetailCard{
+.ppDetailCard {
   width: 130px;
   height: 225px;
   /* position: initial; */
-  margin: 0px 25px;
+    margin: 20px 25px;
   border-radius: 14%;
 }
 
@@ -453,7 +438,6 @@ label.name {
   margin: 11px 0px 10px 25px;
   color: #b06a12;
 }
-
 
 /* Hide the browser's default checkbox */
 .containerTarget input {
@@ -478,7 +462,7 @@ label.name {
   width: 25px;
   display: none;
 }
-.containerTarget input:checked ~ .checkmark img{
+.containerTarget input:checked ~ .checkmark img {
   display: block;
 }
 label.matter {
@@ -501,7 +485,6 @@ label.matter {
   flex-wrap: wrap;
   justify-content: center;
 }
-
 
 .target {
   width: 350px;
@@ -541,7 +524,7 @@ label.matter {
   border: 2px solid #ffedd7;
 }
 .monthly .containerTarget input:checked ~ .checkmark {
-  background-color: #BDDFFF;
+  background-color: #bddfff;
 }
 .monthly .checkmark {
   border: 1.5px solid #bddfff;
@@ -563,8 +546,6 @@ label.matter {
   color: #42719d;
 }
 
-
-
 .yearly .containerTarget input:checked ~ .checkmark {
   background-color: #8fa8ec;
 }
@@ -585,10 +566,10 @@ label.matter {
   border: 2px solid #f4f9ff;
 }
 .yearly .containerTarget {
-  color: #4d5f91;;
+  color: #4d5f91;
 }
 
-.CollectionDetail{
+.CollectionDetail {
   background: url(./components/ASSETS/images/health\ kopyası.jpeg) no-repeat;
   background-size: 100% 65%;
   background-attachment: fixed;
@@ -596,9 +577,6 @@ label.matter {
   height: 300px;
   background-repeat: no-repeat;
   background-position: top;
-
-
-
 }
 .item {
   background: white;
@@ -631,51 +609,46 @@ label.matter {
   margin: 5px 0px;
 }
 .bgOpacity {
-
   height: 300px;
   width: 100%;
   margin: 0 auto;
-
 }
 .item ul li::marker {
   color: #a9722d;
 }
 .ContainerWheel {
   width: 100%;
-  display: flex;
+
   justify-content: space-between;
 }
 .ContainerWheel h1 {
-  color: #4A4A4A;
+  color: #4a4a4a;
   display: flex;
-  text-shadow: 1px 1px 4px #817676;
-  font-size: 39px;
-  padding: 30px 200px;
-  margin: 0;
+  /* text-shadow: 1px 1px 4px #817676; */
+  font-size: 50px;
+  margin: 25px -85px;
 }
 .ContainerWheel p {
-  color: #4A4A4A;
-  font-size: 23px;
-  margin: 0;
+  color: #4a4a4a;
+  font-size: 20px;
+  margin: 30px 0px;
   display: flex;
   text-align: center;
-  padding-left: 300px;
-  text-shadow: 0px 1px 2px grey;
 }
 canvas#canvas {
   width: 80%;
 }
 .table {
-  width: 100%;
+  margin-left: 350px;
 }
 .articles ul {
-  display: table;
   list-style: auto;
   text-align: left;
-  color: #4A4A4A;
+  color: #4a4a4a;
   font-size: 23px;
-  margin-left: 174px;
-  margin-top: 110px;
+  margin: 50px 0px 0px 0px;
+  padding: 0;
+  width: 100%;
 }
 
 .imgWheel img {
@@ -686,12 +659,8 @@ canvas#canvas {
   right: 200px;
 }
 
-
-@media screen and (max-width: 1200px){
-
+@media screen and (max-width: 1200px) {
 }
-
-
 
 /*<div className='ContainerWheel'>
             <div className='table'>
@@ -717,3 +686,4 @@ canvas#canvas {
         
             </div>
         </div>*/
+

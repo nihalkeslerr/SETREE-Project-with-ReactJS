@@ -9,11 +9,14 @@ export const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [followerObjects, setFollowers] = useState([]);
   const [followingsObjects, setFollowings] = useState([]);
+  const [otheruser, setOtheruser] = useState(null);
 
   const fetchCollectionsData = async () => {
+    setCollections(null);
     try {
       console.log("istek colleciton için gidiyooooo");
-      const response = await axios.get(`${API_URL}/getCollections/${user.id}`, {
+      let reqUrl = `${API_URL}/getCollections/${user.id}`;
+      const response = await axios.get(reqUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -26,10 +29,16 @@ export const GlobalProvider = ({ children }) => {
       console.log(error);
     }
   };
-  const getFollowersData = async () => {
+  const getFollowersData = async (userid = null) => {
+    setFollowers(null);
     try {
       console.log("Followerslar geliyor");
-      const response = await axios.get(`${API_URL}/getFollowers`, {
+      let reqUrl = `${API_URL}/getFollowers/`;
+      if (userid != null) {
+        reqUrl = `${API_URL}/getFollowers?id=${userid}`;
+      }
+      console.log("Followerslar için userid: ", userid);
+      const response = await axios.get(reqUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,10 +52,15 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getFollowingsData = async () => {
+  const getFollowingsData = async (userid) => {
+    setFollowings(null);
     try {
       console.log("Followings geliyor");
-      const response = await axios.get(`${API_URL}/getFollowings`, {
+      let reqUrl = `${API_URL}/getFollowings/`;
+      if (userid != null) {
+        reqUrl = `${API_URL}/getFollowings?id=${userid}`;
+      }
+      const response = await axios.get(reqUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -74,6 +88,8 @@ export const GlobalProvider = ({ children }) => {
     fetchCollectionsData,
     getFollowersData,
     getFollowingsData,
+    otheruser,
+    setOtheruser,
   };
 
   return (

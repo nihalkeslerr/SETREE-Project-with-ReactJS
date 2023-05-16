@@ -7,10 +7,7 @@ import wheelImg from "./images/wheel.png";
 import menuImg from "./images/menu.png";
 import logoImg from "./images/logoImg.png";
 
-import {
-  BrowserRouter as Router,
-  NavLink,
-} from "react-router-dom";
+import { BrowserRouter as Router, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function Sidebar() {
@@ -18,7 +15,6 @@ function Sidebar() {
 
   return (
     <header>
-
       <div className={`sidebar ${display}`}>
         <ul>
           <li>
@@ -28,7 +24,11 @@ function Sidebar() {
             >
               <img src={menuImg}></img>
             </button>
-            <img style={{width: " 78px;" }} className="logoSidebar" src={logoImg} />
+            <img
+              style={{ width: " 78px" }}
+              className="logoSidebar"
+              src={logoImg}
+            />
           </li>
 
           <li>

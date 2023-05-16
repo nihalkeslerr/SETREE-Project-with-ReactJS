@@ -1,77 +1,204 @@
-import {useState,React, useEffect} from 'react'
-
+import { useState, React, useEffect, useContext, useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { GlobalContext } from "../Context/GlobalContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+import axios from "axios";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+// import required modules
+import { FreeMode } from "swiper";
 
 function SocialDetail() {
+  const {
+    token,
+    API_URL,
+    collections,
+    user,
+    setUser,
+    followerObjects,
+    followingsObjects,
+    fetchCollectionsData,
+    getFollowersData,
+    getFollowingsData,
+  } = useContext(GlobalContext);
+  
   const [followinfo, setFollowinfo] = useState({
     isfollow: false,
     buttonName: "follow",
   });
+  const dataFetchedRef = useRef(false);
+  const location = useLocation();
+  const followingId = location.state?.followingId;
 
-useEffect(()=>{
-  console.log("followinfo:", followinfo);
-})
-  
+  useEffect(() => {
+    setUser(null);
+    const fetchUserData = async (userid = null) => {
+      try {
+        let reqUrl = `${API_URL}/getUser/`;
+        if (userid != null) {
+          reqUrl = `${API_URL}/getUser?id=${userid}`;
+        }
+        console.log("userid: ", userid);
+
+        const response = await axios.get(reqUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        console.log("kullanıcı geldiiiii", response.data.user);
+
+        setUser(response.data.user);
+      } catch (error) {
+        console.log("hataaaaağğğğ!!!!", error);
+      }
+    };
+
+    if (followingId !== null && followingId !== undefined) {
+      fetchUserData(followingId); // followingId'yi fetchUserData fonksiyonuna gönderiyoruz
+    }
+  }, [followingId]);
+
+  useEffect(() => {
+    if (user) {
+      if (dataFetchedRef.current) return;
+      dataFetchedRef.current = true;
+      fetchCollectionsData();
+      getFollowersData(followingId);
+      getFollowingsData(followingId);
+    }
+  }, [user]); // user state'i değiştiğinde çalışacak
+
+  /*   useEffect(() => {
+    console.log("followinfo:", followinfo);
+  }); */
+
   return (
     <div>
-      <div className='DetailContainer'>
-      <div className='ppDetail myProfile'>
-        <div className='ppDetailimg'></div>
-        <label className='name'>Laura Burke</label>
-        <div className='info'>
-          <p><span>14</span>Lists</p>
-          <p><span>524</span>Followers</p>
+      <div className="DetailContainer">
+        <div className="ppDetail myProfile">
+          {user && (
+            <div>
+              <div className="ppDetailimg"></div>
+              <label className="name">
+                {user.firstName} {user.lastName}
+              </label>
+              <div className="info">
+                <p>
+                  <span>{user.listCount}</span>Lists
+                </p>
+                <p>
+                  <span>{user.followers.length}</span>Followers
+                </p>
+              </div>
+
+              <button
+                className={followinfo.buttonName}
+                onClick={() => {
+                  setFollowinfo({
+                    ...followinfo,
+                    isfollow: !followinfo.isfollow,
+                    buttonName: followinfo.isfollow ? "follow" : "followed",
+                  });
+                }}
+              >
+                {followinfo.buttonName}
+              </button>
+            </div>
+          )}
         </div>
 
-        <button className={followinfo.buttonName} 
-            onClick={() => {
-              setFollowinfo({ ...followinfo,
-                isfollow: !followinfo.isfollow,
-                buttonName: followinfo.isfollow ? "follow" : "followed", })
-            }
-            }>{followinfo.buttonName}</button>
+        <div className="FollowInfo">
+          <div className="followhead">
+            <h1>Followers</h1>
 
-      </div>
+            <div className="followers">
+              <Swiper
+                slidesPerView={4.5}
+                spaceBetween={1}
+                freeMode={true}
+                modules={[FreeMode]}
+                className="mySwiper"
+              >
+                {followerObjects &&
+                  followerObjects.map((follower) => (
+                    <SwiperSlide>
+                      <div
+                        key={follower.id}
+                        className="followppimg"
+                        style={{
+                          backgroundImage: `url(${follower.imageUrl})`,
+                        }}
+                      ></div>
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            </div>
+          </div>
+          <hr className="divider" /> {/* Çizgi ekleniyor */}
+          <div className="followhead">
+            <h1>Followings</h1>
 
-      <div className='followhead'>
-        <h1>Followers</h1>
-      </div>
+            <div className="followers">
+              <Swiper
+                slidesPerView={4.2}
+                spaceBetween={1}
+                freeMode={true}
+                modules={[FreeMode]}
+                className="mySwiper"
+              >
+                {followingsObjects &&
+                  followingsObjects.map((following) => (
+                    <SwiperSlide>
+                      <div
+                        key={following.id}
+                        className="followppimg"
+                        style={{
+                          backgroundImage: `url(${following.imageUrl})`,
+                        }}
+                      ></div>
+                    </SwiperSlide>
+                  ))}
+              </Swiper>
+            </div>
+          </div>
+        </div>
 
-      <div className='followers'>
-        
-        <div className='followppimg'></div>
-        <div className='followppimg'></div>
-        <div className='followppimg'></div>
-        <div className='followppimg'></div>
-        <div className='followppimg'></div>
-        <div className='followppimg'></div>
-      </div>
-      <div className='followhead'>
-        <h1>Lists</h1>
-      </div>
-      <div className='cardsForProfile'>
-      <a href='#'> <div className='ppDetailCard health'>
-          <div className='count' style={{ backgroundColor: "rgb(255 202 166)"}}><label>3</label></div>
-          <div className='label' style={{marginTop: "100px"}}><label>Health</label></div>
-        </div></a>
-
-{/*         <a href='#'><div className='ppDetailCard marketlist'>
-          <div className='count' style={{ backgroundColor: "rgb(236 222 245)"}}><label>9</label></div>
-          <div className='label'><label>Market List</label></div> 
-        </div></a>
-
-        <a href='#'><div className='ppDetailCard movies'>
-          <div className='count' style={{ backgroundColor: "rgb(255 220 242)"}}><label>4</label></div>
-          <div className='label'><label>Movies</label></div>
-        </div></a>
-
-        <a href='#'><div className='ppDetailCard books'>
-          <div className='count' style={{ backgroundColor: "rgb(255 160 150)"}}><label>5</label></div>
-          <div className='label'><label>Books</label></div>
-        </div></a> */}
+        <div className="listhead">
+          {user && <h1>{user.firstName}'s Lists</h1>}
+        </div>
+        <div className="cardsForProfile">
+          {collections &&
+            collections.map((collection) => (
+              <a href="#" key={collection.id}>
+                {" "}
+                <div
+                  className="ppDetailCard health"
+                  style={{
+                    background: `url(${collection.imageUrl})`,
+                    backgroundSize: "501px",
+                    backgroundPosition: "59% 20%",
+                    boxShadow: "9px 9px #f8a770",
+                  }}
+                >
+                  <div
+                    className="count"
+                    style={{ backgroundColor: "rgb(255 202 166)" }}
+                  >
+                    <label>{collection.itemCount}</label>
+                  </div>
+                  <div className="label" style={{ marginTop: "100px" }}>
+                    <label>{collection.title}</label>
+                  </div>
+                </div>
+              </a>
+            ))}
+        </div>
       </div>
     </div>
-    </div>
-  )
+  );
 }
 
 export default SocialDetail;

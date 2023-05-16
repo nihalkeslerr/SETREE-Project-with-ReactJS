@@ -220,7 +220,7 @@ div.count {
 
 .profileimg {
   background: url(./components/ASSETS/images/profileimg.png) no-repeat;
-  background-size: 67px;
+  background-size: cover;
   height: 65px;
   background-position: center;
   border-radius: 32px;
@@ -260,7 +260,7 @@ margin: 20px 0;
   border-left: none;
   border-bottom: none;
   border-right: 1px solid #787878;
-      height: 112px; 
+      height: 112px;
 }
 div.FollowInfo {
   display: inline-flex;
@@ -275,7 +275,7 @@ div.FollowInfo {
 .profiles {
   display: flex;
   margin: 30px auto;
-  width: 100%;
+  width: 73%;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -423,7 +423,7 @@ a {
   display: inline-flex;
   margin: 0;
   margin-right: 0 !important;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .ppDetailCard {
@@ -697,30 +697,3 @@ canvas#canvas {
   object-fit: cover;
 }
 
-@media screen and (max-width: 1200px) {
-}
-
-/*<div className='ContainerWheel'>
-            <div className='table'>
-                <div>
-                    <h1>Wheel Spinner</h1>s
-                    <p>If you can't decide where to <br></br> start, leave it to us!</p>
-                </div>
-                <div className='articles'>
-                    <ul>
-                        <li> Go stay in Poland for at least  2 weeks</li>
-                        <li> Join a workshop as a part of a team</li>
-                        <li> Learn a new programming language</li>
-                        <li> Membership to a gym</li>
-                        <li> Have a dog/cat</li>
-                        <li> Start a dairy</li>
-                    </ul>
-                </div>
-            </div>
-            <div className='imgWheel table'>
-            <h1>Spinning Prize Wheel React</h1>
-
-
-        
-            </div>
-        </div>*/

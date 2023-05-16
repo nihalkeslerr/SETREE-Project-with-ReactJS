@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import axios from "axios";
 import { GlobalContext } from "../Context/GlobalContext";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
-
 // import required modules
 import { FreeMode } from "swiper";
 
@@ -16,22 +15,21 @@ function Profile() {
     token,
     API_URL,
     collections,
-    setCollections,
     user,
     setUser,
     followerObjects,
-    setFollowers,
     followingsObjects,
-    setFollowings,
     fetchCollectionsData,
     getFollowersData,
     getFollowingsData,
   } = useContext(GlobalContext);
+  const dataFetchedRef = useRef(false);
 
   useEffect(() => {
+    setUser(null);
     const fetchUserData = async (userid = null) => {
       try {
-        const reqUrl = `${API_URL}/getUser/`;
+        let reqUrl = `${API_URL}/getUser/`;
         if (userid != null) {
           reqUrl = `${API_URL}/getUser/${userid}`;
         }
@@ -41,6 +39,8 @@ function Profile() {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log(response.data.user);
+
         setUser(response.data.user);
       } catch (error) {
         console.log(error);
@@ -51,6 +51,8 @@ function Profile() {
 
   useEffect(() => {
     if (user) {
+      if (dataFetchedRef.current) return;
+      dataFetchedRef.current = true;
       fetchCollectionsData();
       getFollowersData();
       getFollowingsData();
@@ -69,7 +71,7 @@ function Profile() {
               </label>
               <div className="info">
                 <p>
-                  <span>14</span>Lists
+                  <span>{user.listCount}</span>Lists
                 </p>
                 <p>
                   <span>{user.followers.length}</span>Followers

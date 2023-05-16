@@ -21,13 +21,19 @@ const initialSatate = {
 
 export const GlobalProvider = ({ children }) => {
   const [registermInfo, setregisterInfo] = useState(initialSatate.registerForm);
-    const [loginInfo, setloginInfo] = useState(initialSatate.loginForm);
+  const [loginInfo, setloginInfo] = useState(initialSatate.loginForm);
+  const [loginStatus, setLoginStatus] = useState(null);
+  const [token, setToken] = useState(null);
 
   const values = {
     registermInfo,
     setregisterInfo,
     loginInfo,
     setloginInfo,
+    loginStatus,
+    setLoginStatus,
+    token,
+    setToken,
   };
 
   return (

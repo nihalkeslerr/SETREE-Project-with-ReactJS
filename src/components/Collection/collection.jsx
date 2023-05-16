@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import Footer from "../Footer/footer";
 import CollectionDetail from "./collectionDetail";
 import axios from "axios";
+import { GlobalContext } from "../Context/GlobalContext";
 
 import {
   BrowserRouter as Router,
@@ -11,11 +12,8 @@ import {
   NavLink,
 } from "react-router-dom";
 function Collection() {
-  const token = localStorage.getItem("token");
-
-  const API_URL = process.env.REACT_APP_URL;
-  const [collections, setCollections] = useState(null);
-  const [user, setUser] = useState(null);
+  const { token, API_URL, collections,setCollections,user,setUser,
+    fetchCollectionsData,} =useContext(GlobalContext)
 
   const data = {
     title: "Health",
@@ -47,23 +45,6 @@ function Collection() {
     fetchUserData();
   }, []);
 
-  const fetchCollectionsData = async () => {
-    try {
-      console.log("istek gidiyooooo");
-      const response = await axios.get(`${API_URL}/getCollections/${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("istek tamamlandı... :) ");
-      console.log("response: ", response);
-      setCollections(response.data.collections);
-    } catch (error) {
-      console.log("hataa: ");
-      console.log(error);
-    }
-  };
-
  const denemeAxios = () => {
   const config = {
     headers: {
@@ -78,7 +59,9 @@ function Collection() {
     .catch((error) => {
       console.error("İstek sırasında bir hata oluştu:", error);
     });
-}; 
+  }; 
+  
+
 
   useEffect(() => {
     if (user) {
@@ -100,9 +83,10 @@ function Collection() {
               >
                 <div className="card health"  style={{
                 background:`url(${collection.imageUrl})`,
-                backgroundSize: "501px",
+                backgroundSize: "cover",
                 backgroundPosition: "59% 20%",
-                boxShadow: "9px 9px #f8a770",
+                  boxShadow: "9px 9px #f8a770",
+                backgroundRepeat: "no-repeat"
               }}>
                   <div
                     className="count"
@@ -117,36 +101,6 @@ function Collection() {
               </NavLink>
             ))}
 
-          {/*
-        <a href='#'><div className='card marketlist'>
-          <div className='count' style={{ backgroundColor: "rgb(236 222 245)"}}><label>9</label></div>
-          <div className='label'><label>Market List</label></div> 
-        </div></a>
-
-          <a href='#'><div className='card movies'>
-          <div className='count' style={{ backgroundColor: "rgb(255 220 242)"}}><label>4</label></div>
-          <div className='label'><label>Movies</label></div>
-        </div></a>
-
-        <a href='#'><div className='card books'>
-          <div className='count' style={{ backgroundColor: "rgb(255 160 150)"}}><label>5</label></div>
-          <div className='label'><label>Books</label></div>
-        </div></a>
-        
-        <a href='#'><div className='card clothes'>
-          <div className='count' style={{ backgroundColor: "rgb(192 235 238)"}}><label>6</label></div>
-          <div className='label'><label>Clothes</label></div>
-        </div></a>
-
-        <a href='#'><div className='card recipes'>
-          <div className='count' style={{ backgroundColor: "rgb(118 166 221)"}}><label>1</label></div>
-          <div className='label'><label>Recipes</label></div>
-        </div></a>
-
-        <a href='#'><div className='card places'>
-          <div className='count' style={{ backgroundColor: "rgb(230 199 218)"}}><label>3</label></div>
-          <div className='label'><label>Places</label></div>
-        </div></a>*/}
         </div>
       </div>
       <div>

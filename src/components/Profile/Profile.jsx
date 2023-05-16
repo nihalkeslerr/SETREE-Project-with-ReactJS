@@ -1,14 +1,32 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { GlobalContext } from "../Context/GlobalContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+
+// import required modules
+import { FreeMode } from "swiper";
 
 function Profile() {
-  const token = localStorage.getItem("token");
-  const API_URL = process.env.REACT_APP_URL;
-  const [collections, setCollections] = useState(null);
-  const [user, setUser] = useState(null);
-  const [followerObjects, setFollowers] = useState([]);
-  const [followingsObjects, setFollowings] = useState([]);
+  const {
+    token,
+    API_URL,
+    collections,
+    setCollections,
+    user,
+    setUser,
+    followerObjects,
+    setFollowers,
+    followingsObjects,
+    setFollowings,
+    fetchCollectionsData,
+    getFollowersData,
+    getFollowingsData,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     const fetchUserData = async (userid = null) => {
@@ -30,55 +48,6 @@ function Profile() {
     };
     fetchUserData();
   }, []);
-
-  const fetchCollectionsData = async () => {
-    try {
-      console.log("istek gidiyooooo");
-      const response = await axios.get(`${API_URL}/getCollections/${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("istek tamamlandı... :) ");
-      console.log("response: ", response);
-      setCollections(response.data.collections);
-    } catch (error) {
-      console.log("hataa: ");
-      console.log(error);
-    }
-  };
-  const getFollowersData = async () => {
-    try {
-      console.log("Followerslar geliyor");
-      const response = await axios.get(`${API_URL}/getFollowers`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("Followerslar geldiii :) ");
-      console.log("response for Followers: ", response);
-      setFollowers(response.data.followerObjects);
-    } catch (error) {
-      console.log("hataa: ");
-      console.log(error);
-    }
-  };
-  const getFollowingsData = async () => {
-    try {
-      console.log("Followings geliyor");
-      const response = await axios.get(`${API_URL}/getFollowings`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log("Followerslar geldiii :) ");
-      console.log("response for Followings: ", response);
-      setFollowings(response.data.followingObjects);
-    } catch (error) {
-      console.log("hataa: ");
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     if (user) {
@@ -113,45 +82,64 @@ function Profile() {
           )}
         </div>
       </div>
-<div className="FollowInfo">
-      <div className="followhead">
-        <h1>Followers</h1>
-      
 
-      <div className="followers">
-        {followerObjects &&
-          followerObjects.map((follower) => (
-            <div
-              key={follower.id}
-              className="followppimg"
-              style={{
-                backgroundImage: `url(${follower.imageUrl})`,
-              }}
-            ></div>
-          ))}
+      <div className="FollowInfo">
+        <div className="followhead">
+          <h1>Followers</h1>
+
+          <div className="followers">
+            <Swiper
+              slidesPerView={4.5}
+              spaceBetween={1}
+              freeMode={true}
+              modules={[FreeMode]}
+              className="mySwiper"
+            >
+              {followerObjects &&
+                followerObjects.map((follower) => (
+                  <SwiperSlide>
+                    <div
+                      key={follower.id}
+                      className="followppimg"
+                      style={{
+                        backgroundImage: `url(${follower.imageUrl})`,
+                      }}
+                    ></div>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
           </div>
-          </div>
+        </div>
         <hr className="divider" /> {/* Çizgi ekleniyor */}
-        
-      <div className="followhead">
-        <h1>Followings</h1>
-     
+        <div className="followhead">
+          <h1>Followings</h1>
 
-      <div className="followers">
-        {followingsObjects &&
-          followingsObjects.map((following) => (
-            <div
-              key={following.id}
-              className="followppimg"
-              style={{
-                backgroundImage: `url(${following.imageUrl})`,
-              }}
-            ></div>
-          ))}
+          <div className="followers">
+            <Swiper
+              slidesPerView={4.5}
+              spaceBetween={1}
+              freeMode={true}
+              modules={[FreeMode]}
+              className="mySwiper"
+            >
+              {followingsObjects &&
+                followingsObjects.map((following) => (
+                  <SwiperSlide>
+                    <div
+                      key={following.id}
+                      className="followppimg"
+                      style={{
+                        backgroundImage: `url(${following.imageUrl})`,
+                      }}
+                    ></div>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
           </div>
-           </div>
-</div>
-      <div className="followhead">
+        </div>
+      </div>
+
+      <div className="listhead">
         <h1>Your Lists</h1>
       </div>
       <div className="cardsForProfile">

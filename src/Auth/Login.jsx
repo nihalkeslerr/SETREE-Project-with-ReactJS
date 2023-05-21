@@ -5,8 +5,14 @@ import axios from "axios";
 
 const API_URL = process.env.REACT_APP_URL;
 function Login() {
-  const { loginInfo, setloginInfo, loginStatus, setLoginStatus, setToken } =
-    useContext(GlobalContext);
+  const {
+    loginInfo,
+    setloginInfo,
+    loginStatus,
+    setLoginStatus,
+    setToken
+
+  } = useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +24,7 @@ function Login() {
         setLoginStatus("başarılı");
         localStorage.setItem("token", response.data.token);
         setToken(localStorage.getItem("token"));
-        window.location.href = "/";
+       window.location.href = "/";
       } else {
         setLoginStatus("başarısız");
       }

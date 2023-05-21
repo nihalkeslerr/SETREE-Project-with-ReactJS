@@ -7,14 +7,19 @@ import axios from "axios";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 // import required modules
-import { FreeMode } from "swiper";
+import { FreeMode, Mousewheel, Navigation } from "swiper";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 function SocialDetail() {
   const {
     token,
     API_URL,
+    personalID,
+    setPersonalID,
     collections,
+    setCollections,
     user,
     setUser,
     followerObjects,
@@ -22,18 +27,23 @@ function SocialDetail() {
     fetchCollectionsData,
     getFollowersData,
     getFollowingsData,
+    FollowUser,
+    UnfollowUser,
+    getRandomRenk,
   } = useContext(GlobalContext);
-  
+
   const [followinfo, setFollowinfo] = useState({
     isfollow: false,
     buttonName: "follow",
   });
+
   const dataFetchedRef = useRef(false);
   const location = useLocation();
   const followingId = location.state?.followingId;
 
   useEffect(() => {
     setUser(null);
+
     const fetchUserData = async (userid = null) => {
       try {
         let reqUrl = `${API_URL}/getUser/`;
@@ -63,9 +73,11 @@ function SocialDetail() {
 
   useEffect(() => {
     if (user) {
-      if (dataFetchedRef.current) return;
-      dataFetchedRef.current = true;
-      fetchCollectionsData();
+      /*       if (dataFetchedRef.current) return;
+      dataFetchedRef.current = true; */
+      console.log("username for socialDetail: ", user.firstName);
+      console.log("followingId", followingId);
+      fetchCollectionsData(followingId);
       getFollowersData(followingId);
       getFollowingsData(followingId);
     }
@@ -81,7 +93,12 @@ function SocialDetail() {
         <div className="ppDetail myProfile">
           {user && (
             <div>
-              <div className="ppDetailimg"></div>
+              <div
+                className="ppDetailimg"
+                style={{
+                  backgroundImage: `url(${user.imageUrl})`,
+                }}
+              ></div>
               <label className="name">
                 {user.firstName} {user.lastName}
               </label>
@@ -91,6 +108,9 @@ function SocialDetail() {
                 </p>
                 <p>
                   <span>{user.followers.length}</span>Followers
+                </p>
+                <p>
+                  <span>{user.followings.length}</span>Followings
                 </p>
               </div>
 
@@ -119,19 +139,28 @@ function SocialDetail() {
                 slidesPerView={4.5}
                 spaceBetween={1}
                 freeMode={true}
-                modules={[FreeMode]}
+                mousewheel={true}
+                navigation={true}
+              modules={[FreeMode, Mousewheel, Navigation]}
                 className="mySwiper"
               >
                 {followerObjects &&
                   followerObjects.map((follower) => (
-                    <SwiperSlide>
-                      <div
-                        key={follower.id}
-                        className="followppimg"
-                        style={{
-                          backgroundImage: `url(${follower.imageUrl})`,
+                    <SwiperSlide key={follower.id}>
+                      <NavLink
+                        to={{
+                          pathname: "/SocialDetail",
+                          state: { followingId: follower.id },
                         }}
-                      ></div>
+                      >
+                        <div
+                          key={follower.id}
+                          className="followppimg"
+                          style={{
+                            backgroundImage: `url(${follower.imageUrl})`,
+                          }}
+                        ></div>
+                      </NavLink>
                     </SwiperSlide>
                   ))}
               </Swiper>
@@ -145,20 +174,29 @@ function SocialDetail() {
               <Swiper
                 slidesPerView={4.2}
                 spaceBetween={1}
+                mousewheel={true}
                 freeMode={true}
-                modules={[FreeMode]}
+                navigation={true}
+              modules={[FreeMode, Mousewheel, Navigation]}
                 className="mySwiper"
               >
                 {followingsObjects &&
                   followingsObjects.map((following) => (
-                    <SwiperSlide>
-                      <div
-                        key={following.id}
-                        className="followppimg"
-                        style={{
-                          backgroundImage: `url(${following.imageUrl})`,
+                    <SwiperSlide key={following.id}>
+                      <NavLink
+                        to={{
+                          pathname: "/SocialDetail",
+                          state: { followingId: following.id },
                         }}
-                      ></div>
+                      >
+                        <div
+                          key={following.id}
+                          className="followppimg"
+                          style={{
+                            backgroundImage: `url(${following.imageUrl})`,
+                          }}
+                        ></div>
+                      </NavLink>
                     </SwiperSlide>
                   ))}
               </Swiper>
@@ -167,7 +205,7 @@ function SocialDetail() {
         </div>
 
         <div className="listhead">
-          {user && <h1>{user.firstName}'s Lists</h1>}
+          {user && <h1>{user.firstName}'s Collections</h1>}
         </div>
         <div className="cardsForProfile">
           {collections &&
@@ -175,12 +213,12 @@ function SocialDetail() {
               <a href="#" key={collection.id}>
                 {" "}
                 <div
-                  className="ppDetailCard health"
+                  className="ppDetailCard"
                   style={{
                     background: `url(${collection.imageUrl})`,
                     backgroundSize: "501px",
                     backgroundPosition: "59% 20%",
-                    boxShadow: "9px 9px #f8a770",
+                    boxShadow: `9px 9px ${getRandomRenk()}`,
                   }}
                 >
                   <div

@@ -19,6 +19,8 @@ function Social() {
     followingsObjects,
   } = useContext(GlobalContext);
   const dataFetchedRef = useRef(false);
+
+  
   useEffect(() => {
     setUser(null);
     const fetchUserData = async (userid = null) => {
@@ -42,8 +44,8 @@ function Social() {
 
   useEffect(() => {
     if (user) {
-      if (dataFetchedRef.current) return;
-      dataFetchedRef.current = true;
+/*       if (dataFetchedRef.current) return;
+      dataFetchedRef.current = true; */
       getFollowingsData();
     }
   }, [user]); // user state'i değiştiğinde çalışacak

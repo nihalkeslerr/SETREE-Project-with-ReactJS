@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { GlobalContext } from "../Context/GlobalContext";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,8 +7,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 // import required modules
-import { FreeMode } from "swiper";
+import { FreeMode, Mousewheel, Navigation } from "swiper";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
 
 function Profile() {
   const {
@@ -17,14 +25,21 @@ function Profile() {
     collections,
     user,
     setUser,
+    setCollections,
     followerObjects,
     followingsObjects,
     fetchCollectionsData,
     getFollowersData,
     getFollowingsData,
+    getRandomRenk,
+    personalID,
   } = useContext(GlobalContext);
-  const dataFetchedRef = useRef(false);
 
+  useEffect(() => {
+    setCollections(null);
+    setUser(null);
+  }, []);
+  const dataFetchedRef = useRef(false);
   useEffect(() => {
     setUser(null);
     const fetchUserData = async (userid = null) => {
@@ -51,9 +66,8 @@ function Profile() {
 
   useEffect(() => {
     if (user) {
-      if (dataFetchedRef.current) return;
-      dataFetchedRef.current = true;
-      fetchCollectionsData();
+      console.log("username for profillllll: ", user.firstName);
+      fetchCollectionsData(user.id);
       getFollowersData();
       getFollowingsData();
     }
@@ -63,9 +77,14 @@ function Profile() {
     <div>
       <div className="DetailContainer">
         <div className="ppDetail">
-          <div className="ppDetailimg"></div>
           {user && (
             <div>
+              <div
+                className="ppDetailimg"
+                style={{
+                  backgroundImage: `url(${user.imageUrl})`,
+                }}
+              ></div>
               <label className="name">
                 {user.firstName} {user.lastName}
               </label>
@@ -94,19 +113,28 @@ function Profile() {
               slidesPerView={4.5}
               spaceBetween={1}
               freeMode={true}
-              modules={[FreeMode]}
+              mousewheel={true}
+              navigation={true}
+              modules={[FreeMode, Mousewheel, Navigation]}
               className="mySwiper"
             >
               {followerObjects &&
                 followerObjects.map((follower) => (
-                  <SwiperSlide>
-                    <div
-                      key={follower.id}
-                      className="followppimg"
-                      style={{
-                        backgroundImage: `url(${follower.imageUrl})`,
+                  <SwiperSlide key={follower.id}>
+                    <NavLink
+                      to={{
+                        pathname: "/SocialDetail",
+                        state: { followingId: follower.id },
                       }}
-                    ></div>
+                    >
+                      <div
+                        key={follower.id}
+                        className="followppimg"
+                        style={{
+                          backgroundImage: `url(${follower.imageUrl})`,
+                        }}
+                      ></div>
+                    </NavLink>
                   </SwiperSlide>
                 ))}
             </Swiper>
@@ -121,19 +149,28 @@ function Profile() {
               slidesPerView={4.5}
               spaceBetween={1}
               freeMode={true}
-              modules={[FreeMode]}
+              navigation={true}
+              mousewheel={true}
+              modules={[FreeMode, Mousewheel, Navigation]}
               className="mySwiper"
             >
               {followingsObjects &&
                 followingsObjects.map((following) => (
-                  <SwiperSlide>
-                    <div
-                      key={following.id}
-                      className="followppimg"
-                      style={{
-                        backgroundImage: `url(${following.imageUrl})`,
+                  <SwiperSlide key={following.id}>
+                    <NavLink
+                      to={{
+                        pathname: "/SocialDetail",
+                        state: { followingId: following.id },
                       }}
-                    ></div>
+                    >
+                      <div
+                        key={following.id}
+                        className="followppimg"
+                        style={{
+                          backgroundImage: `url(${following.imageUrl})`,
+                        }}
+                      ></div>
+                    </NavLink>
                   </SwiperSlide>
                 ))}
             </Swiper>
@@ -142,7 +179,7 @@ function Profile() {
       </div>
 
       <div className="listhead">
-        <h1>Your Lists</h1>
+        <h1>Your Collections</h1>
       </div>
       <div className="cardsForProfile">
         {collections &&
@@ -155,7 +192,7 @@ function Profile() {
                   background: `url(${collection.imageUrl})`,
                   backgroundSize: "501px",
                   backgroundPosition: "59% 20%",
-                  boxShadow: "9px 9px #f8a770",
+                  boxShadow: `9px 9px ${getRandomRenk()}`,
                 }}
               >
                 <div

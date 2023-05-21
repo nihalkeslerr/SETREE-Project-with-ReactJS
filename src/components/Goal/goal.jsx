@@ -1,194 +1,87 @@
-import React from 'react'
-import tickIcon from '../ASSETS/icons/tick.png'
+import React, { useContext, useState, useEffect, useRef } from "react";
+import tickIcon from "../ASSETS/icons/tick.png";
+import axios from "axios";
+import { GlobalContext } from "../Context/GlobalContext";
 function Goal() {
+  const { token, API_URL, ID, personalID, setPersonalID, getRandomRenk } =
+    useContext(GlobalContext);
+  const dataFetchedRef = useRef(false);
+
+  const [goals, setGoals] = useState([]);
+
+  useEffect(() => {
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+    fetchGoals();
+  }, []);
+
+  const fetchGoals = () => {
+    axios
+      .get("https://setree.onrender.com/getGoals", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const fetchedGoals = response.data.goals;
+        console.log("goallar çekildi:", fetchedGoals);
+
+        // Her bir goal için getGoalDetail() fonksiyonunu çağır
+        fetchedGoals.forEach((goal) => {
+          getGoalDetail(goal.id);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const getGoalDetail = (id) => {
+    axios
+      .get(`https://setree.onrender.com/getGoalDetail/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("goalitem: ", response.data.goal);
+        // Burada goal detail verilerini işleyebilirsiniz
+        const goalItemData = response.data.goal;
+        // goals dizisini güncelle
+        setGoals((prevGoals) => [...prevGoals, goalItemData]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  console.log("goals: ", goals);
   return (
-    <div className='goal'>
-        <div className='target daily'>
-            <label className="containerTarget da">
-                <input type="checkbox" defaultChecked="checked"></input>
+    <div className="goal">
+      {goals &&
+        goals.map((goal) => (
+          <div className="target" key={goal.id}>
+            {goal.goalItems.map((item) => (
+              <label className="containerTarget" key={item.id}>
+                <input type="checkbox" />
                 <span className="checkmark">
-                    <img src={tickIcon} alt="tick" />
+                  <img src={tickIcon} alt="tick" />
                 </span>
-                 <label htmlFor="matter" className='matter'>Drink water more</label>    
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Read the Book</label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Do Sport </label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Shopping for Kitchen</label>
-            </label>
-           
-            <div className='title'>
-                <label>daily</label>
-                <div className='goalcount'>
-                <label>2</label>
+                <label htmlFor="matter" className="matter">
+                  {item.content}
+                </label>
+              </label>
+            ))}
+            <label htmlFor="">Add GoalItem</label>
+            <div className="title">
+              <label>{goal.title}</label>
+              <div className="goalcount">
+                <label>{goal.goalItems ? goal.goalItems.length : 0}</label>
+              </div>
             </div>
-            </div>
-            
-        </div>
-        <div className='target monthly'>
-            <label className="containerTarget">
-                <input type="checkbox" defaultChecked="checked"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Drink water more</label>  
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Read the Book</label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark"></span>
-                <label htmlFor="matter" className='matter'>Do Sport </label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Shopping for Kitchen</label>
-            </label>
-            <div className='title'>
-                <label>Monthly</label>
-                <div className='goalcount '>
-                <label>5</label>
-            </div>
-            </div>
-            
-        </div>
-        <div className='target yearly'>
-            <label className="containerTarget">
-                <input type="checkbox" defaultChecked="checked"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Drink water more</label> 
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Read the Book</label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Do Sport </label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Shopping for Kitchen</label>
-            </label>
-            <div className='title'>
-                <label>yearly</label>
-                <div className='goalcount'>
-                <label>8</label>
-            </div>
-            </div>
-            
-        </div>
-        <div className='target yearly'>
-            <label className="containerTarget">
-                <input type="checkbox" defaultChecked="checked"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Drink water more</label> 
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Read the Book</label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Do Sport </label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Shopping for Kitchen</label>
-            </label>
-            <div className='title'>
-                <label>weekly</label>
-                <div className='goalcount'>
-                <label>8</label>
-            </div>
-            </div>
-            
-        </div>
-        <div className='target yearly'>
-            <label className="containerTarget">
-                <input type="checkbox" defaultChecked="checked"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Drink water more</label> 
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Read the Book</label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Do Sport </label>
-            </label>
-            <label className="containerTarget">
-                <input type="checkbox"></input>
-                <span className="checkmark">
-                <img src={tickIcon} alt="tick" />
-                </span>
-                <label htmlFor="matter" className='matter'>Shopping for Kitchen</label>
-            </label>
-            <div className='title'>
-                <label>today</label>
-                <div className='goalcount'>
-                <label>8</label>
-            </div>
-            </div>
-            
-        </div>
+          </div>
+        ))}
     </div>
-  )
+  );
 }
 
-export default Goal
+export default Goal;

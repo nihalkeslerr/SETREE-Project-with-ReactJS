@@ -60,7 +60,7 @@ function Collection() {
     };
 
     fetchUserData();
-    fetchCollectionsData(user.id);
+
   }, []);
 
   const denemeAxios = () => {
@@ -83,8 +83,7 @@ function Collection() {
   useEffect(() => {
 
     if (user) {
-      if (dataFetchedRef.current) return;
-      dataFetchedRef.current = true; 
+          fetchCollectionsData(user.id);
       
     }
   }, [user]); // user state'i değiştiğinde çalışacak

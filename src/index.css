@@ -455,6 +455,7 @@ label.name {
   user-select: none;
   margin: 11px 0px 10px 25px;
   color: #b06a12;
+      align-items: center;
 }
 
 /* Hide the browser's default checkbox */
@@ -498,15 +499,15 @@ label.matter {
 
 .goal {
   margin: 0 auto;
-  width: 80%;
+width: 60%;
   display: inline-flex;
   flex-wrap: wrap;
-  justify-content: center;
+    justify-content: flex-start;
 }
 
 .target {
-  width: 350px;
-  border: 1px solid #f4c181;
+width: 43%;
+  /*border: 1px solid #f4c181;*/
   margin: 28px 27px;
   /* margin: 43px auto; */
   border-radius:30px;
@@ -520,7 +521,7 @@ label.matter {
   text-align: left;
   background: #f4c181;
   width: 94.5%;
-  height: 37px;
+    height: max-content;
   border-radius: 1px 1px 29px 29px;
   display: flex;
   align-items: center;
@@ -534,7 +535,7 @@ label.matter {
   position: relative;
   right: 0;
   border-radius: 50%;
-  padding: 8px 20px;
+padding: 4px 16px;
   background-color: #f4c181;
   color: white;
   font-weight: bold;

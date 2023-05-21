@@ -33,12 +33,15 @@ function Profile() {
     getFollowingsData,
     getRandomRenk,
     personalID,
+    ID,
+    collectionsself, setCollectionself
   } = useContext(GlobalContext);
 
   useEffect(() => {
     setCollections(null);
     setUser(null);
   }, []);
+
   const dataFetchedRef = useRef(false);
   useEffect(() => {
     setUser(null);
@@ -66,7 +69,6 @@ function Profile() {
 
   useEffect(() => {
     if (user) {
-      console.log("username for profillllll: ", user.firstName);
       fetchCollectionsData(user.id);
       getFollowersData();
       getFollowingsData();
@@ -182,8 +184,8 @@ function Profile() {
         <h1>Your Collections</h1>
       </div>
       <div className="cardsForProfile">
-        {collections &&
-          collections.map((collection) => (
+        {collectionsself &&
+          collectionsself.map((collection) => (
             <a href="#" key={collection.id}>
               {" "}
               <div

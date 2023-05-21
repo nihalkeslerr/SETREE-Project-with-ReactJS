@@ -6,6 +6,7 @@ export const GlobalProvider = ({ children }) => {
   const token = localStorage.getItem("token");
   const API_URL = process.env.REACT_APP_URL;
   const [collections, setCollections] = useState(null);
+    const [collectionsself, setCollectionself] = useState(null);
   const [user, setUser] = useState(null);
   const [followerObjects, setFollowers] = useState([]);
   const [followingsObjects, setFollowings] = useState([]);
@@ -22,12 +23,12 @@ export const GlobalProvider = ({ children }) => {
   ];
   let renkIndex = 0;
 
+
+
+
   const fetchCollectionsData = async (userid) => {
-    //setCollections(null);
-    console.log("username for profillllll: ", user.firstName);
-    console.log("collections setted to null:", collections);
+    setCollections(null);
     try {
-      console.log("istek colleciton için gidiyooooo");
       let reqUrl = `${API_URL}/getCollections/${userid}`;
 
       const response = await axios.get(reqUrl, {
@@ -35,31 +36,36 @@ export const GlobalProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("istek tamamlandı... :) ");
-      console.log("response: ", response);
-      setCollections(response.data.collections);
+      console.log("response for collection ", response);
+
+      if (userid == ID) {
+        setCollectionself(response.data.collections);
+      }
+      else {
+         setCollections(response.data.collections);
+      }
+
+     
     } catch (error) {
       console.log("hataa: ");
       console.log(error);
     }
   };
-  console.log("collections:", collections);
+
+
   const getFollowersData = async (userid = null) => {
-    //setFollowers(null);
+    setFollowers(null);
     try {
-      console.log("Followerslar geliyor");
       let reqUrl = `${API_URL}/getFollowers/`;
       if (userid != null) {
         reqUrl = `${API_URL}/getFollowers?id=${userid}`;
       }
-      console.log("Followerslar için userid: ", userid);
       const response = await axios.get(reqUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Followerslar geldiii :) ");
-      console.log("response for Followers: ", response);
+      console.log("response for followers ", response);
       setFollowers(response.data.followerObjects);
     } catch (error) {
       console.log("hataa: ");
@@ -68,9 +74,8 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const getFollowingsData = async (userid) => {
-    //setFollowings(null);
+    setFollowings(null);
     try {
-      console.log("Followings geliyor");
       let reqUrl = `${API_URL}/getFollowings/`;
       if (userid != null) {
         reqUrl = `${API_URL}/getFollowings?id=${userid}`;
@@ -80,8 +85,7 @@ export const GlobalProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Followerslar geldiii :) ");
-      console.log("response for Followings: ", response);
+      console.log("response for followings ", response);
       setFollowings(response.data.followingObjects);
     } catch (error) {
       console.log("hataa: ");
@@ -91,14 +95,12 @@ export const GlobalProvider = ({ children }) => {
 
   const FollowUser = async () => {
     try {
-      console.log("follow isteği gidiyorrrrrr");
       let reqUrl = `${API_URL}/follow/${user.id}`;
       const response = await axios.get(reqUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("follow isteği tamamlandı... :) ");
       console.log("response: ", response);
     } catch (error) {
       console.log("follow hataasıo: ");
@@ -108,14 +110,12 @@ export const GlobalProvider = ({ children }) => {
 
   const UnfollowUser = async () => {
     try {
-      console.log("unfollow isteği gidiyorrrrrr");
       let reqUrl = `${API_URL}/unfollow/${user.id}`;
       const response = await axios.get(reqUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("unfollow isteği tamamlandı... :) ");
       console.log("response: ", response);
     } catch (error) {
       console.log("unfollow hataasıııı: ");
@@ -152,6 +152,8 @@ export const GlobalProvider = ({ children }) => {
     setPersonalID,
     renkler,
     getRandomRenk,
+    collectionsself, setCollectionself
+    
   };
 
   return (

@@ -17,13 +17,14 @@ function Collection() {
     API_URL,
     collections,
     setCollections,
+    collectionsself, setCollectionself,
     user,
     setUser,
     fetchCollectionsData,
     ID,
     personalID,
     setPersonalID,
-    getRandomRenk,
+    getRandomColor,
   } = useContext(GlobalContext);
 
   const data = {
@@ -92,8 +93,8 @@ function Collection() {
     <div>
       <div className="container collection">
         <div className="cards">
-          {collections &&
-            collections.map((collection) => (
+          {collectionsself &&
+            collectionsself.map((collection,index) => (
               <NavLink
                 to={`/collectionDetail/${collection.id}`}
                 key={collection.id}
@@ -104,7 +105,7 @@ function Collection() {
                     background: `url(${collection.imageUrl})`,
                     backgroundSize: "cover",
                     backgroundPosition: "59% 20%",
-                    boxShadow: `9px 9px ${getRandomRenk()}`,
+                    boxShadow: `9px 9px ${getRandomColor(index)}`,
                     backgroundRepeat: "no-repeat",
                   }}
                 > 

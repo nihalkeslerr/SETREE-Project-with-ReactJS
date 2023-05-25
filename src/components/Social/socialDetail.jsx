@@ -29,7 +29,7 @@ function SocialDetail() {
     getFollowingsData,
     FollowUser,
     UnfollowUser,
-    getRandomRenk,
+    getRandomColor,
   } = useContext(GlobalContext);
 
   const [followinfo, setFollowinfo] = useState({
@@ -209,7 +209,7 @@ function SocialDetail() {
         </div>
         <div className="cardsForProfile">
           {collections &&
-            collections.map((collection) => (
+            collections.map((collection,index) => (
               <a href="#" key={collection.id}>
                 {" "}
                 <div
@@ -218,7 +218,7 @@ function SocialDetail() {
                     background: `url(${collection.imageUrl})`,
                     backgroundSize: "501px",
                     backgroundPosition: "59% 20%",
-                    boxShadow: `9px 9px ${getRandomRenk()}`,
+                    boxShadow: `9px 9px ${getRandomColor(index)}`,
                   }}
                 >
                   <div

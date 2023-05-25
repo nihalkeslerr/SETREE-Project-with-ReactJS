@@ -6,14 +6,15 @@ export const GlobalProvider = ({ children }) => {
   const token = localStorage.getItem("token");
   const API_URL = process.env.REACT_APP_URL;
   const [collections, setCollections] = useState(null);
-    const [collectionsself, setCollectionself] = useState(null);
+  const [collectionsself, setCollectionself] = useState(null);
   const [user, setUser] = useState(null);
   const [followerObjects, setFollowers] = useState([]);
   const [followingsObjects, setFollowings] = useState([]);
   const [otheruser, setOtheruser] = useState(null);
   const ID = localStorage.getItem("ID");
   const [personalID, setPersonalID] = useState();
-  const renkler = [
+  const [goals, setGoals] = useState([]);
+  const colors = [
     "#FFCFC0",
     "#BDDFFF",
     "#F9FFB2",
@@ -23,8 +24,22 @@ export const GlobalProvider = ({ children }) => {
   ];
   let renkIndex = 0;
 
-
-
+  const colorsForGoal = [
+    "#ffb299",
+    "#a7d1f9",
+    "#91d5e2",
+    "#8ad4a2",
+    "#c9c1fa",
+    "#efb8e9",
+  ];
+  const openColors = [
+    "#fff7f5",
+    "#f8fcff",
+    "#f5fdff",
+    "#f2fff6",
+    "#f9f8ff",
+    "#fff5fe",
+  ];
 
   const fetchCollectionsData = async (userid) => {
     setCollections(null);
@@ -40,18 +55,70 @@ export const GlobalProvider = ({ children }) => {
 
       if (userid == ID) {
         setCollectionself(response.data.collections);
+      } else {
+        setCollections(response.data.collections);
       }
-      else {
-         setCollections(response.data.collections);
-      }
-
-     
     } catch (error) {
       console.log("hataa: ");
       console.log(error);
     }
   };
+  const fetchGoals = () => {
+    setGoals([]);
+    axios
+      .get(`${API_URL}/getGoals/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const fetchedGoals = response.data.goals;
+        console.log("goallar çekildi:", fetchedGoals);
 
+        // Her bir goal için getGoalDetail() fonksiyonunu çağır
+        fetchedGoals.forEach((goal) => {
+          getGoalDetail(goal.id);
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const getGoalDetail = (id) => {
+    axios
+      .get(`${API_URL}/getGoalDetail/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("goalitem: ", response.data.goal);
+        // Burada goal detail verilerini işleyebilirsiniz
+        const goalItemData = response.data.goal;
+        // goals dizisini güncelle
+        setGoals((prevGoals) => [...prevGoals, goalItemData]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  // goals dizisini goal.goalItems.length değerine göre sırala
+  goals.sort((a, b) => b.goalItems.length - a.goalItems.length);
+
+  const toggleGoalItems = (goalId) => {
+    setGoals((prevGoals) =>
+      prevGoals.map((goal) => {
+        if (goal.id === goalId) {
+          return {
+            ...goal,
+            showAllItems: !goal.showAllItems,
+          };
+        }
+        return goal;
+      })
+    );
+  };
 
   const getFollowersData = async (userid = null) => {
     setFollowers(null);
@@ -123,10 +190,18 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
-  const getRandomRenk = () => {
-    const renk = renkler[renkIndex];
-    renkIndex = (renkIndex + 1) % renkler.length;
-    return renk;
+  const getRandomColor = (index) => {
+    const renkIndex = index % colors.length;
+    return colors[renkIndex];
+  };
+
+  const getColor = (index) => {
+    const renkIndex = index % colorsForGoal.length;
+    return colorsForGoal[renkIndex];
+  };
+  const getOpenColor = (index) => {
+    const renkIndex = index % openColors.length;
+    return openColors[renkIndex];
   };
 
   const values = {
@@ -145,15 +220,21 @@ export const GlobalProvider = ({ children }) => {
     getFollowingsData,
     otheruser,
     setOtheruser,
+    getColor,
     FollowUser,
     UnfollowUser,
     ID,
     personalID,
     setPersonalID,
-    renkler,
-    getRandomRenk,
-    collectionsself, setCollectionself
-    
+    colors,
+    getOpenColor,
+    getRandomColor,
+    collectionsself,
+    setCollectionself,
+    goals,
+    setGoals,
+    fetchGoals,
+    toggleGoalItems,
   };
 
   return (

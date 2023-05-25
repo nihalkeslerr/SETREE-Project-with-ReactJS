@@ -31,7 +31,7 @@ function Profile() {
     fetchCollectionsData,
     getFollowersData,
     getFollowingsData,
-    getRandomRenk,
+    getRandomColor,
     personalID,
     ID,
     collectionsself, setCollectionself
@@ -185,7 +185,7 @@ function Profile() {
       </div>
       <div className="cardsForProfile">
         {collectionsself &&
-          collectionsself.map((collection) => (
+          collectionsself.map((collection,index) => (
             <a href="#" key={collection.id}>
               {" "}
               <div
@@ -194,7 +194,7 @@ function Profile() {
                   background: `url(${collection.imageUrl})`,
                   backgroundSize: "501px",
                   backgroundPosition: "59% 20%",
-                  boxShadow: `9px 9px ${getRandomRenk()}`,
+                  boxShadow: `9px 9px ${getRandomColor(index)}`,
                 }}
               >
                 <div

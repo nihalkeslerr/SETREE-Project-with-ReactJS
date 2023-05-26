@@ -107,7 +107,6 @@ function Goal() {
       });
   };
 
-
   const deleteItem = (goalId, itemId) => {
     axios
       .get(`${API_URL}/deleteGoalItem/${itemId}`, {
@@ -135,49 +134,52 @@ function Goal() {
       .catch((error) => {
         console.error("Hedef öğesi silinirken bir hata oluştu:", error);
       });
-  }
+  };
 
-const toggleChecked = (goalId, itemId) => {
-  // Hedef öğesinin `isDone` özelliğini tersine çevir
-  const updatedGoals = goals.map((goal) => {
-    if (goal.id === goalId) {
-      const updatedGoalItems = goal.goalItems.map((item) => {
-        if (item.id === itemId) {
-          const updatedItem = {
-            ...item,
-            isDone: !item.isDone,
-          };
-          console.log("updatedItem:", updatedItem);
-          // Veritabanında güncelleme yapmak için API'yi çağır
-          axios
-            .post(`${API_URL}/updateGoalItem/`, updatedItem, {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            })
-            .then((response) => {
-              console.log("Hedef öğesi başarıyla güncellendi:", response);
-            })
-            .catch((error) => {
-              console.error("Hedef öğesi güncellenirken bir hata oluştu:", error);
-            });
+  const toggleChecked = (goalId, itemId) => {
+    // Hedef öğesinin `isDone` özelliğini tersine çevir
+    const updatedGoals = goals.map((goal) => {
+      if (goal.id === goalId) {
+        const updatedGoalItems = goal.goalItems.map((item) => {
+          if (item.id === itemId) {
+            const updatedItem = {
+              ...item,
+              isDone: !item.isDone,
+            };
+            console.log("updatedItem:", updatedItem);
+            // Veritabanında güncelleme yapmak için API'yi çağır
+            axios
+              .post(`${API_URL}/updateGoalItem/`, updatedItem, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              .then((response) => {
+                console.log("Hedef öğesi başarıyla güncellendi:", response);
+              })
+              .catch((error) => {
+                console.error(
+                  "Hedef öğesi güncellenirken bir hata oluştu:",
+                  error
+                );
+              });
 
-          return updatedItem;
-        } else {
-          return item;
-        }
-      });
-      return {
-        ...goal,
-        goalItems: updatedGoalItems,
-      };
-    } else {
-      return goal;
-    }
-  });
+            return updatedItem;
+          } else {
+            return item;
+          }
+        });
+        return {
+          ...goal,
+          goalItems: updatedGoalItems,
+        };
+      } else {
+        return goal;
+      }
+    });
 
-  setGoals(updatedGoals);
-};
+    setGoals(updatedGoals);
+  };
 
   console.log("goals: ", goals);
   return (
@@ -200,7 +202,7 @@ const toggleChecked = (goalId, itemId) => {
             <input
               type="button"
               className="buttonGoal"
-              value="Oluştur"
+              value="Create"
               onClick={handleCreateGoal}
             />
           </div>
@@ -242,7 +244,12 @@ const toggleChecked = (goalId, itemId) => {
                     <label htmlFor="matter" className="matter">
                       {item.content}
                     </label>
-                    <button className="DeleteItem" onClick={() => deleteItem(goal.id, item.id)}>X</button>
+                    <button
+                      className="DeleteItem"
+                      onClick={() => deleteItem(goal.id, item.id)}
+                    >
+                      X
+                    </button>
                   </label>
                 ))}
 

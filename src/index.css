@@ -169,6 +169,21 @@ button.menu {
   justify-content: center;
   width: 65%;
 }
+button.Edit {
+  float: right;
+  margin-right: 39px;
+  border: none;
+  background: #a2b1ff;
+  border-radius: 5px;
+  transition: all 0.3s ease 0s;
+  padding: 7px 23px;
+  cursor: pointer;
+  color: white;
+}
+button.Edit:hover {
+  background: #b3bfff;
+  transition: all 0.3s ease 0s;
+}
 
 div.label {
     position: initial;
@@ -836,5 +851,15 @@ background-size: 25px;
   
 }
 
+input#male,
+input#female {
+  width: 2%;
+  padding: 0;
+  border: none;
+  height: 18px;
+}
+.labelradio {
+  margin-right: 30px;
+}
 
 

@@ -76,9 +76,9 @@ function Collection() {
     const file = event.target.files[0];
     const reader = new FileReader();
 
-    const maxSizeInBytes = 100 * 1024; // 100KB
+    const maxSizeInBytes = 1000 * 1024; // 1MB
 
-    if (file.size > maxSizeInBytes) {
+/*     if (file.size > maxSizeInBytes) {
       console.log(
         "Seçilen resim çok büyük. Lütfen daha küçük bir resim seçin."
       );
@@ -87,11 +87,44 @@ function Collection() {
       event.target.value = null; // Seçimi kaldırmak için input değerini null olarak ayarlıyoruz
 
       return;
-    }
+    } */
 
-    reader.onload = () => {
-      setImageDataURL(reader.result);
-    };
+  reader.onload = function (event) {
+    if (event.target.readyState === FileReader.DONE) {
+      const img = new Image();
+      img.onload = function () {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const maxWidth = 800;
+        const maxHeight = 600;
+
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width / height > maxWidth / maxHeight) {
+            width = maxWidth;
+            height = Math.round(maxWidth * (img.height / img.width));
+          } else {
+            height = maxHeight;
+            width = Math.round(maxHeight * (img.width / img.height));
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const resizedDataURL = canvas.toDataURL("image/jpeg", 0.7); // Resim kalitesini 0 ile 1 arasında ayarlayabilirsiniz
+
+        setImageDataURL(resizedDataURL);
+        const imagePreview = document.getElementById("imagePreview");
+        imagePreview.innerHTML = `<img class="imgPreview" src="${resizedDataURL}" alt="Preview" />`;
+      };
+
+      img.src = event.target.result;
+    }
+  };
 
     reader.readAsDataURL(file);
   };
@@ -143,7 +176,6 @@ function Collection() {
         // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
         console.log("Collection cevap geldi", response);
         fetchCollectionsData(user.id);
-
       })
       .catch((error) => {
         console.error("Collection oluşturulamadı", error);
@@ -164,16 +196,22 @@ function Collection() {
         {showCreateCollection && (
           <div className="createCollection">
             <p>Collection Creation</p>
-            <label>Choose Your Image</label>
             <br />
-            <input
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
+            <label className="labelText">Choose Your Image</label>
             <br />
-            <label htmlFor="tag">Add Tag</label>
+            <div className="UploadImage">
+              <div id="imagePreview">Preview</div>
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </div>
+            <br />
+            <label className="labelText" htmlFor="tag">
+              Add Tag
+            </label>
             <br />
             <input
               type="text"
@@ -181,7 +219,9 @@ function Collection() {
               onChange={handleInputChange}
             />{" "}
             <br />
-            <label htmlFor="name">Give a Name Your Collection</label>
+            <label className="labelText nameColl" htmlFor="name">
+              Give a Name Your Collection
+            </label>
             <br />
             <input type="text" name="title" onChange={handleInputChange} />
             <br />
@@ -192,7 +232,7 @@ function Collection() {
               value="true"
               onChange={handleInputChange}
             />
-            <label className="labelradio" htmlFor="female">
+            <label className="labelPublic" htmlFor="female">
               Public
             </label>
             <input
@@ -202,10 +242,18 @@ function Collection() {
               value={false}
               onChange={handleInputChange}
             />
-            <label className="labelradio" htmlFor="male">
+            <label className="labelPublic" htmlFor="male">
               Private
             </label>
             <br />
+            <input
+              onClick={(e) => {
+                toggleCreateCollection();
+              }}
+              type="button"
+              value="Back"
+              className="BackBtn"
+            />
             <input
               onClick={(e) => {
                 createCollection(e);
@@ -215,15 +263,6 @@ function Collection() {
               value="Create"
               className="crecolBtn"
             />
-            <input
-              onClick={(e) => {
-                toggleCreateCollection();
-              }}
-              type="button"
-              value="Vazgeç"
-              className="crecolBtn"
-            />
-
           </div>
         )}
       </div>

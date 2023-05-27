@@ -186,17 +186,17 @@ button.Edit:hover {
 }
 
 div.label {
-    position: initial;
-      /* bottom: 51px; */
-      font-size: 22px;
-      color: aliceblue;
-      /* background-color: #b3a08966; */
-      padding: 7px 0px;
-      width: 100%;
-      text-align: start;
-      float: left;
-      margin-left: 18px;
-      margin-top: 170px;
+  position: initial;
+  /* bottom: 51px; */
+  font-size: 22px;
+  color: aliceblue;
+  /* background-color: #b3a08966; */
+  padding: 7px 0px;
+  width: 100%;
+  text-align: start;
+  float: left;
+  margin-left: 18px;
+  margin-top: 170px;
 }
 
 div.count {
@@ -272,12 +272,12 @@ div.count {
   width: 50%;
 }
 .divider {
-margin: 20px 0;
+  margin: 20px 0;
   border-top: none;
   border-left: none;
   border-bottom: none;
   border-right: 1px solid #787878;
-      height: 112px;
+  height: 112px;
 }
 div.FollowInfo {
   display: inline-flex;
@@ -464,9 +464,8 @@ label.name {
 label.show {
   font-size: 21px;
   color: #595959;
-      cursor: pointer;
+  cursor: pointer;
 }
-
 
 .containerTarget {
   display: flex;
@@ -475,8 +474,8 @@ label.show {
   user-select: none;
   margin: 11px 0px 10px 25px;
   color: #595959;
-      align-items: center;
-      position: relative;
+  align-items: center;
+  position: relative;
 }
 
 /* Hide the browser's default checkbox */
@@ -502,7 +501,7 @@ label.show {
   width: 25px;
   display: none;
 }
-.containerTarget  .checkmark img {
+.containerTarget .checkmark img {
   display: block;
 }
 label.matter {
@@ -513,7 +512,6 @@ label.matter {
   background-color: #ffffff;
 }
 
-
 button.DeleteItem {
   position: absolute;
   right: 12px;
@@ -521,20 +519,19 @@ button.DeleteItem {
   border: none;
   cursor: pointer;
   color: red;
-  visibility:hidden;
+  visibility: hidden;
 }
 
 label.containerTarget:hover button.DeleteItem {
   visibility: visible;
 }
 
-
 /* When the checkbox is checked, add a blue background */
 /* .containerTarget input:checked ~ .checkmark {
   background-color: #f4c181;
 } */
 input.AddItem {
-border-bottom: none;
+  border-bottom: none;
   color: #595959 !important;
   background: none;
   margin-left: 31px;
@@ -557,10 +554,10 @@ input.titleGoal {
   font-family: "Abel", sans-serif;
   width: 203px;
   font-size: 17px;
-      transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
   padding-left: 12px;
 }
-input.titleGoal:focus{
+input.titleGoal:focus {
   outline: none;
   border: 1px solid gray;
 }
@@ -587,52 +584,49 @@ input.buttonGoal {
 }
 .goal {
   margin: 0 auto;
-width: 60%;
+  width: 60%;
   display: inline-flex;
   flex-wrap: wrap;
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
-.CreatingPart{
-display: flex;
-    margin-top: 25px;
-        margin-left: 37px;
+.CreatingPart {
+  display: flex;
+  margin-top: 25px;
+  margin-left: 37px;
 }
 .createGoal {
-    width: 61%;
-    margin: 0 auto;
+  width: 61%;
+  margin: 0 auto;
 }
 
-
 .createGoal button {
-    display: flex;
-      color: white;
-      border: none;
-      transition: all 0.3s ease 0s;
-      padding: 8px 25px;
-      border-radius: 15px;
-      font-size: 20px;
-          cursor: pointer;
-      background: #6a84ff;
-      align-items: center;
-      font-family: "Abel", sans-serif;
+  display: flex;
+  color: white;
+  border: none;
+  transition: all 0.3s ease 0s;
+  padding: 8px 25px;
+  border-radius: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  background: #6a84ff;
+  align-items: center;
+  font-family: "Abel", sans-serif;
 }
 .createGoal button:hover {
   background-color: #8da1ff;
   transition: all 0.3s ease 0s;
 }
 .target {
-width: 43%;
+  width: 43%;
 
   margin: 28px 27px;
   /* margin: 43px auto; */
-  border-radius:30px;
+  border-radius: 30px;
   background-color: #ffedd7;
   position: initial;
   height: max-content;
   box-shadow: 11px 6px #f4c181;
-  
 }
-
 
 /* Animasyonun hedeflere uygulanması */
 .target.open {
@@ -643,7 +637,7 @@ width: 43%;
   text-align: left;
   background: #f4c181;
   width: 94.5%;
-    height: max-content;
+  height: max-content;
   border-radius: 1px 1px 29px 29px;
   display: flex;
   align-items: center;
@@ -657,7 +651,7 @@ width: 43%;
   position: relative;
   right: 0;
   border-radius: 50%;
-padding: 4px 16px;
+  padding: 4px 16px;
   background-color: #f4c181;
   color: white;
   font-weight: bold;
@@ -757,6 +751,23 @@ padding: 4px 16px;
 .item ul li::marker {
   color: #a9722d;
 }
+.createCollection p {
+  text-transform: uppercase;
+  font-size: 27px;
+  display: flex;
+      margin: 0;
+          color: #3f60ff;
+}
+.createCollection label.labelText {
+    font-size: 21px;
+      display: block;
+      text-transform: uppercase;
+      color: #5f5f5f;
+}
+label.labelText.nameColl {
+  margin-top: 25px;
+}
+
 .ContainerWheel {
   width: 100%;
 
@@ -776,6 +787,95 @@ padding: 4px 16px;
   display: flex;
   text-align: center;
 }
+.UploadImage {
+    display: flex;
+      align-items: center;
+      /* margin-left: 53px; */
+      justify-content: center;
+}
+.createCollection input[type="text"] {
+
+    /* margin-left: 53px; */
+      font-size: 16px;
+      padding: 3px 16px;
+      font-family: "Abel", sans-serif;
+      width: 300px;
+      height: 22px;
+      display: inline;
+      border: 1px solid gray;
+      border-radius: 4px;
+}
+#imagePreview {
+width: 100px;
+  height: 100px;
+  display: flex;
+  border: 1px solid gray;
+  margin-right: 31px;
+  align-items: center;
+  justify-content: center;
+}
+.imgPreview{
+ width: 100px;
+  height: 100px;
+}
+input[type="file"] {
+  position: relative;
+}
+
+input[type="file"]::file-selector-button {
+  width: 140px;
+  color: transparent;
+}
+
+/* Faked label styles and icon */
+input[type="file"]::before {
+  position: absolute;
+  pointer-events: none;
+  top: 8px;
+  left: 14px;
+  height: 25px;
+  background-size: cover;
+  width: 25px;
+  content: "";
+  background-image: url("./components/ASSETS/icons/image.png");
+}
+
+input[type="file"]::after {
+  position: absolute;
+  pointer-events: none;
+  font-size: 15px;
+  top: 11px;
+  font-family: "Abel", sans-serif;
+  left: 50px;
+  color: #0964b0;
+  content: "Upload Image";
+}
+
+/* ------- From Step 1 ------- */
+
+/* file upload button */
+input[type="file"]::file-selector-button {
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 40px;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+  margin-right: 16px;
+  transition: background-color 200ms;
+}
+
+/* file upload button hover state */
+input[type="file"]::file-selector-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* file upload button active state */
+input[type="file"]::file-selector-button:active {
+  background-color: #e5e7eb;
+}
+
 canvas#canvas {
   width: 80%;
 }
@@ -823,32 +923,29 @@ canvas#canvas {
   object-fit: cover;
 }
 
-.swiper-button-next:after{
-  content: '' !important;
-
+.swiper-button-next:after {
+  content: "" !important;
 }
 
-.swiper-button-next{
+.swiper-button-next {
   background-image: url(./components/ASSETS/icons/arrow-right.png);
-background-size: 25px;
+  background-size: 25px;
   background-repeat: no-repeat;
   background-position: top;
   margin-top: -14px !important;
   margin-right: -10px !important;
 }
-.swiper-button-prev:after{
-  content: '' !important;
-
+.swiper-button-prev:after {
+  content: "" !important;
 }
 
-.swiper-button-prev{
+.swiper-button-prev {
   background-image: url(./components/ASSETS/icons/arrow-left.png);
-background-size: 25px;
+  background-size: 25px;
   background-repeat: no-repeat;
   background-position: top;
   margin-top: -14px !important;
   margin-left: -11px !important;
-  
 }
 
 input#male,
@@ -861,5 +958,39 @@ input#female {
 .labelradio {
   margin-right: 30px;
 }
-
-
+label.labelPublic {
+  margin-right: 25px;
+}
+input#public,
+input#private {
+  margin-top: 20px;
+  margin-right: 16px;
+  margin-bottom: 30px;
+  
+}
+.createCollection {
+margin: 0px auto;
+  margin-top: 4%;
+  /* border: 3px solid gray; */
+  box-shadow: 0px 0px 13px #a2b2ff;
+  padding: 70px;
+  width: 65%;
+}
+input.BackBtn {
+    padding: 9px 22px;
+  background: white;
+  border: 1px solid gray;
+  font-family: "Abel", sans-serif;
+  margin-right: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+}
+input.crecolBtn {
+    padding: 9px 22px;
+  background: #6a84ff;
+  border: 1px solid #6a84ff;
+  color: white;
+  font-family: "Abel", sans-serif;
+      border-radius: 4px;
+            cursor: pointer;
+}

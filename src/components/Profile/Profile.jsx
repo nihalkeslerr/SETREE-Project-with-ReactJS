@@ -85,7 +85,8 @@ function Profile() {
           <div className="ppDetail">
             {user && (
               <div>
-                <NavLink to="/updateprofile"><button className="Edit">Edit Profile</button></NavLink>
+              <NavLink to="/updateprofile"><button className="Edit">Edit Profile</button></NavLink>
+               <NavLink to="/changePassword"><button className="Edit">Change Password</button></NavLink>
                 <div
                   className="ppDetailimg"
                   style={{

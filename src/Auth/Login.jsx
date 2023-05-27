@@ -17,7 +17,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
+/*     try {
       const response = await axios.post(`${API_URL}/login`, loginInfo);
       console.log(loginInfo);
       if (response.status === 200) {
@@ -33,7 +33,36 @@ function Login() {
     } catch (error) {
       console.log("Error occurred: ", error);
       setLoginStatus("başarısız");
-    }
+    } */
+
+           axios
+      .post(
+        `${API_URL}/login`,
+         loginInfo ,
+      )
+      .then((response) => {
+        // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
+        if (response.data.succeeded === true) {
+           console.log("Giriş Yapıldı", response);
+        setLoginStatus("başarılı");
+        localStorage.setItem("token", response.data.token);
+        setToken(localStorage.getItem("token"));
+        window.location.href = "/";
+        }
+        else {
+          setLoginStatus(response.data.error);
+          
+        }
+       
+
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoginStatus("başarısız",error);
+      });
+
+
+
   };
 
   const onChangeInput = (e) => {

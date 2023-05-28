@@ -272,7 +272,10 @@ function Collection() {
             {collectionsself &&
               collectionsself.map((collection, index) => (
                 <NavLink
-                  to={`/collectionDetail/${collection.id}`}
+                  to={{
+                    pathname: "/collectionDetail",
+                    state: { collectionID: collection.id },
+                  }}
                   key={collection.id}
                 >
                   <div

@@ -1,32 +1,102 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from "react";
+import { useLocation } from "react-router-dom";
+import { GlobalContext } from "../Context/GlobalContext";
+import axios from "axios";
 
 function CollectionDetail() {
+  const { token, ID, API_URL, personalID, setPersonalID } =
+    useContext(GlobalContext);
+
+  const location = useLocation();
+  const collectionID = location.state?.collectionID;
+
+  const [collItem, setCollItem] = useState([]);
+  const [collDetail, setCollDetail] = useState({});
+
+  useEffect(() => {
+    const fetchCollectionDetail = async () => {
+      try {
+        const reqUrl = `${API_URL}/getCollectionDetail/${collectionID}`;
+
+        const response = await axios.get(reqUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log("response: getCollectionDetail", response.data.collections);
+        setCollDetail(response.data.collections);
+        console.log("collDetail", response.data.collections);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchItemsByCollection = async () => {
+      try {
+        const reqUrl = `${API_URL}/getItemsByCollection/${collectionID}`;
+
+        const response = await axios.get(reqUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setCollItem(response.data.collectionItems);
+        console.log(
+          "response: getItemsByCollection",
+          response.data.collectionItems
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (collectionID) {
+      fetchCollectionDetail();
+      fetchItemsByCollection();
+    }
+  }, [collectionID, API_URL, token]);
+
+  console.log("collItem:", collItem);
+
   return (
-    <div className='collectionContainer'>
-      <div className='CollectionDetail'>
-        <div className='bgOpacity'>
-        <div className='collectionHead'>
-            <p>health</p>
+    <div>
+{collItem.length > 0 && (
+        <div className="collectionContainer">
+          <div
+            className="CollectionDetail"
+            style={{ backgroundImage: `url(${collDetail.imageUrl})` }}
+          >
+            <div className="bgOpacity">
+              
+              <div className="collectionHead">
+                <p> {collDetail.title}</p>
+                <p className="tag">Tag: { collDetail.tag}</p>
+              </div>
+              
+            </div>
+          </div>
+
+          <div className="CollExplanation">
+            <div>
+              <input type="button" value="Title" /><input type="button" value="Text"  /><input type="button" value="Image"/>
+            </div>
+            <div>
+            {collItem.map((item) => {
+                  if (item.type === "image") {
+                    return <img key={item.id}  src={item.content} alt="Image" />;
+                  } else if (item.type === "text") {
+                    return <p key={item.id} >{item.content}</p>;
+                  } else if (item.type === "title") {
+                    return <h1 key={item.id} >{item.content}</h1>;
+                  }
+                  return null;
+            })}
+              </div>
           </div>
         </div>
-        
-      </div>
-      <div className='item'>
-        <ul>
-          <li>Drink Water</li>
-          <li>Shopping for Kitchen</li>
-          <li> Go stay in Poland for at least  2 weeks</li>
-          <li> Learn a new programming language</li>
-          <li>Membership to a gym</li>
-          <li>Join a workshop as a part of a team</li>
-          <li>Have a dog/cat</li>
-          <li> Start a dairy</li>
-
-        </ul>
-      </div>
-
+      )}
     </div>
-  )
+  );
 }
 
-export default CollectionDetail
+export default CollectionDetail;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { GlobalContext } from "../Context/GlobalContext";
 import axios from "axios";
-
+import image from "../ASSETS/icons/image.png"
 function CollectionDetail() {
   const { token, ID, API_URL, personalID, setPersonalID } =
     useContext(GlobalContext);
@@ -60,7 +60,6 @@ function CollectionDetail() {
 
   return (
     <div>
-{collItem.length > 0 && (
         <div className="collectionContainer">
           <div
             className="CollectionDetail"
@@ -77,8 +76,10 @@ function CollectionDetail() {
           </div>
 
           <div className="CollExplanation">
-            <div>
-              <input type="button" value="Title" /><input type="button" value="Text"  /><input type="button" value="Image"/>
+            <div className="itemBtn">
+            <button className="titleBtn" type="button" ></button>
+            <button className="textBtn" type="button"  ></button>
+            <button className="imageBtn" type="button"  ></button>
             </div>
             <div>
             {collItem.map((item) => {
@@ -94,7 +95,6 @@ function CollectionDetail() {
               </div>
           </div>
         </div>
-      )}
     </div>
   );
 }

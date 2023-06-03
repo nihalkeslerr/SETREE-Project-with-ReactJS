@@ -78,7 +78,7 @@ function Collection() {
 
     const maxSizeInBytes = 1000 * 1024; // 1MB
 
-/*     if (file.size > maxSizeInBytes) {
+    /*     if (file.size > maxSizeInBytes) {
       console.log(
         "Seçilen resim çok büyük. Lütfen daha küçük bir resim seçin."
       );
@@ -89,42 +89,42 @@ function Collection() {
       return;
     } */
 
-  reader.onload = function (event) {
-    if (event.target.readyState === FileReader.DONE) {
-      const img = new Image();
-      img.onload = function () {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        const maxWidth = 800;
-        const maxHeight = 600;
+    reader.onload = function (event) {
+      if (event.target.readyState === FileReader.DONE) {
+        const img = new Image();
+        img.onload = function () {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          const maxWidth = 800;
+          const maxHeight = 600;
 
-        let width = img.width;
-        let height = img.height;
+          let width = img.width;
+          let height = img.height;
 
-        if (width > maxWidth || height > maxHeight) {
-          if (width / height > maxWidth / maxHeight) {
-            width = maxWidth;
-            height = Math.round(maxWidth * (img.height / img.width));
-          } else {
-            height = maxHeight;
-            width = Math.round(maxHeight * (img.width / img.height));
+          if (width > maxWidth || height > maxHeight) {
+            if (width / height > maxWidth / maxHeight) {
+              width = maxWidth;
+              height = Math.round(maxWidth * (img.height / img.width));
+            } else {
+              height = maxHeight;
+              width = Math.round(maxHeight * (img.width / img.height));
+            }
           }
-        }
 
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
 
-        const resizedDataURL = canvas.toDataURL("image/jpeg", 0.7); // Resim kalitesini 0 ile 1 arasında ayarlayabilirsiniz
+          const resizedDataURL = canvas.toDataURL("image/jpeg", 0.7); // Resim kalitesini 0 ile 1 arasında ayarlayabilirsiniz
 
-        setImageDataURL(resizedDataURL);
-        const imagePreview = document.getElementById("imagePreview");
-        imagePreview.innerHTML = `<img class="imgPreview" src="${resizedDataURL}" alt="Preview" />`;
-      };
+          setImageDataURL(resizedDataURL);
+          const imagePreview = document.getElementById("imagePreview");
+          imagePreview.innerHTML = `<img class="imgPreview" src="${resizedDataURL}" alt="Preview" />`;
+        };
 
-      img.src = event.target.result;
-    }
-  };
+        img.src = event.target.result;
+      }
+    };
 
     reader.readAsDataURL(file);
   };
@@ -194,66 +194,60 @@ function Collection() {
           <img src={plusIcon} alt="" />
         </button>
         {showCreateCollection && (
-          <div className="createCollection">
-            <p>Collection Creation</p>
-            <br />
-            <label className="labelText">Choose Your Image</label>
-            <br />
-            <div className="UploadImage">
-              <div id="imagePreview">Preview</div>
-              <input
-                type="file"
-                name="image"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
+          <div className="OutSide">
+            <div className="createCollection">
+              <div>
+                <input
+                  type="text"
+                  name="title"
+                  onChange={handleInputChange}
+                  placeholder="Title"
+                />{" "}
+                <br />
+                <input
+                  type="text"
+                  name="tagReq"
+                  onChange={handleInputChange}
+                  placeholder="Tag"
+                />
+              </div>
+              <br />
+
+              <div className="UploadImage">
+                <div id="imagePreview">Preview</div>
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*" 
+                  onChange={handleFileChange}
+                />
+              </div>
+              <br />
+
             </div>
-            <br />
-            <label className="labelText" htmlFor="tag">
-              Add Tag
-            </label>
-            <br />
-            <input
-              type="text"
-              name="tagReq"
-              onChange={handleInputChange}
-            />{" "}
-            <br />
-            <label className="labelText nameColl" htmlFor="name">
-              Give a Name Your Collection
-            </label>
-            <br />
-            <input type="text" name="title" onChange={handleInputChange} />
-            <br />
-            <input
-              type="radio"
-              id="public"
-              name="isPublic"
-              value="true"
-              onChange={handleInputChange}
-            />
-            <label className="labelPublic" htmlFor="female">
-              Public
-            </label>
-            <input
-              type="radio"
-              id="private"
-              name="isPublic"
-              value={false}
-              onChange={handleInputChange}
-            />
-            <label className="labelPublic" htmlFor="male">
-              Private
-            </label>
-            <br />
-            <input
-              onClick={(e) => {
-                toggleCreateCollection();
-              }}
-              type="button"
-              value="Back"
-              className="BackBtn"
-            />
+
+              <div className="BottomSide">
+                <input
+                  type="radio"
+                  id="public"
+                  name="isPublic"
+                  value="true"
+                  onChange={handleInputChange}
+                />
+                <label className="labelPublic" htmlFor="female">
+                  Public
+                </label>
+                <input
+                  type="radio"
+                  id="private"
+                  name="isPublic"
+                  value={false}
+                  onChange={handleInputChange}
+                />
+                <label className="labelPublic" htmlFor="male">
+                  Private
+                </label>
+
             <input
               onClick={(e) => {
                 createCollection(e);
@@ -263,46 +257,45 @@ function Collection() {
               value="Create"
               className="crecolBtn"
             />
+              </div>
           </div>
         )}
       </div>
-      {!showCreateCollection && (
-        <div className="container collection">
-          <div className="cards">
-            {collectionsself &&
-              collectionsself.map((collection, index) => (
-                <NavLink
-                  to={{
-                    pathname: "/collectionDetail",
-                    state: { collectionID: collection.id },
+      <div className="container collection">
+        <div className="cards">
+          {collectionsself &&
+            collectionsself.map((collection, index) => (
+              <NavLink
+                to={{
+                  pathname: "/collectionDetail",
+                  state: { collectionID: collection.id },
+                }}
+                key={collection.id}
+              >
+                <div
+                  className="card health"
+                  style={{
+                    background: `url(${collection.imageUrl})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "59% 20%",
+                    boxShadow: `9px 9px ${getRandomColor(index)}`,
+                    backgroundRepeat: "no-repeat",
                   }}
-                  key={collection.id}
                 >
                   <div
-                    className="card health"
-                    style={{
-                      background: `url(${collection.imageUrl})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "59% 20%",
-                      boxShadow: `9px 9px ${getRandomColor(index)}`,
-                      backgroundRepeat: "no-repeat",
-                    }}
+                    className="count"
+                    style={{ backgroundColor: "rgb(255 202 166)" }}
                   >
-                    <div
-                      className="count"
-                      style={{ backgroundColor: "rgb(255 202 166)" }}
-                    >
-                      <label>{collection.itemCount}</label>
-                    </div>
-                    <div className="label ">
-                      <label>{collection.title}</label>
-                    </div>
+                    <label>{collection.itemCount}</label>
                   </div>
-                </NavLink>
-              ))}
-          </div>
+                  <div className="label ">
+                    <label>{collection.title}</label>
+                  </div>
+                </div>
+              </NavLink>
+            ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }

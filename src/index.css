@@ -16,7 +16,9 @@ img.imglogo {
 }
 
 /* SIDEBAR CSS */
-
+.sidebar ul li a.active {
+  background: #596ed3;
+}
 .sidebar {
   position: fixed;
   left: 0;
@@ -36,6 +38,10 @@ img.imglogo {
   border-bottom: 1px groove #eef1ff;
   cursor: pointer;
   margin: 0px 10px;
+}
+a.logoLink.active {
+  padding: 0;
+  display: block;
 }
 .sidebar ul li:hover {
   background: #596ed3;
@@ -479,12 +485,20 @@ label.show {
 }
 
 /* Hide the browser's default checkbox */
-.containerTarget input {
+.containerTarget input.checkBoxes {
   position: absolute;
   opacity: 0;
   cursor: pointer;
   height: 0;
   width: 0;
+}
+input.contentInpt {
+  border: none;
+  background: none;
+  width: max-content;
+}
+input.contentInpt:focus {
+  outline: none;
 }
 
 /* Create a custom checkbox */
@@ -545,9 +559,10 @@ input.AddItem::placeholder {
   font-style: italic;
 }
 input.titleGoal {
-  border: 1px solid #b2b2b2;
-  box-shadow: 0px 0px 2px gray;
-  border-radius: 4px;
+border: none;
+  border-bottom: 1px solid #a2b1ff;
+  /* box-shadow: 0px 0px 2px #a2b1ff; */
+  /* border-radius: 4px; */
   height: 23px;
   margin-right: 14px;
   height: 30px;
@@ -567,14 +582,15 @@ input.buttonGoal:hover {
   color: #f9f8ff;
 }
 input.buttonGoal {
-  border: 1px solid #8da1ff;
-  border-radius: 4px;
-  padding: 5px 13px;
-  background-color: #f9f8ff;
-  color: #142c9f;
-  cursor: pointer;
-  font-size: 17px;
-  font-family: "Abel", sans-serif;
+    border: none;
+      border-radius: 4px;
+      padding: 5px 13px;
+      background-color: #fff;
+      color: #142c9f;
+      cursor: pointer;
+      box-shadow: 0px 0px 4px #a2b1ff;
+      font-size: 17px;
+      font-family: "Abel", sans-serif;
 }
 .CreatingPart label {
   font-size: 20px;
@@ -776,9 +792,8 @@ p.tag {
           color: #3f60ff;
 }
 .createCollection label.labelText {
-    font-size: 21px;
+    font-size: 18px;
       display: block;
-      text-transform: uppercase;
       color: #5f5f5f;
 }
 label.labelText.nameColl {
@@ -807,20 +822,23 @@ label.labelText.nameColl {
 .UploadImage {
     display: flex;
       align-items: center;
-      /* margin-left: 53px; */
+      margin-right: 50px;
       justify-content: center;
 }
 .createCollection input[type="text"] {
 
-    /* margin-left: 53px; */
+    border: none;
+      /* margin-left: 53px; */
       font-size: 16px;
       padding: 3px 16px;
       font-family: "Abel", sans-serif;
-      width: 300px;
+      width: 150px;
+      margin-bottom: 27px;
+          margin-right: 40px;
       height: 22px;
-      display: inline;
-      border: 1px solid gray;
-      border-radius: 4px;
+      border: none;
+      border-bottom: 1px solid #a8a8a8;
+      /* border-radius: 4px;*/
 }
 #imagePreview {
 width: 100px;
@@ -830,6 +848,7 @@ width: 100px;
   margin-right: 31px;
   align-items: center;
   justify-content: center;
+      margin-right: 30px;
 }
 .imgPreview{
  width: 100px;
@@ -837,6 +856,12 @@ width: 100px;
 }
 input[type="file"] {
   position: relative;
+    width: 73%;
+      
+
+}
+.BottomSide {
+  float: left;
 }
 
 input[type="file"]::file-selector-button {
@@ -864,7 +889,7 @@ input[type="file"]::after {
   top: 11px;
   font-family: "Abel", sans-serif;
   left: 50px;
-  color: #0964b0;
+  color: #ffffff;
   content: "Upload Image";
 }
 
@@ -876,8 +901,8 @@ input[type="file"]::file-selector-button {
   padding: 0 16px;
   height: 40px;
   cursor: pointer;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  background-color: #a2b1ff;
+  border: 1px solid #a2b1ff;
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
   margin-right: 16px;
   transition: background-color 200ms;
@@ -885,7 +910,7 @@ input[type="file"]::file-selector-button {
 
 /* file upload button hover state */
 input[type="file"]::file-selector-button:hover {
-  background-color: #f3f4f6;
+  background-color: #ced6ff;
 }
 
 /* file upload button active state */
@@ -930,7 +955,6 @@ canvas#canvas {
   /* Center slide text vertically */
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .swiper-slide img {
@@ -986,12 +1010,11 @@ input#private {
   
 }
 .createCollection {
-margin: 0px auto;
-  margin-top: 4%;
-  /* border: 3px solid gray; */
-  box-shadow: 0px 0px 13px #a2b2ff;
-  padding: 70px;
-  width: 65%;
+    margin: 40px auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
 }
 input.BackBtn {
     padding: 9px 22px;
@@ -1003,7 +1026,7 @@ input.BackBtn {
       cursor: pointer;
 }
 input.crecolBtn {
-    padding: 9px 22px;
+    padding: 9px 50px;
   background: #6a84ff;
   border: 1px solid #6a84ff;
   color: white;
@@ -1011,3 +1034,32 @@ input.crecolBtn {
       border-radius: 4px;
             cursor: pointer;
 }
+.itemBtn button {
+    width: 60px;
+      background-color: #f3f3f3;
+      border: none;
+      height: 30px;
+      margin-top: 10px;
+      cursor: pointer;
+      /* border-radius: 4px; */
+      margin-right: 6px;
+}
+.titleBtn {
+  background-image: url(./components/ASSETS/icons/title.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.textBtn {
+  background-image: url(./components/ASSETS/icons/text.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.imageBtn {
+  background-image: url(./components/ASSETS/icons/detailImage.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+

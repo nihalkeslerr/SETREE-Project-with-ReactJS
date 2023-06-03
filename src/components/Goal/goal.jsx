@@ -22,6 +22,7 @@ function Goal() {
   const [isCreating, setIsCreating] = useState(false);
   const [title, setTitle] = useState(null);
   const [item, setItem] = useState(null);
+const [updatedContent, setUpdatedContent] = useState("");
 
   const [checked, setChecked] = useState(false);
   console.log("checked: ", checked);
@@ -192,12 +193,12 @@ function Goal() {
 
         {isCreating && (
           <div className="CreatingPart">
-            <label htmlFor="titleGoal">give a Title:</label>
+            <label htmlFor="titleGoal"></label>
             <input
               className="titleGoal"
               onChange={onChangeTitle}
               name="titleGoal"
-              type="text"
+              type="text" placeholder="Title"
             />
             <input
               type="button"
@@ -226,6 +227,7 @@ function Goal() {
                 .map((item) => (
                   <label className="containerTarget" key={item.id}>
                     <input
+                      className="checkBoxes"
                       type="checkbox"
                       checked={item.isDone}
                       onChange={() => toggleChecked(goal.id, item.id)}
@@ -242,13 +244,13 @@ function Goal() {
                       <img src={tickIcon} alt="tick" />
                     </span>
                     <label htmlFor="matter" className="matter">
-                      {item.content}
+                     <input className="contentInpt"  value={item.content} onChange={(e) => setItem({ ...item, content: e.target.value })} /> 
                     </label>
                     <button
                       className="DeleteItem"
                       onClick={() => deleteItem(goal.id, item.id)}
                     >
-                      X
+                      
                     </button>
                   </label>
                 ))}

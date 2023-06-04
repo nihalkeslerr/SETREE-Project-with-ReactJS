@@ -10,7 +10,6 @@ import CollectionDetail from "../Collection/collectionDetail";
 import Wheel from "../Wheel/wheel";
 import Profile from "../Profile/Profile";
 import UpdateProfle from "../Profile/UpdateProfle";
-import ChangePassword from "../Profile/ChangePassword";
 import logo from "../ASSETS/images/logo.png";
 import { GlobalProvider } from "../Context/GlobalContext";
 import {
@@ -41,7 +40,6 @@ function Body() {
           <Route path="/collectionDetail" component={CollectionDetail}></Route>
           <Route path="/profile" component={Profile}></Route>
           <Route path="/updateprofile" component={UpdateProfle} />
-          <Route path="/changePassword" component={ChangePassword} />
         </Switch>
         <Footer></Footer>
       </div>

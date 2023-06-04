@@ -14,6 +14,8 @@ export const GlobalProvider = ({ children }) => {
   const ID = localStorage.getItem("ID");
   const [personalID, setPersonalID] = useState();
   const [goals, setGoals] = useState([]);
+    const [collItem, setCollItem] = useState([]);
+  const [collDetail, setCollDetail] = useState({});
   const colors = [
     "#FFCFC0",
     "#BDDFFF",
@@ -235,6 +237,7 @@ export const GlobalProvider = ({ children }) => {
     setGoals,
     fetchGoals,
     toggleGoalItems,
+    collItem, setCollItem,collDetail, setCollDetail 
   };
 
   return (

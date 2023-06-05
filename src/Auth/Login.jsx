@@ -2,67 +2,31 @@ import React, { useContext, useState } from "react";
 import FormLogin from "./FormLogin";
 import { GlobalContext } from "./ContextAuth/GlobalContext";
 import axios from "axios";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const API_URL = process.env.REACT_APP_URL;
 function Login() {
-  const {
-    loginInfo,
-    setloginInfo,
-    loginStatus,
-    setLoginStatus,
-    setToken
-
-  } = useContext(GlobalContext);
+  const { loginInfo, setloginInfo, setLoginStatus, setToken } =
+    useContext(GlobalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-/*     try {
-      const response = await axios.post(`${API_URL}/login`, loginInfo);
-      console.log(loginInfo);
-      if (response.status === 200) {
-        setLoginStatus("başarılı");
-        localStorage.setItem("token", response.data.token);
-        setToken(localStorage.getItem("token"));
-       window.location.href = "/";
-      } else {
-        setLoginStatus("başarısız");
-      }
-
-      console.log("Response data: ", response.data);
-    } catch (error) {
-      console.log("Error occurred: ", error);
-      setLoginStatus("başarısız");
-    } */
-
-           axios
-      .post(
-        `${API_URL}/login`,
-         loginInfo ,
-      )
+    axios
+      .post(`${API_URL}/login`, loginInfo)
       .then((response) => {
-        // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
         if (response.data.succeeded === true) {
-           console.log("Giriş Yapıldı", response);
-        setLoginStatus("başarılı");
-        localStorage.setItem("token", response.data.token);
-        setToken(localStorage.getItem("token"));
-        window.location.href = "/";
+          toast.success("Login Successful!"); 
+          localStorage.setItem("token", response.data.token);
+          setToken(localStorage.getItem("token"));
+          window.location.href = "/";
+        } else {
+          toast.error(response.data.error);
         }
-        else {
-          setLoginStatus(response.data.error);
-          
-        }
-       
-
       })
       .catch((error) => {
         console.error(error);
-        setLoginStatus("başarısız",error);
+        toast.error("Connected Error");
       });
-
-
-
   };
 
   const onChangeInput = (e) => {
@@ -76,7 +40,18 @@ function Login() {
         <FormLogin onChangeInput={onChangeInput} loginInfo={loginInfo} />
         <button className="btn">Login</button>
       </form>
-      {loginStatus && <p>Login {loginStatus}</p>}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

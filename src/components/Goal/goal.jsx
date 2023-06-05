@@ -3,6 +3,8 @@ import tickIcon from "../ASSETS/icons/tick.png";
 import axios from "axios";
 import plusIcon from "../ASSETS/icons/plusIcon.png";
 import { GlobalContext } from "../Context/GlobalContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Goal() {
   const {
@@ -22,7 +24,7 @@ function Goal() {
   const [isCreating, setIsCreating] = useState(false);
   const [title, setTitle] = useState(null);
   const [item, setItem] = useState(null);
-const [updatedContent, setUpdatedContent] = useState("");
+  const [updatedContent, setUpdatedContent] = useState("");
 
   const [checked, setChecked] = useState(false);
   console.log("checked: ", checked);
@@ -50,17 +52,18 @@ const [updatedContent, setUpdatedContent] = useState("");
         }
       )
       .then((response) => {
-        // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
-        console.log("Goal Başarıyla oluşturuldu", response);
-
+        if (response.data.succeded === true) {
+          toast.success("Goal Successfully Created!");
+        } else {
+          toast.error(response.data.error);
+        }
         fetchGoals();
       })
       .catch((error) => {
         console.error(error);
+        toast.error("Connected Error");
       });
     document.getElementsByClassName("titleGoal").value = " ";
-    // CreatingPart'ı tekrar gizle
-    //setIsCreating(false);
   };
 
   const onChangeTitle = (e) => {
@@ -84,8 +87,6 @@ const [updatedContent, setUpdatedContent] = useState("");
       })
       .then((response) => {
         console.log("Yeni hedef öğesi başarıyla oluşturuldu:", response);
-
-        // Yeni hedef öğesini ilgili hedefe eklemek için güncelleme yapabilirsiniz
         const updatedGoals = goals.map((goal, id) => {
           if (goal.id === goalId) {
             return {
@@ -101,7 +102,7 @@ const [updatedContent, setUpdatedContent] = useState("");
         });
 
         setGoals(updatedGoals);
-        setItem(null); // Öğe ekledikten sonra input alanını sıfırla
+        setItem(null);
       })
       .catch((error) => {
         console.error("Hedef öğesi oluşturulurken bir hata oluştu:", error);
@@ -118,7 +119,6 @@ const [updatedContent, setUpdatedContent] = useState("");
       .then((response) => {
         console.log("Hedef öğesi başarıyla silindi:", response);
 
-        // Hedef öğesini ilgili hedeften kaldırmak için güncelleme yapabilirsiniz
         const updatedGoals = goals.map((goal) => {
           if (goal.id === goalId) {
             return {
@@ -198,7 +198,8 @@ const [updatedContent, setUpdatedContent] = useState("");
               className="titleGoal"
               onChange={onChangeTitle}
               name="titleGoal"
-              type="text" placeholder="Title"
+              type="text"
+              placeholder="Title"
             />
             <input
               type="button"
@@ -244,14 +245,18 @@ const [updatedContent, setUpdatedContent] = useState("");
                       <img src={tickIcon} alt="tick" />
                     </span>
                     <label htmlFor="matter" className="matter">
-                     <input className="contentInpt"  value={item.content} onChange={(e) => setItem({ ...item, content: e.target.value })} /> 
+                      <input
+                        className="contentInpt"
+                        value={item.content}
+                        onChange={(e) =>
+                          setItem({ ...item, content: e.target.value })
+                        }
+                      />
                     </label>
                     <button
                       className="DeleteItem"
                       onClick={() => deleteItem(goal.id, item.id)}
-                    >
-                      
-                    </button>
+                    ></button>
                   </label>
                 ))}
 
@@ -289,6 +294,18 @@ const [updatedContent, setUpdatedContent] = useState("");
             </div>
           ))}
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

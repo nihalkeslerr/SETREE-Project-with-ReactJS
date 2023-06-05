@@ -4,6 +4,8 @@ import CollectionDetail from "./collectionDetail";
 import axios from "axios";
 import { GlobalContext } from "../Context/GlobalContext";
 import plusIcon from "../ASSETS/icons/plusIcon.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   BrowserRouter as Router,
   Switch,
@@ -77,17 +79,6 @@ function Collection() {
     const reader = new FileReader();
 
     const maxSizeInBytes = 1000 * 1024; // 1MB
-
-    /*     if (file.size > maxSizeInBytes) {
-      console.log(
-        "Seçilen resim çok büyük. Lütfen daha küçük bir resim seçin."
-      );
-      // İstenilen boyutu aşan resim seçildiğinde kullanıcıya uyarı verebilirsiniz.
-      alert("Seçilen resim çok büyük. Lütfen daha küçük bir resim seçin.");
-      event.target.value = null; // Seçimi kaldırmak için input değerini null olarak ayarlıyoruz
-
-      return;
-    } */
 
     reader.onload = function (event) {
       if (event.target.readyState === FileReader.DONE) {
@@ -173,12 +164,20 @@ function Collection() {
         }
       )
       .then((response) => {
-        // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
-        console.log("Collection cevap geldi", response);
+      
+        if (response.data.succeded === true) {
+            console.log("Collection cevap geldi", response);
+          toast.success("Collection Successfully Created!");
+        }
+        else {
+          toast.error(response.data.error);
+        }
+
         fetchCollectionsData(user.id);
       })
       .catch((error) => {
         console.error("Collection oluşturulamadı", error);
+        toast.error("Connected Error");
       });
   };
 
@@ -218,46 +217,45 @@ function Collection() {
                 <input
                   type="file"
                   name="image"
-                  accept="image/*" 
+                  accept="image/*"
                   onChange={handleFileChange}
                 />
               </div>
               <br />
-
             </div>
 
-              <div className="BottomSide">
-                <input
-                  type="radio"
-                  id="public"
-                  name="isPublic"
-                  value="true"
-                  onChange={handleInputChange}
-                />
-                <label className="labelPublic" htmlFor="female">
-                  Public
-                </label>
-                <input
-                  type="radio"
-                  id="private"
-                  name="isPublic"
-                  value={false}
-                  onChange={handleInputChange}
-                />
-                <label className="labelPublic" htmlFor="male">
-                  Private
-                </label>
+            <div className="BottomSide">
+              <input
+                type="radio"
+                id="public"
+                name="isPublic"
+                value="true"
+                onChange={handleInputChange}
+              />
+              <label className="labelPublic" htmlFor="female">
+                Public
+              </label>
+              <input
+                type="radio"
+                id="private"
+                name="isPublic"
+                value={false}
+                onChange={handleInputChange}
+              />
+              <label className="labelPublic" htmlFor="male">
+                Private
+              </label>
 
-            <input
-              onClick={(e) => {
-                createCollection(e);
-                toggleCreateCollection();
-              }}
-              type="button"
-              value="Create"
-              className="crecolBtn"
-            />
-              </div>
+              <input
+                onClick={(e) => {
+                  createCollection(e);
+                  toggleCreateCollection();
+                }}
+                type="button"
+                value="Create"
+                className="crecolBtn"
+              />
+            </div>
           </div>
         )}
       </div>
@@ -296,6 +294,18 @@ function Collection() {
             ))}
         </div>
       </div>
+            <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

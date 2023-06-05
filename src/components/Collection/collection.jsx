@@ -29,13 +29,15 @@ function Collection() {
     setPersonalID,
     getRandomColor,
   } = useContext(GlobalContext);
-
+      const imagePreview = document.getElementById("imagePreview");
   const [createCollData, setCreateCollData] = useState({
     title: "",
     tagReq: "",
     isPublic: false,
     imageUrl: "",
   });
+    const preset_key = "dbcxdjud";
+  const cloud_name = "dlo8tndg7";
 
   const [imageDataURL, setImageDataURL] = useState(null);
   const dataFetchedRef = useRef(false);
@@ -73,9 +75,34 @@ function Collection() {
       fetchCollectionsData(user.id);
     }
   }, [user]); // user state'i değiştiğinde çalışacak
+        
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "dbcxdjud");
+    formData.append("folder", "Setree"); // Klasör adını belirtin
+    console.log("formDATA:", formData);
+    
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData
+      )
+      .then((response) => {
+        console.log(response);
+        setImageDataURL(response.data.secure_url);
+        console.log("ImageDataURL:", imageDataURL);
+
+  
+    
+      })
+      .catch((err) => console.log(err));
+
+
+
+/*     const file = event.target.files[0];
     const reader = new FileReader();
 
     const maxSizeInBytes = 1000 * 1024; // 1MB
@@ -117,8 +144,10 @@ function Collection() {
       }
     };
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file); */
   };
+  
+
 
   console.log("imageDataURL:", imageDataURL); // Görüntünün URL'sini konsola yazdırır
 
@@ -186,7 +215,7 @@ function Collection() {
   };
 
   return (
-    <div>
+    <div className="forBack">
       <div className="createGoal">
         <button onClick={toggleCreateCollection}>
           NEW COLLECTION
@@ -194,6 +223,7 @@ function Collection() {
         </button>
         {showCreateCollection && (
           <div className="OutSide">
+            <h1 className="h1Head">Creating Collection</h1>
             <div className="createCollection">
               <div>
                 <input
@@ -213,11 +243,17 @@ function Collection() {
               <br />
 
               <div className="UploadImage">
-                <div id="imagePreview">Preview</div>
+                <div id="imagePreview">
+                  {imageDataURL && (
+                    <img class="imgPreview" src={imageDataURL} alt="Preview" />
+                  )}
+                  {!imageDataURL && (
+                    "Preview"
+                  )}
+                </div>
                 <input
                   type="file"
                   name="image"
-                  accept="image/*"
                   onChange={handleFileChange}
                 />
               </div>
@@ -261,7 +297,7 @@ function Collection() {
       </div>
       <div className="container collection">
         <div className="cards">
-          {collectionsself &&
+          {!showCreateCollection && collectionsself &&
             collectionsself.map((collection, index) => (
               <NavLink
                 to={{

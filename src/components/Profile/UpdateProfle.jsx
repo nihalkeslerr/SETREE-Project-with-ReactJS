@@ -124,18 +124,43 @@ function UpdateProfle() {
   const toggleProfile = () => {
     seteditProfile(true);
     setChangePassword(false);
+    var element = document.querySelector(".profileBtn");
+    if (element) {
+      element.style.backgroundColor = "#9facef";
+      element.style.color = "#fff";
+    }
+    var element2 = document.querySelector(".passwordBtn");
+    if (element2) {
+      element2.style.backgroundColor = "#fff";
+      element2.style.color = "#9facef";
+    }
   };
   const togglePassword = () => {
     seteditProfile(false);
     setChangePassword(true);
+
+    var element = document.querySelector(".profileBtn");
+    if (element) {
+      element.style.backgroundColor = "#fff";
+      element.style.color = "#9facef";
+    }
+    var element2 = document.querySelector(".passwordBtn");
+    if (element2) {
+      element2.style.backgroundColor = "#9facef";
+      element2.style.color = "#fff";
+    }
   };
 
   return (
     <div className="container">
       <div className="UpdateContain">
         <div className="editButon">
-          <button onClick={toggleProfile}>Edit Profile</button>
-          <button onClick={togglePassword}>Change Password</button>
+          <button className="profileBtn" onClick={toggleProfile}>
+            Edit Profile
+          </button>
+          <button className="passwordBtn" onClick={togglePassword}>
+            Change Password
+          </button>
         </div>
         <div className="">
           {editProfile && (

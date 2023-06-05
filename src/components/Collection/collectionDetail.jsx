@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { GlobalContext } from "../Context/GlobalContext";
 import axios from "axios";
 import image from "../ASSETS/icons/image.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function CollectionDetail() {
   const {
     token,
@@ -25,6 +27,9 @@ function CollectionDetail() {
   const [createTitlePart, setCreateTitlePart] = useState(null);
   const [createTextPart, setCreateTextPart] = useState(null);
   const [createImagePart, setCreateImagePart] = useState(null);
+
+  const preset_key = "dbcxdjud";
+  const cloud_name = "dlo8tndg7";
 
   const [createItem, setCreateItem] = useState({
     content: "",
@@ -77,152 +82,125 @@ function CollectionDetail() {
 
   console.log("collItem:", collItem);
 
-
   const handleTitle = (e) => {
     e.preventDefault();
     setCreateItem({ ...createItem, type: "title" });
     console.log("createItem", createItem);
 
     axios
-      .post(
-        `${API_URL}/createCollectionItem`,
-        createItem,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(`${API_URL}/createCollectionItem`, createItem, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
         if (response.data.succeded == true) {
-           console.log("Collection Item Başarıyla oluşturuldu", response);
-        fetchCollectionDetail();
-      fetchItemsByCollection();
+          console.log("Collection Item Başarıyla oluşturuldu", response);
+          toast.success("Title Added Successfully!");
+          fetchCollectionDetail();
+          fetchItemsByCollection();
+        } else {
+          console.log(
+            "Collection Item oluşturulurken hata meydana geldi",
+            response.data.error
+          );
+          toast.error(response.data.error);
         }
-        else {
-          console.log("Collection Item oluşturulurken hata meydana geldi", response.data.error);
-        }
-       
       })
       .catch((error) => {
         console.error(error);
+        toast.error("Connected Error");
       });
   };
 
-    const handleText = (e) => {
+  const handleText = (e) => {
     e.preventDefault();
     setCreateItem({ ...createItem, type: "text" });
     console.log("createItem", createItem);
 
     axios
-      .post(
-        `${API_URL}/createCollectionItem`,
-        createItem,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(`${API_URL}/createCollectionItem`, createItem, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
         if (response.data.succeded == true) {
-           console.log("Collection Item Başarıyla oluşturuldu", response);
-        fetchCollectionDetail();
-      fetchItemsByCollection();
+          console.log("Collection Item Başarıyla oluşturuldu", response);
+          toast.success("Text Added Successfully!");
+          fetchCollectionDetail();
+          fetchItemsByCollection();
+        } else {
+          console.log(
+            "Collection Item oluşturulurken hata meydana geldi",
+            response.data.error
+          );
+          toast.error(response.data.error);
         }
-        else {
-          console.log("Collection Item oluşturulurken hata meydana geldi", response.data.error);
-        }
-       
       })
       .catch((error) => {
         console.error(error);
+        toast.error("Connected Error");
       });
   };
-    const handleImage = (e) => {
+  const handleImage = (e) => {
     e.preventDefault();
     setCreateItem({ ...createItem, type: "image" });
     console.log("createItem", createItem);
 
     axios
-      .post(
-        `${API_URL}/createCollectionItem`,
-        createItem,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post(`${API_URL}/createCollectionItem`, createItem, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
         if (response.data.succeded == true) {
-           console.log("Collection Item Başarıyla oluşturuldu", response);
-        fetchCollectionDetail();
-      fetchItemsByCollection();
+          console.log("Collection Item Başarıyla oluşturuldu", response);
+          toast.success("Image Added Successfully!");
+          fetchCollectionDetail();
+          fetchItemsByCollection();
+        } else {
+          console.log(
+            "Collection Item oluşturulurken hata meydana geldi",
+            response.data.error
+          );
+          toast.error(response.data.error);
         }
-        else {
-          console.log("Collection Item oluşturulurken hata meydana geldi", response.data.error);
-        }
-       
       })
       .catch((error) => {
         console.error(error);
+        toast.error("Connected Error");
       });
   };
-
 
   const onChangeTitle = (e) => {
     setCreateItem({ ...createItem, [e.target.name]: e.target.value });
   };
   console.log("createItem", createItem);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    const reader = new FileReader();
-
-    const maxSizeInBytes = 1000 * 1024; // 1MB
-
-    reader.onload = function (event) {
-      if (event.target.readyState === FileReader.DONE) {
-        const img = new Image();
-        img.onload = function () {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          const maxWidth = 800;
-          const maxHeight = 600;
-
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxWidth || height > maxHeight) {
-            if (width / height > maxWidth / maxHeight) {
-              width = maxWidth;
-              height = Math.round(maxWidth * (img.height / img.width));
-            } else {
-              height = maxHeight;
-              width = Math.round(maxHeight * (img.width / img.height));
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          ctx.drawImage(img, 0, 0, width, height);
-
-          const resizedDataURL = canvas.toDataURL("image/jpeg", 0.7); // Resim kalitesini 0 ile 1 arasında ayarlayabilirsiniz
-
-          setImageDataURL(resizedDataURL);
-          const imagePreview = document.getElementById("imagePreviewColl");
-          imagePreview.innerHTML = `<img class="imgPreview" src="${resizedDataURL}" alt="Preview" />`;
-          setCreateItem({...createItem, content:resizedDataURL})
-        };
-
-        img.src = event.target.result;
-      }
-    };
-
-    reader.readAsDataURL(file);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "dbcxdjud");
+    formData.append("folder", "Setree"); // Klasör adını belirtin
+    console.log("formDATA:", formData);
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData
+      )
+      .then((response) => {
+        console.log(response);
+        setImageDataURL(response.data.secure_url);
+        console.log("ImageDataURL:", imageDataURL);
+        setCreateItem({ ...createItem, content: imageDataURL });
+      })
+      .catch((err) => console.log(err));
   };
 
   console.log("imageDataURL:", imageDataURL); // Görüntünün URL'sini konsola yazdırır
@@ -232,18 +210,56 @@ function CollectionDetail() {
     setCreateTextPart(false);
     setCreateImagePart(false);
     setCreateItem({ ...createItem, type: "title" });
+    var element = document.querySelector(".titleBtn");
+    if (element) {
+      element.style.border = "1px solid gray";
+    }
+    var element = document.querySelector(".textBtn");
+    if (element) {
+      element.style.border = "1px solid white";
+    }
+    var element = document.querySelector(".imageBtn");
+    if (element) {
+      element.style.border = "1px solid white";
+    }
   };
   const toggleText = () => {
     setCreateTitlePart(false);
     setCreateTextPart((prevIsCreating) => !prevIsCreating);
     setCreateImagePart(false);
-        setCreateItem({ ...createItem, type: "text" });
+    setCreateItem({ ...createItem, type: "text" });
+
+    var element = document.querySelector(".titleBtn");
+    if (element) {
+      element.style.border = "1px solid white";
+    }
+    var element = document.querySelector(".textBtn");
+    if (element) {
+      element.style.border = "1px solid gray";
+    }
+    var element = document.querySelector(".imageBtn");
+    if (element) {
+      element.style.border = "1px solid white";
+    }
   };
   const toggleImage = () => {
     setCreateTitlePart(false);
     setCreateTextPart(false);
     setCreateImagePart((prevIsCreating) => !prevIsCreating);
-            setCreateItem({ ...createItem, type: "image" });
+    setCreateItem({ ...createItem, type: "image" });
+
+    var element = document.querySelector(".titleBtn");
+    if (element) {
+      element.style.border = "1px solid white";
+    }
+    var element = document.querySelector(".textBtn");
+    if (element) {
+      element.style.border = "1px solid white";
+    }
+    var element = document.querySelector(".imageBtn");
+    if (element) {
+      element.style.border = "1px solid gray";
+    }
   };
 
   return (
@@ -312,7 +328,7 @@ function CollectionDetail() {
                   type="button"
                   className="buttonGoal buttonCollItem"
                   value="Create"
-                          onClick={handleText}
+                  onClick={handleText}
                 />
               </div>
             )}
@@ -320,12 +336,21 @@ function CollectionDetail() {
             {createImagePart && (
               <div className="ImagePart">
                 <div className="ImagePart">
-                  <div id="imagePreviewColl">Preview</div>
+                  <div id="imagePreviewColl">
+                    {" "}
+                    {imageDataURL && (
+                      <img
+                        class="imgPreviewDetail"
+                        src={imageDataURL}
+                        alt="Preview"
+                      />
+                    )}
+                    {!imageDataURL && "Preview"}
+                  </div>
                   <input
                     className="imageFile"
                     type="file"
                     name="content"
-                    accept="image/*"
                     onChange={handleFileChange}
                   />
                 </div>
@@ -333,7 +358,7 @@ function CollectionDetail() {
                   type="button"
                   className="buttonGoal buttonCollItem"
                   value="Create"
-                     onClick={handleImage}
+                  onClick={handleImage}
                 />
               </div>
             )}
@@ -360,6 +385,18 @@ function CollectionDetail() {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

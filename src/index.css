@@ -332,7 +332,7 @@ a.prop {
   /* margin-top: 43px; */
   padding-left: 30px;
   font-size: 20px;
-  color: #ffffff;
+  color: #ffffff !important;
   box-shadow: 0px 2px 4px #6f7bc6;
 }
 .search input::placeholder {

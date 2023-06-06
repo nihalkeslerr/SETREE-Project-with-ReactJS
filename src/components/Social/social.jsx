@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import {
   BrowserRouter as Router,
@@ -8,6 +8,8 @@ import {
   NavLink,
 } from "react-router-dom";
 import { GlobalContext } from "../Context/GlobalContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Social() {
   const {
@@ -20,7 +22,12 @@ function Social() {
   } = useContext(GlobalContext);
   const dataFetchedRef = useRef(false);
 
-  
+  const [searchQuery, setSearchQuery] = useState(
+    {
+      keyword:""
+    }
+  );
+
   useEffect(() => {
     setUser(null);
     const fetchUserData = async (userid = null) => {
@@ -44,18 +51,46 @@ function Social() {
 
   useEffect(() => {
     if (user) {
-/*       if (dataFetchedRef.current) return;
+      /*       if (dataFetchedRef.current) return;
       dataFetchedRef.current = true; */
       getFollowingsData();
     }
   }, [user]); // user state'i değiştiğinde çalışacak
 
+  const searchInput = (e) => {
+    setSearchQuery({ ...searchQuery, [e.target.name]: e.target.value });
+        axios
+      .post(`${API_URL}/search`, searchQuery, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.succeeded === true) {
+          console.log("Searchingg......", response);
+        } else {
+          toast.error(response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Connected Error");
+      });
+  };
+  console.log("searchQuery", searchQuery);
+
+
   return (
     <div>
       <div className="container social">
-        <div className="search">
-          <input placeholder="Search Friends" autoFocus></input>
-          <button type="submit"></button>
+        <div className="search" >
+            <input
+              placeholder="Search Friends"
+              onChange={searchInput}
+              autoFocus
+              name="keyword"
+            ></input>
+            <button type="submit"></button>
         </div>
         <div className="listhead">
           <h1>Followings</h1>

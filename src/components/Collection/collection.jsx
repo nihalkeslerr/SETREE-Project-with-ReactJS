@@ -6,6 +6,8 @@ import { GlobalContext } from "../Context/GlobalContext";
 import plusIcon from "../ASSETS/icons/plusIcon.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import eyeIcon from "../ASSETS/icons/eye.png"
+import heartIcon from "../ASSETS/icons/heart.png"
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,14 +31,14 @@ function Collection() {
     setPersonalID,
     getRandomColor,
   } = useContext(GlobalContext);
-      const imagePreview = document.getElementById("imagePreview");
+  const imagePreview = document.getElementById("imagePreview");
   const [createCollData, setCreateCollData] = useState({
     title: "",
     tagReq: "",
     isPublic: false,
     imageUrl: "",
   });
-    const preset_key = "dbcxdjud";
+  const preset_key = "dbcxdjud";
   const cloud_name = "dlo8tndg7";
 
   const [imageDataURL, setImageDataURL] = useState(null);
@@ -75,7 +77,6 @@ function Collection() {
       fetchCollectionsData(user.id);
     }
   }, [user]); // user state'i değiştiğinde çalışacak
-        
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -84,7 +85,7 @@ function Collection() {
     formData.append("upload_preset", "dbcxdjud");
     formData.append("folder", "Setree"); // Klasör adını belirtin
     console.log("formDATA:", formData);
-    
+
     axios
       .post(
         `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
@@ -94,60 +95,9 @@ function Collection() {
         console.log(response);
         setImageDataURL(response.data.secure_url);
         console.log("ImageDataURL:", imageDataURL);
-
-  
-    
       })
       .catch((err) => console.log(err));
-
-
-
-/*     const file = event.target.files[0];
-    const reader = new FileReader();
-
-    const maxSizeInBytes = 1000 * 1024; // 1MB
-
-    reader.onload = function (event) {
-      if (event.target.readyState === FileReader.DONE) {
-        const img = new Image();
-        img.onload = function () {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          const maxWidth = 800;
-          const maxHeight = 600;
-
-          let width = img.width;
-          let height = img.height;
-
-          if (width > maxWidth || height > maxHeight) {
-            if (width / height > maxWidth / maxHeight) {
-              width = maxWidth;
-              height = Math.round(maxWidth * (img.height / img.width));
-            } else {
-              height = maxHeight;
-              width = Math.round(maxHeight * (img.width / img.height));
-            }
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-          ctx.drawImage(img, 0, 0, width, height);
-
-          const resizedDataURL = canvas.toDataURL("image/jpeg", 0.7); // Resim kalitesini 0 ile 1 arasında ayarlayabilirsiniz
-
-          setImageDataURL(resizedDataURL);
-          const imagePreview = document.getElementById("imagePreview");
-          imagePreview.innerHTML = `<img class="imgPreview" src="${resizedDataURL}" alt="Preview" />`;
-        };
-
-        img.src = event.target.result;
-      }
-    };
-
-    reader.readAsDataURL(file); */
   };
-  
-
 
   console.log("imageDataURL:", imageDataURL); // Görüntünün URL'sini konsola yazdırır
 
@@ -193,12 +143,10 @@ function Collection() {
         }
       )
       .then((response) => {
-      
         if (response.data.succeded === true) {
-            console.log("Collection cevap geldi", response);
+          console.log("Collection cevap geldi", response);
           toast.success("Collection Successfully Created!");
-        }
-        else {
+        } else {
           toast.error(response.data.error);
         }
 
@@ -247,9 +195,7 @@ function Collection() {
                   {imageDataURL && (
                     <img class="imgPreview" src={imageDataURL} alt="Preview" />
                   )}
-                  {!imageDataURL && (
-                    "Preview"
-                  )}
+                  {!imageDataURL && "Preview"}
                 </div>
                 <input
                   className="imageFile"
@@ -298,7 +244,8 @@ function Collection() {
       </div>
       <div className="container collection">
         <div className="cards">
-          {!showCreateCollection && collectionsself &&
+          {!showCreateCollection &&
+            collectionsself &&
             collectionsself.map((collection, index) => (
               <NavLink
                 to={{
@@ -307,31 +254,43 @@ function Collection() {
                 }}
                 key={collection.id}
               >
-                <div
+               <div className="cardContainer" style={{
+                  backgroundColor: `${getRandomColor(index)}`,
+                }}>
+                   <div
                   className="card health"
                   style={{
                     background: `url(${collection.imageUrl})`,
                     backgroundSize: "cover",
                     backgroundPosition: "59% 20%",
-                    boxShadow: `9px 9px ${getRandomColor(index)}`,
                     backgroundRepeat: "no-repeat",
                   }}
-                >
+                > 
                   <div
                     className="count"
-                    style={{ backgroundColor: "rgb(255 202 166)" }}
+                    style={{
+                  backgroundColor: `${getRandomColor(index)}`,
+                }}
                   >
-                    <label>{collection.itemCount}</label>
+                    <label >{collection.itemCount}</label>
                   </div>
                   <div className="label ">
                     <label>{collection.title}</label>
                   </div>
-                </div>
+                  </div>
+                  <div className="CollIcon">
+                    <img src={heartIcon} alt="" />
+                    <span style={{marginRight:"15px"}}>{collection.likeCount }</span>
+                    <img src={eyeIcon} alt="" />
+                     <span>{collection.viewCount }</span>
+                  </div>
+
+               </div>
               </NavLink>
             ))}
         </div>
       </div>
-            <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={5000}
         hideProgressBar={false}

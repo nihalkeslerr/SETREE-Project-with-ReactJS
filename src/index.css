@@ -157,12 +157,29 @@ button.menu {
   width: 65%;
   margin: 0 auto;
 }
+.CollIcon {
+  display: flex;
+  justify-content: center;
+}
+.CollIcon img {
+    width: 20px;
+      height: 20px;
+      margin-right: 5px;
+}
+.CollIcon span {
+  color: white;
+}
 .card {
-  width: 173px;
-  height: 305px;
-  margin: 24px 37px;
+width: 169px;
+  height: 275px;
+  margin: 0px -9px;
   border-radius: 14%;
-  box-shadow: 9px 9px #747474;
+}
+.cardContainer {
+    width: 173px;
+    height: 298px;
+      margin: 24px 37px;
+      border-radius: 14%;
 }
 .cards {
   display: inline-flex;

@@ -22,10 +22,14 @@ function UpdateProfle() {
     oldPassword: "",
     password: "",
   });
-  const [passwordStatus, setPasswordStatus] = useState(null);
+  const [changePhoto, setChangePhoto] = useState({
+    newUrl: "",
+  });
+
+  const cloud_name = "dlo8tndg7";
+  const [imageDataURL, setImageDataURL] = useState(null);
 
   useEffect(() => {
-    setUser(null);
     const fetchUserData = async () => {
       try {
         let reqUrl = `${API_URL}/getUser/`;
@@ -36,8 +40,9 @@ function UpdateProfle() {
           },
         });
         console.log(response.data.user);
-
         setUser(response.data.user);
+        console.log("user:", user);
+        setImageDataURL(user.imageUrl);
       } catch (error) {
         console.log(error);
       }
@@ -151,6 +156,58 @@ function UpdateProfle() {
     }
   };
 
+  const handleChangePhoto = (e) => {
+    e.preventDefault();
+    axios
+      .post(`${API_URL}/updateProfileImage`, changePhoto, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // Başarılı bir şekilde gönderildiğinde burada işlemler yapabilirsiniz
+        if (response.data.succeeded === true) {
+          console.log("Updated Profile Photo", response);
+          toast.success("Profile photo Changed Successfully!");
+        } else {
+          toast.error(response.data.error);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Connected Error");
+      });
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "dbcxdjud");
+    formData.append("folder", "Setree"); // Klasör adını belirtin
+    console.log("formDATA:", formData);
+
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,
+        formData
+      )
+      .then((response) => {
+        console.log(response);
+        setImageDataURL(response.data.url);
+        console.log("ImageDataURL:", imageDataURL);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  console.log("imageDataURL:", imageDataURL); // Görüntünün URL'sini konsola yazdırır
+
+  useEffect(() => {
+    setChangePhoto({
+      newUrl: imageDataURL,
+    });
+  }, [imageDataURL]);
+
   return (
     <div className="container">
       <div className="UpdateContain">
@@ -164,8 +221,24 @@ function UpdateProfle() {
         </div>
         <div className="">
           {editProfile && (
+            <div> 
+                            <h1 className="h1Head">Edit Profile</h1>
+              <div className="changePhoto">
+                <div
+                  className="profileimgEdit"
+                  style={{
+                    backgroundImage: `url(${imageDataURL})`,
+                  }}
+                ></div>
+                <div className="UploadImage">
+                  <input type="file" name="image" onChange={handleFileChange} />
+                </div>
+                <div>
+                  <button onClick={handleChangePhoto}>Change Photo</button>
+                </div>
+              </div>
+              
             <form onSubmit={handleSubmit}>
-              <h1 className="h1Head">Edit Profile</h1>
               <input
                 type="text"
                 placeholder="Firstname"
@@ -222,7 +295,8 @@ function UpdateProfle() {
               </label>
               <br />
               <button className="btn">Update</button>
-            </form>
+              </form>
+              </div>
           )}
 
           {changePassword && (

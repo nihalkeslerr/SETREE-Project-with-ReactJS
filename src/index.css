@@ -252,12 +252,18 @@ div.count {
 .profileimgSearch {
   background-repeat: no-repeat;
   background-size: cover;
-    background-repeat: no-repeat;
-      background-size: cover;
       height: 45px;
       background-position: center;
       border-radius: 32px;
       width: 45px;
+}
+.profileimgEdit {
+background-repeat: no-repeat;
+    background-size: cover;
+    height: 85px;
+    background-position: center;
+    border-radius: 45px;
+    width: 85px;
 }
 
 .profile {
@@ -426,7 +432,13 @@ a.prop {
 a {
   text-decoration: none;
 }
-
+.changePopUp {
+  position: absolute;
+  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  background: bisque;
+}
 .ppDetailimg {
   background: url(./components/ASSETS/images/profileimg.png) no-repeat;
   background-size: 100px;
@@ -436,6 +448,24 @@ a {
   width: 100px;
   margin: 20px auto;
 }
+.changePhoto {
+    display: flex;
+    align-items: center;
+}
+
+.ppDetailimg p {
+  margin: 0;
+  font-size: 13px;
+  /* padding-top: 61px; */
+  background: #0000005c;
+  color: black;
+  display: inline-flex;
+  padding: 33px 0px;
+  border-radius: 49px;
+  text-transform: uppercase;
+}
+
+
 .ppDetail {
   /* border: 1px solid; */
   width: 65%;
@@ -965,19 +995,32 @@ width: 155px;
 width: 100px;
   height: 100px;
 }
-input[type="file"] {
+.imageFile {
   position: relative;
   width: 73%;
 }
 
-
-input[type="file"]::file-selector-button {
+.changePhoto button {
+  border: none;
+  padding: 12px 10px;
+  color: white;
+  border-radius: 6px;
+  box-shadow: 0px 0 2px #9facef;
+  background-color: #9facef;
+    transition: all 0.3s ease 0s;
+}
+.changePhoto button:hover {
+  color: #9facef;
+  background-color: #fff;
+    transition: all 0.3s ease 0s;
+}
+.imageFile::file-selector-button {
   width: 140px;
   color: transparent;
 }
 
 /* Faked label styles and icon */
-input[type="file"]::before {
+.imageFile::before {
   position: absolute;
   pointer-events: none;
   top: 8px;
@@ -989,7 +1032,7 @@ input[type="file"]::before {
   background-image: url("./components/ASSETS/icons/image.png");
 }
 
-input[type="file"]::after {
+.imageFile::after {
   position: absolute;
   pointer-events: none;
   font-size: 15px;
@@ -1003,7 +1046,7 @@ input[type="file"]::after {
 /* ------- From Step 1 ------- */
 
 /* file upload button */
-input[type="file"]::file-selector-button {
+.imageFile::file-selector-button {
   border-radius: 4px;
   padding: 0 16px;
   height: 40px;
@@ -1016,14 +1059,73 @@ input[type="file"]::file-selector-button {
 }
 
 /* file upload button hover state */
-input[type="file"]::file-selector-button:hover {
+.imageFile::file-selector-button:hover {
   background-color: #ced6ff;
 }
 
 /* file upload button active state */
-input[type="file"]::file-selector-button:active {
+.imageFile::file-selector-button:active {
   background-color: #e5e7eb;
 }
+
+
+
+/* .profilePhoto {
+  position: relative;
+  width: 85px;
+      border-bottom: none !important;
+      height: 85px;
+}
+
+
+.profilePhoto::file-selector-button {
+  width: 60px !important;
+  color: transparent;
+}
+
+.profilePhoto::before {
+  top: 0 !important;
+  left: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  content: "";
+  background-image: none !important;
+}
+
+.profilePhoto::after {
+  position: absolute;
+  pointer-events: none;
+  font-size: 15px;
+  top: 11px;
+  font-family: "Abel", sans-serif;
+  left: 0px !important;
+  color: #000000 !important;
+  content: "Upload Image";
+}
+
+
+.profilePhoto::file-selector-button {
+  border-radius: 4px;
+  padding: 0 16px;
+  height: 80px;
+  cursor: pointer;
+  background-color: #00000000 !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-right: 16px;
+  transition: background-color 200ms;
+}
+
+.profilePhoto::file-selector-button:hover {
+  background-color: #ced6ff;
+}
+
+.profilePhoto::file-selector-button:active {
+  background-color: #e5e7eb;
+} */
+
+
+
 
 canvas#canvas {
   width: 80%;

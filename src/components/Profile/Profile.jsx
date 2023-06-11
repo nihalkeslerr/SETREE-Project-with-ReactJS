@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { GlobalContext } from "../Context/GlobalContext";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import ChangePhoto from "./ChangePhoto";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -39,13 +39,25 @@ function Profile() {
     setCollectionself,
   } = useContext(GlobalContext);
 
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleHover = () => {
+    setIsHovered(!isHovered);
+  };
+  const [showChangePopUp, setShowChangePopUp] = useState(false);
+
+
+  const handleOpenChangePopUp = () => {
+    setShowChangePopUp(!showChangePopUp);
+  };
+
   useEffect(() => {
     setCollections(null);
     setUser(null);
   }, []);
 
   const dataFetchedRef = useRef(false);
-  
+
   useEffect(() => {
     setUser(null);
     const fetchUserData = async (userid = null) => {
@@ -78,146 +90,174 @@ function Profile() {
     }
   }, [user]); // user state'i değiştiğinde çalışacak
 
+
+
+
   return (
-    
-      <div>
-        <div className="DetailContainer">
-          <div className="ppDetail">
-            {user && (
-              <div>
-              <NavLink to="/updateprofile"><button className="Edit">Edit Profile</button></NavLink>
-                <div
-                  className="ppDetailimg"
-                  style={{
-                    backgroundImage: `url(${user.imageUrl})`,
-                  }}
-                ></div>
-                <label className="name">
-                  {user.firstName} {user.lastName}
-                </label>
-                <div className="info">
-                  <p>
-                    <span>{user.listCount}</span>Lists
-                  </p>
-                  <p>
-                    <span>{user.followers.length}</span>Followers
-                  </p>
-                  <p>
-                    <span>{user.followings.length}</span>Followings
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <div className="FollowInfo">
-          <div className="followhead">
-            <h1>Followers</h1>
-
-            <div className="followers">
-              <Swiper
-                slidesPerView={4.5}
-                spaceBetween={1}
-                freeMode={true}
-                mousewheel={true}
-                navigation={true}
-                modules={[FreeMode, Mousewheel, Navigation]}
-                className="mySwiper"
+    <div>  {showChangePopUp && (
+        <ChangePhoto></ChangePhoto>
+      )}
+      <div className="DetailContainer">
+        <div className="ppDetail">
+          {user && (
+            <div>
+              <NavLink to="/updateprofile">
+                <button className="Edit">Edit Profile</button>
+              </NavLink>
+              <div
+                className="ppDetailimg"
+                style={{
+                  backgroundImage: `url(${user.imageUrl})`,
+                }}
+                onMouseEnter={handleHover}
+                onMouseLeave={handleHover}
               >
-                {followerObjects &&
-                  followerObjects.map((follower) => (
-                    <SwiperSlide key={follower.id}>
-                      <NavLink
-                        to={{
-                          pathname: "/SocialDetail",
-                          state: { followingId: follower.id },
-                        }}
-                      >
-                        <div
-                          key={follower.id}
-                          className="followppimg"
-                          style={{
-                            backgroundImage: `url(${follower.imageUrl})`,
-                          }}
-                        ></div>
-                      </NavLink>
-                    </SwiperSlide>
-                  ))}
-              </Swiper>
-            </div>
-          </div>
-          <hr className="divider" /> {/* Çizgi ekleniyor */}
-          <div className="followhead">
-            <h1>Followings</h1>
-
-            <div className="followers">
-              <Swiper
-                slidesPerView={4.5}
-                spaceBetween={1}
-                freeMode={true}
-                navigation={true}
-                mousewheel={true}
-                modules={[FreeMode, Mousewheel, Navigation]}
-                className="mySwiper"
-              >
-                {followingsObjects &&
-                  followingsObjects.map((following) => (
-                    <SwiperSlide key={following.id}>
-                      <NavLink
-                        to={{
-                          pathname: "/SocialDetail",
-                          state: { followingId: following.id },
-                        }}
-                      >
-                        <div
-                          key={following.id}
-                          className="followppimg"
-                          style={{
-                            backgroundImage: `url(${following.imageUrl})`,
-                          }}
-                        ></div>
-                      </NavLink>
-                    </SwiperSlide>
-                  ))}
-              </Swiper>
-            </div>
-          </div>
-        </div>
-
-        <div className="listhead">
-          <h1>Your Collections</h1>
-        </div>
-        <div className="cardsForProfile">
-          {collectionsself &&
-            collectionsself.map((collection, index) => (
-              <a href="#" key={collection.id}>
-                {" "}
-                <div
-                  className="ppDetailCard health"
-                  style={{
-                    background: `url(${collection.imageUrl})`,
-                    backgroundSize: "501px",
-                    backgroundPosition: "59% 20%",
-                    boxShadow: `9px 9px ${getRandomColor(index)}`,
-                  }}
-                >
-                  <div
-                    className="count"
-                    style={{ backgroundColor: "rgb(255 202 166)" }}
+                {isHovered && (
+                  <p
+                    onClick={handleOpenChangePopUp}
+                    style={{
+                      margin: "0",
+                      fontSize: "13px",
+                      background: "#0000005c",
+                      color: "black",
+                      display: "inline-flex",
+                      padding: "33px 0px",
+                      borderRadius: "49px",
+                      textTransform: "uppercase",
+                      cursor: "pointer",
+                    }}
                   >
-                    <label>{collection.itemCount}</label>
-                  </div>
-                  <div className="label" style={{ marginTop: "100px" }}>
-                    <label>{collection.title}</label>
-                  </div>
-                </div>
-              </a>
-            ))}
+                    Change Profile Photo
+                  </p>
+                )}
+              </div>
+
+              <label className="name">
+                {user.firstName} {user.lastName}
+              </label>
+              <div className="info">
+                <p>
+                  <span>{user.listCount}</span>Lists
+                </p>
+                <p>
+                  <span>{user.followers.length}</span>Followers
+                </p>
+                <p>
+                  <span>{user.followings.length}</span>Followings
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    
+      <div className="FollowInfo">
+
+        <div className="followhead">
+
+          <h1>Followers</h1>
+
+          <div className="followers">
+            <Swiper
+              slidesPerView={4.5}
+              spaceBetween={1}
+              freeMode={true}
+              mousewheel={true}
+              navigation={true}
+              modules={[FreeMode, Mousewheel, Navigation]}
+              className="mySwiper"
+            >
+              {followerObjects &&
+                followerObjects.map((follower) => (
+                  <SwiperSlide key={follower.id}>
+                    <NavLink
+                      to={{
+                        pathname: "/SocialDetail",
+                        state: { followingId: follower.id },
+                      }}
+                    >
+                      <div
+                        key={follower.id}
+                        className="followppimg"
+                        style={{
+                          backgroundImage: `url(${follower.imageUrl})`,
+                        }}
+                      ></div>
+                    </NavLink>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </div>
+        </div>
+        <hr className="divider" /> {/* Çizgi ekleniyor */}
+        <div className="followhead">
+          <h1>Followings</h1>
+
+          <div className="followers">
+            <Swiper
+              slidesPerView={4.5}
+              spaceBetween={1}
+              freeMode={true}
+              navigation={true}
+              mousewheel={true}
+              modules={[FreeMode, Mousewheel, Navigation]}
+              className="mySwiper"
+            >
+              {followingsObjects &&
+                followingsObjects.map((following) => (
+                  <SwiperSlide key={following.id}>
+                    <NavLink
+                      to={{
+                        pathname: "/SocialDetail",
+                        state: { followingId: following.id },
+                      }}
+                    >
+                      <div
+                        key={following.id}
+                        className="followppimg"
+                        style={{
+                          backgroundImage: `url(${following.imageUrl})`,
+                        }}
+                      ></div>
+                    </NavLink>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </div>
         </div>
       </div>
 
-
+      <div className="listhead">
+        <h1>Your Collections</h1>
+      </div>
+      <div className="cardsForProfile">
+        {collectionsself &&
+          collectionsself.map((collection, index) => (
+            <a href="#" key={collection.id}>
+              {" "}
+              <div
+                className="ppDetailCard health"
+                style={{
+                  background: `url(${collection.imageUrl})`,
+                  backgroundSize: "501px",
+                  backgroundPosition: "59% 20%",
+                  boxShadow: `9px 9px ${getRandomColor(index)}`,
+                }}
+              >
+                <div
+                  className="count"
+                  style={{ backgroundColor: "rgb(255 202 166)" }}
+                >
+                  <label>{collection.itemCount}</label>
+                </div>
+                <div className="label" style={{ marginTop: "100px" }}>
+                  <label>{collection.title}</label>
+                </div>
+              </div>
+            </a>
+          ))}
+      </div>
+    </div>
   );
 }
 

@@ -252,6 +252,7 @@ function Collection() {
                   )}
                 </div>
                 <input
+                  className="imageFile"
                   type="file"
                   name="image"
                   onChange={handleFileChange}

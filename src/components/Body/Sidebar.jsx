@@ -6,13 +6,26 @@ import collectionImg from "./images/collection.png";
 import wheelImg from "./images/wheel.png";
 import menuImg from "./images/menu.png";
 import logoImg from "./images/logoImg.png";
+import Logout from "./images/logout.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { BrowserRouter as Router, NavLink,useLocation } from "react-router-dom";
+import { BrowserRouter as Router, NavLink,useLocation,useHistory } from "react-router-dom";
 import { useState } from "react";
 
 function Sidebar() {
   const [display, setDisplay] = useState("open");
   const location = useLocation();
+   const history = useHistory();
+
+  const logout = () => {
+        // Örneğin:
+    localStorage.removeItem("token"); // Token'ı localStorage'dan sil
+
+    // Login sayfasına yönlendir
+    window.location.href = "/login";
+     toast.success("Log Out Successful!"); 
+  }
 
   return (
     <header>
@@ -66,8 +79,26 @@ function Sidebar() {
               <label htmlFor="profile">Profile</label>
             </NavLink>
           </li>
+          <li>
+            <a onClick={logout}>
+              <img style={{width:"28px"}} src={Logout}></img>
+              <label htmlFor="profile">Log Out</label>
+            </a>
+          </li>
         </ul>
       </div>
+            <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </header>
   );
 }

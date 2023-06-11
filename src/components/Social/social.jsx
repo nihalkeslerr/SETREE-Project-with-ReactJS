@@ -10,6 +10,7 @@ import {
 import { GlobalContext } from "../Context/GlobalContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Tag from "../ASSETS/icons/tag.png"
 
 function Social() {
   const {
@@ -22,11 +23,10 @@ function Social() {
   } = useContext(GlobalContext);
   const dataFetchedRef = useRef(false);
 
-  const [searchQuery, setSearchQuery] = useState(
-    {
-      keyword:""
-    }
-  );
+  const [searchQuery, setSearchQuery] = useState({
+    keyword: "",
+  });
+  const [results, setResults] = useState(null);
 
   useEffect(() => {
     setUser(null);
@@ -57,40 +57,125 @@ function Social() {
     }
   }, [user]); // user state'i değiştiğinde çalışacak
 
-  const searchInput = (e) => {
+  const searchInputChange = (e) => {
     setSearchQuery({ ...searchQuery, [e.target.name]: e.target.value });
-        axios
-      .post(`${API_URL}/search`, searchQuery, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        if (response.data.succeeded === true) {
-          console.log("Searchingg......", response);
-        } else {
-          toast.error(response.data.error);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("Connected Error");
-      });
+    // Query boşsa arama işlemini gerçekleştirme
+    if (e.target.value === "") {
+      console.log(" searchInputChange query boş");
+      setResults(null);
+    }
+    searchInput();
   };
-  console.log("searchQuery", searchQuery);
 
+  const searchInput = (e) => {
+    if (searchQuery.keyword === "") {
+      // Query boş ise arama işlemini gerçekleştirme
+      setResults(null);
+      console.log("searchInput query boş");
+      return;
+    } else {
+      axios
+        .post(`${API_URL}/search`, searchQuery, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          if (response.data.succeeded === true) {
+            console.log(
+              `Searching...... for ${searchQuery.keyword} this`,
+              response.data.searchResults
+            );
+              setResults(response.data.searchResults);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  console.log("searchQuery", searchQuery);
+  console.log(`${searchQuery.keyword} araması için result:`, results);
+
+  /* useEffect(() => {
+  searchInput();
+}, [searchQuery]); */
+
+  /*   useEffect(() => {
+    console.log("Giden searchQuery", searchQuery)
+console.log(`${searchQuery.keyword} araması için result:`, results);
+  }, [results]); */
 
   return (
     <div>
       <div className="container social">
-        <div className="search" >
+        <div>
+          <div className="search">
             <input
               placeholder="Search Friends"
-              onChange={searchInput}
+              onChange={searchInputChange}
               autoFocus
+              value={searchQuery.keyword}
               name="keyword"
             ></input>
             <button type="submit"></button>
+          </div>
+
+          <div>
+            {results &&
+            ((results.tags && results.tags.length > 0) ||
+              (results.users && results.users.length > 0)) ? (
+              <ul className="results">
+                {results.users &&
+                  results.users.length > 0 &&
+                  results.users.map((user) => (
+                    <li key={user.id}>
+                      <NavLink
+                        className="prop"
+                        to={{
+                          pathname: "/SocialDetail",
+                          state: { followingId: user.id },
+                        }}
+                      >
+                        <div
+                          className="profileimgSearch"
+                          style={{
+                            backgroundImage: `url(${user.imageUrl})`,
+                          }}
+                        ></div>
+                        <div className="searchInfo">
+                          <p>
+                            {user.firstName} {user.lastName}
+                          </p>
+                          <p>
+                            <span>{user.listCount}</span> List -{" "}
+                            <span>{user.followers.length}</span> Followers
+                          </p>
+                        </div>
+                      </NavLink>
+                    </li>
+                  ))}
+                {results.tags &&
+                  results.tags.length > 0 &&
+                  results.tags.map((tag) => (
+                    <li key={tag.id}>
+                      <NavLink to="/SocialDetail">
+                        <div className="searchTag">
+                          <img src={Tag} />
+                          <div>
+                            <p>{tag.title}</p>
+                            
+                            </div>
+                        </div>
+                      </NavLink>
+                    </li>
+                  ))}
+              </ul>
+            ) : (
+              <p>No results found.</p>
+            )}
+          </div>
         </div>
         <div className="listhead">
           <h1>Followings</h1>

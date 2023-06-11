@@ -23,28 +23,32 @@ import {
 function Body() {
   return (
     <GlobalProvider>
-    <Router>
-      <div>
-        <NavLink to={"/"}>
+      <Router>
+        <div>
           <div>
-            <img className="imglogo" src={logo} alt=""></img>
+            <NavLink to="/">
+              <img className="imglogo" src={logo} alt=""/>
+            </NavLink>
           </div>
-        </NavLink>
-        <Sidebar />
-        <Switch>
-          <Route path="/goal" component={Goal}></Route>
-          <Route path="/social" component={Social}></Route>
-          <Route exact path="/" component={Collection}></Route>
-          <Route path="/socialDetail" component={SocialDetail}></Route>
-          <Route path="/wheel" component={Wheel}></Route>
-          <Route path="/collectionDetail" component={CollectionDetail}></Route>
-          <Route path="/profile" component={Profile}></Route>
-          <Route path="/updateprofile" component={UpdateProfle} />
-        </Switch>
-        <Footer></Footer>
-      </div>
+
+          <Sidebar />
+          <Switch>
+            <Route path="/goal" component={Goal}></Route>
+            <Route path="/social" component={Social}></Route>
+            <Route exact path="/" component={Collection}></Route>
+            <Route path="/socialDetail" component={SocialDetail}></Route>
+            <Route path="/wheel" component={Wheel}></Route>
+            <Route
+              path="/collectionDetail"
+              component={CollectionDetail}
+            ></Route>
+            <Route path="/profile" component={Profile}></Route>
+            <Route path="/updateprofile" component={UpdateProfle} />
+          </Switch>
+          <Footer></Footer>
+        </div>
       </Router>
-      </GlobalProvider>
+    </GlobalProvider>
   );
 }
 

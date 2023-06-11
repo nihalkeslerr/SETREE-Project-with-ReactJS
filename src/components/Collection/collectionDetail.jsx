@@ -149,7 +149,7 @@ function CollectionDetail() {
     e.preventDefault();
     setCreateItem({ ...createItem, type: "image" });
     console.log("createItem", createItem);
-
+    setCreateItem({ ...createItem, content: imageDataURL });
     axios
       .post(`${API_URL}/createCollectionItem`, createItem, {
         headers: {
@@ -198,10 +198,13 @@ function CollectionDetail() {
         console.log(response);
         setImageDataURL(response.data.secure_url);
         console.log("ImageDataURL:", imageDataURL);
-        setCreateItem({ ...createItem, content: imageDataURL });
+        setCreateItem({ ...createItem, content: response.data.secure_url });
       })
       .catch((err) => console.log(err));
   };
+  useEffect(() => {
+    setCreateItem({ ...createItem, content: imageDataURL });
+  }, [imageDataURL]);
 
   console.log("imageDataURL:", imageDataURL); // Görüntünün URL'sini konsola yazdırır
 
@@ -340,7 +343,7 @@ function CollectionDetail() {
                     {" "}
                     {imageDataURL && (
                       <img
-                        class="imgPreviewDetail"
+                        className="imgPreviewDetail"
                         src={imageDataURL}
                         alt="Preview"
                       />

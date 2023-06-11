@@ -154,7 +154,7 @@ button.menu {
 }
 
 .container {
-  width: 80%;
+  width: 65%;
   margin: 0 auto;
 }
 .card {
@@ -242,13 +242,24 @@ div.count {
 } */
 
 .profileimg {
-  background: url(./components/ASSETS/images/profileimg.png) no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   height: 65px;
   background-position: center;
   border-radius: 32px;
   width: 70px;
 }
+.profileimgSearch {
+  background-repeat: no-repeat;
+  background-size: cover;
+    background-repeat: no-repeat;
+      background-size: cover;
+      height: 45px;
+      background-position: center;
+      border-radius: 32px;
+      width: 45px;
+}
+
 .profile {
   display: flex;
   align-items: center;
@@ -260,6 +271,7 @@ div.count {
   margin: 5px 15px;
   font-size: 20px;
   color: #141414;
+  cursor: pointer;
 }
 .followhead h1 {
   color: #5e6ba8;
@@ -276,6 +288,44 @@ div.count {
 }
 .followhead {
   width: 50%;
+}
+ul.results {
+    list-style: none;
+      width: 64%;
+      padding: 0;
+      margin: 0px auto;
+}
+ul.results li {
+    padding: 5px 7px;
+      border-bottom: 1px solid #e6e6e6;
+}
+ul.results p{
+  margin: 0;
+  text-align: initial;
+  cursor: pointer;
+}
+.searchInfo p:first-child {
+  color: black;
+  font-family: "Abel", sans-serif;
+}
+.searchInfo p:last-child {
+  color: #979797;
+  font-size: 12px;
+}
+.searchTag img {
+  width: 45px;
+}
+.searchInfo {
+  margin-left: 15px;
+}
+.searchTag {
+  display: flex;
+  align-items: center;
+}
+
+.searchTag p {
+  margin-left: 15px !important;
+  color: black;
 }
 .divider {
   margin: 20px 0;
@@ -305,7 +355,9 @@ div.FollowInfo {
 a.prop {
   display: flex;
   align-items: center;
+    cursor: pointer;
 }
+
 .flex {
   display: flex;
   align-items: center;

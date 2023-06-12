@@ -5,6 +5,8 @@ import { GlobalContext } from "../Context/GlobalContext";
 import sign from "../ASSETS/icons/sign.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function UpdateProfle() {
   const { token, API_URL, user, setUser, ID } = useContext(GlobalContext);
@@ -25,9 +27,9 @@ function UpdateProfle() {
   const [changePhoto, setChangePhoto] = useState({
     newUrl: "",
   });
-
   const cloud_name = "dlo8tndg7";
   const [imageDataURL, setImageDataURL] = useState(null);
+  const [updateloading, setUpdateloading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -72,6 +74,7 @@ function UpdateProfle() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUpdateloading(true);
     axios
       .post(`${API_URL}/updateUser`, formData, {
         headers: {
@@ -89,6 +92,9 @@ function UpdateProfle() {
       .catch((error) => {
         console.error(error);
         toast.error("Connected Error");
+      })
+      .finally(() => {
+        setUpdateloading(false);
       });
   };
 
@@ -105,6 +111,7 @@ function UpdateProfle() {
 
   const handleSubmitPass = (e) => {
     e.preventDefault();
+    setUpdateloading(true);
     axios
       .post(`${API_URL}/updatePassword`, formDataPass, {
         headers: {
@@ -123,6 +130,9 @@ function UpdateProfle() {
       .catch((error) => {
         console.error(error);
         toast.error("Connected Error");
+      })
+      .finally(() => {
+        setUpdateloading(false);
       });
   };
 
@@ -221,8 +231,8 @@ function UpdateProfle() {
         </div>
         <div className="">
           {editProfile && (
-            <div> 
-                            <h1 className="h1Head">Edit Profile</h1>
+            <div>
+              <h1 className="h1Head">Edit Profile</h1>
               <div className="changePhoto">
                 <div
                   className="profileimgEdit"
@@ -237,66 +247,73 @@ function UpdateProfle() {
                   <button onClick={handleChangePhoto}>Change Photo</button>
                 </div>
               </div>
-              
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Firstname"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-              />
-              <br />
-              <input
-                type="text"
-                placeholder="Lastname"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-              />
-              <br />
-              <input
-                type="text"
-                placeholder="Username"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-              />
-              <br />
-              <input
-                type="email"
-                placeholder="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-              <br />
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                value="female"
-                checked={formData.gender === "female"}
-                onChange={handleInputChange}
-              />
-              <label className="labelradio" htmlFor="female">
-                Kadın
-              </label>
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                checked={formData.gender === "male"}
-                onChange={handleInputChange}
-              />
-              <label className="labelradio" htmlFor="male">
-                Erkek
-              </label>
-              <br />
-              <button className="btn">Update</button>
+
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Firstname"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <input
+                  type="text"
+                  placeholder="Lastname"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <input
+                  type="text"
+                  placeholder="Username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+                <br />
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  checked={formData.gender === "female"}
+                  onChange={handleInputChange}
+                />
+                <label className="labelradio" htmlFor="female">
+                  Kadın
+                </label>
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  checked={formData.gender === "male"}
+                  onChange={handleInputChange}
+                />
+                <label className="labelradio" htmlFor="male">
+                  Erkek
+                </label>
+                <br />
+                <div className="buttonLoad">
+                  <button className="btn">Update</button>
+                  {updateloading && (
+                    <Stack spacing={2} direction="row">
+                      <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                    </Stack>
+                  )}
+                </div>
               </form>
-              </div>
+            </div>
           )}
 
           {changePassword && (
@@ -316,9 +333,15 @@ function UpdateProfle() {
                 onChange={handleInputChangePass}
               />
               <br />
-
               <br />
-              <button className="btn">Change Password</button>
+              <div className="buttonLoad">
+                  <button className="btn">Change Password</button>
+                  {updateloading && (
+                    <Stack spacing={2} direction="row">
+                      <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                    </Stack>
+                  )}
+                </div>
             </form>
           )}
         </div>

@@ -14,8 +14,11 @@ export const GlobalProvider = ({ children }) => {
   const ID = localStorage.getItem("ID");
   const [personalID, setPersonalID] = useState();
   const [goals, setGoals] = useState([]);
-    const [collItem, setCollItem] = useState([]);
+  const [collItem, setCollItem] = useState([]);
   const [collDetail, setCollDetail] = useState({});
+  const [Goalisloading, setGoalisloading] = useState(true);
+  const [followingsisloading, setFollowingsisloading] = useState(true);
+  const [collectionisloading, setCollectionisloading] = useState(true);
   const colors = [
     "#FFCFC0",
     "#BDDFFF",
@@ -45,6 +48,7 @@ export const GlobalProvider = ({ children }) => {
 
   const fetchCollectionsData = async (userid) => {
     setCollections(null);
+    setCollectionisloading(true);
     try {
       let reqUrl = `${API_URL}/getCollections/${userid}`;
 
@@ -64,9 +68,13 @@ export const GlobalProvider = ({ children }) => {
       console.log("hataa: ");
       console.log(error);
     }
+    finally {
+      setCollectionisloading(false);
+    }
   };
   const fetchGoals = () => {
     setGoals([]);
+    setGoalisloading(true);
     axios
       .get(`${API_URL}/getGoals/`, {
         headers: {
@@ -84,6 +92,9 @@ export const GlobalProvider = ({ children }) => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
+        setGoalisloading(false);
       });
   };
 
@@ -144,6 +155,7 @@ export const GlobalProvider = ({ children }) => {
 
   const getFollowingsData = async (userid) => {
     setFollowings(null);
+    setFollowingsisloading(true);
     try {
       let reqUrl = `${API_URL}/getFollowings/`;
       if (userid != null) {
@@ -159,6 +171,8 @@ export const GlobalProvider = ({ children }) => {
     } catch (error) {
       console.log("hataa: ");
       console.log(error);
+    } finally {
+      setFollowingsisloading(false);
     }
   };
 
@@ -237,7 +251,16 @@ export const GlobalProvider = ({ children }) => {
     setGoals,
     fetchGoals,
     toggleGoalItems,
-    collItem, setCollItem,collDetail, setCollDetail 
+    collItem,
+    setCollItem,
+    collDetail,
+    setCollDetail,
+    Goalisloading,
+    setGoalisloading,
+    followingsisloading,
+    setFollowingsisloading,
+    collectionisloading,
+    setCollectionisloading
   };
 
   return (

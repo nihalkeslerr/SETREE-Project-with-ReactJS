@@ -1335,3 +1335,23 @@ input.crecolBtn {
 } */
 
 
+.loading{
+  display: flex;
+  margin: 50px auto;
+  justify-content: center;
+
+}
+.buttonLoad {
+  display: inline-flex;
+  align-items: center;
+}
+.buttonLoad div:last-child {
+  margin-right: -10px;
+  margin-left: 10px;
+}
+
+.css-e53awj-MuiStack-root{
+      display: flex !important; 
+}
+
+

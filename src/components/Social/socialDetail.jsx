@@ -13,16 +13,15 @@ import { FreeMode, Mousewheel, Navigation } from "swiper";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function SocialDetail() {
   const {
     token,
     ID,
     API_URL,
-    personalID,
-    setPersonalID,
     collections,
-    setCollections,
     user,
     setUser,
     followerObjects,
@@ -30,18 +29,20 @@ function SocialDetail() {
     fetchCollectionsData,
     getFollowersData,
     getFollowingsData,
-    FollowUser,
-    UnfollowUser,
     getRandomColor,
+    collectionisloading,
   } = useContext(GlobalContext);
 
   const dataFetchedRef = useRef(false);
   const location = useLocation();
   const followingId = location.state?.followingId;
   console.log("ID", ID);
+  const [userloading, setUserloading] = useState(true);
+  const [followloading, setFollowloading] = useState(true);
+
   useEffect(() => {
     setUser(null);
-
+    setUserloading(true);
     const fetchUserData = async (userid = null) => {
       try {
         let reqUrl = `${API_URL}/getUser/`;
@@ -61,6 +62,8 @@ function SocialDetail() {
         setUser(response.data.user);
       } catch (error) {
         console.log("hataaaaağğğğ!!!!", error);
+      } finally {
+        setUserloading(false);
       }
     };
 
@@ -82,6 +85,7 @@ function SocialDetail() {
   }, [user]); // user state'i değiştiğinde çalışacak
 
   const toggleFollow = () => {
+    setFollowloading(true);
     axios
       .get(`${API_URL}/follow/${user.id}`, {
         headers: {
@@ -102,6 +106,7 @@ function SocialDetail() {
             };
           });
         } else {
+          setFollowloading(true);
           axios
             .get(`${API_URL}/unfollow/${user.id}`, {
               headers: {
@@ -126,11 +131,17 @@ function SocialDetail() {
             })
             .catch((error) => {
               console.error("Takipten çıkarken bir HATA oluştu.", error);
+            })
+            .finally(() => {
+              setFollowloading(false);
             });
         }
       })
       .catch((error) => {
         console.error("Takip ederken bir HATA oluştu.", error);
+      })
+      .finally(() => {
+        setFollowloading(false);
       });
   };
   /*   useEffect(() => {
@@ -141,6 +152,13 @@ function SocialDetail() {
     <div>
       <div className="DetailContainer">
         <div className="ppDetail myProfile">
+          {userloading && (
+            <div className="loading">
+              <Stack spacing={2} direction="row">
+                <CircularProgress sx={{ color: "#596ed3" }} size={100} />
+              </Stack>
+            </div>
+          )}
           {user && (
             <div>
               <div
@@ -163,15 +181,29 @@ function SocialDetail() {
                   <span>{user.followings.length}</span>Followings
                 </p>
               </div>
-
-              <button
-                className={
-                  user.followers.includes(parseInt(ID)) ? "followed" : "follow"
-                }
-                onClick={toggleFollow}
-              >
-                {user.followers.includes(parseInt(ID)) ? "Following" : "Follow"}
-              </button>
+              <div className="buttonLoad">
+                <div>
+                  <button
+                    className={
+                      user.followers.includes(parseInt(ID))
+                        ? "followed"
+                        : "follow"
+                    }
+                    onClick={toggleFollow}
+                  >
+                    {user.followers.includes(parseInt(ID))
+                      ? "Following"
+                      : "Follow"}
+                  </button>
+                </div>
+                <div className="loading">
+                  {followloading && (
+                    <Stack spacing={2} direction="row">
+                      <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                    </Stack>
+                  )}
+                </div>
+              </div>
             </div>
           )}
           <ToastContainer
@@ -265,6 +297,13 @@ function SocialDetail() {
         <div className="listhead">
           {user && <h1>{user.firstName}'s Collections</h1>}
         </div>
+        {collectionisloading && (
+          <div className="loading">
+            <Stack spacing={2} direction="row">
+              <CircularProgress sx={{ color: "#596ed3" }} size={100} />
+            </Stack>
+          </div>
+        )}
         <div className="cardsForProfile">
           {collections &&
             collections.map((collection, index) => (

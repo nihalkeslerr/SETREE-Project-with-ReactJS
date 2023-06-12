@@ -5,6 +5,8 @@ import plusIcon from "../ASSETS/icons/plusIcon.png";
 import { GlobalContext } from "../Context/GlobalContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Goal() {
   const {
@@ -19,6 +21,7 @@ function Goal() {
     setGoals,
     fetchGoals,
     toggleGoalItems,
+    Goalisloading,
   } = useContext(GlobalContext);
   const dataFetchedRef = useRef(false);
   const [isCreating, setIsCreating] = useState(false);
@@ -28,6 +31,8 @@ function Goal() {
 
   const [checked, setChecked] = useState(false);
   console.log("checked: ", checked);
+  const [createisloading, setCreateisloading] = useState(false);
+
   useEffect(() => {
     if (!dataFetchedRef.current) {
       fetchGoals();
@@ -41,6 +46,7 @@ function Goal() {
 
   const handleCreateGoal = (e) => {
     e.preventDefault();
+    setCreateisloading(true);
     axios
       .post(
         `${API_URL}/createGoal`,
@@ -62,7 +68,10 @@ function Goal() {
       .catch((error) => {
         console.error(error);
         toast.error("Connected Error");
-      });
+      })
+      .finally(() => {
+        setCreateisloading(false);
+      })
     document.getElementsByClassName("titleGoal").value = " ";
   };
 
@@ -207,10 +216,23 @@ function Goal() {
               value="Create"
               onClick={handleCreateGoal}
             />
+            {createisloading && (
+          <Stack spacing={2} direction="row">
+            <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+          </Stack>
+      )}
+      
+       
           </div>
         )}
       </div>
-
+      {Goalisloading && (
+        <div className="loading">
+          <Stack spacing={2} direction="row">
+            <CircularProgress sx={{ color: "#596ed3" }} size={100} />
+          </Stack>
+        </div>
+      )}
       <div className="goal">
         {goals &&
           goals.map((goal, index) => (

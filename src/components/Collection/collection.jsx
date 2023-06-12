@@ -8,6 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import eyeIcon from "../ASSETS/icons/eye.png"
 import heartIcon from "../ASSETS/icons/heart.png"
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,6 +32,7 @@ function Collection() {
     personalID,
     setPersonalID,
     getRandomColor,
+    collectionisloading,
   } = useContext(GlobalContext);
   const imagePreview = document.getElementById("imagePreview");
   const [createCollData, setCreateCollData] = useState({
@@ -40,10 +43,10 @@ function Collection() {
   });
   const preset_key = "dbcxdjud";
   const cloud_name = "dlo8tndg7";
-
   const [imageDataURL, setImageDataURL] = useState(null);
-  const dataFetchedRef = useRef(false);
   const [showCreateCollection, setShowCreateCollection] = useState(false);
+    const [createisloading, setCreateisloading] = useState(false);
+
   useEffect(() => {
     const fetchUserData = async (userid = null) => {
       try {
@@ -127,6 +130,7 @@ function Collection() {
 
   const createCollection = (e) => {
     e.preventDefault();
+     setCreateisloading(true);
     axios
       .post(
         `${API_URL}/createCollection`,
@@ -155,7 +159,10 @@ function Collection() {
       .catch((error) => {
         console.error("Collection oluşturulamadı", error);
         toast.error("Connected Error");
-      });
+      })
+      .finally(() => {
+          setCreateisloading(false);
+      })
   };
 
   const toggleCreateCollection = () => {
@@ -238,10 +245,22 @@ function Collection() {
                 value="Create"
                 className="crecolBtn"
               />
+              {createisloading && (
+          <Stack spacing={2} direction="row">
+            <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+          </Stack>
+      )}
             </div>
           </div>
         )}
       </div>
+              {collectionisloading && (
+          <div className="loading">
+            <Stack spacing={2} direction="row">
+              <CircularProgress sx={{ color: "#596ed3" }} size={80} />
+            </Stack>
+          </div>
+        )}
       <div className="container collection">
         <div className="cards">
           {!showCreateCollection &&

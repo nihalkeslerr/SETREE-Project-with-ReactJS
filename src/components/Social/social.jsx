@@ -10,7 +10,9 @@ import {
 import { GlobalContext } from "../Context/GlobalContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Tag from "../ASSETS/icons/tag.png"
+import Tag from "../ASSETS/icons/tag.png";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Social() {
   const {
@@ -20,6 +22,7 @@ function Social() {
     setUser,
     getFollowingsData,
     followingsObjects,
+    followingsisloading,
   } = useContext(GlobalContext);
   const dataFetchedRef = useRef(false);
 
@@ -27,6 +30,7 @@ function Social() {
     keyword: "",
   });
   const [results, setResults] = useState(null);
+  const [searchIsloading, setSearchIsloading] = useState(false);
 
   useEffect(() => {
     setUser(null);
@@ -74,6 +78,7 @@ function Social() {
       console.log("searchInput query boş");
       return;
     } else {
+      setSearchIsloading(true);
       axios
         .post(`${API_URL}/search`, searchQuery, {
           headers: {
@@ -86,26 +91,20 @@ function Social() {
               `Searching...... for ${searchQuery.keyword} this`,
               response.data.searchResults
             );
-              setResults(response.data.searchResults);
+            setResults(response.data.searchResults);
           }
         })
         .catch((error) => {
           console.error(error);
+        })
+        .finally(() => {
+          setSearchIsloading(false);
         });
     }
   };
 
   console.log("searchQuery", searchQuery);
   console.log(`${searchQuery.keyword} araması için result:`, results);
-
-  /* useEffect(() => {
-  searchInput();
-}, [searchQuery]); */
-
-  /*   useEffect(() => {
-    console.log("Giden searchQuery", searchQuery)
-console.log(`${searchQuery.keyword} araması için result:`, results);
-  }, [results]); */
 
   return (
     <div>
@@ -121,7 +120,13 @@ console.log(`${searchQuery.keyword} araması için result:`, results);
             ></input>
             <button type="submit"></button>
           </div>
-
+          {searchIsloading && (
+            <div className="loading">
+              <Stack spacing={2} direction="row">
+                <CircularProgress sx={{ color: "#596ed3" }} size={80} />
+              </Stack>
+            </div>
+          )}
           <div>
             {results &&
             ((results.tags && results.tags.length > 0) ||
@@ -165,8 +170,7 @@ console.log(`${searchQuery.keyword} araması için result:`, results);
                           <img src={Tag} />
                           <div>
                             <p>{tag.title}</p>
-                            
-                            </div>
+                          </div>
                         </div>
                       </NavLink>
                     </li>
@@ -180,6 +184,13 @@ console.log(`${searchQuery.keyword} araması için result:`, results);
         <div className="listhead">
           <h1>Followings</h1>
         </div>
+        {followingsisloading && (
+          <div className="loading">
+            <Stack spacing={2} direction="row">
+              <CircularProgress sx={{ color: "#596ed3" }} size={80} />
+            </Stack>
+          </div>
+        )}
 
         <div className="profiles">
           {followingsObjects &&

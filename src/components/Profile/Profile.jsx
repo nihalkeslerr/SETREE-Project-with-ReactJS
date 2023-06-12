@@ -3,7 +3,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { GlobalContext } from "../Context/GlobalContext";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ChangePhoto from "./ChangePhoto";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -18,12 +17,13 @@ import {
   Link,
   NavLink,
 } from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Profile() {
   const {
     token,
     API_URL,
-    collections,
     user,
     setUser,
     setCollections,
@@ -33,33 +33,20 @@ function Profile() {
     getFollowersData,
     getFollowingsData,
     getRandomColor,
-    personalID,
-    ID,
     collectionsself,
-    setCollectionself,
+    collectionisloading
   } = useContext(GlobalContext);
 
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleHover = () => {
-    setIsHovered(!isHovered);
-  };
-  const [showChangePopUp, setShowChangePopUp] = useState(false);
-
-
-  const handleOpenChangePopUp = () => {
-    setShowChangePopUp(!showChangePopUp);
-  };
+  const [userloading, setUserloading] = useState(true);
 
   useEffect(() => {
     setCollections(null);
     setUser(null);
   }, []);
 
-  const dataFetchedRef = useRef(false);
-
   useEffect(() => {
     setUser(null);
+        setUserloading(true);
     const fetchUserData = async (userid = null) => {
       try {
         let reqUrl = `${API_URL}/getUser/`;
@@ -78,6 +65,9 @@ function Profile() {
       } catch (error) {
         console.log(error);
       }
+      finally {
+        setUserloading(false);
+      }
     };
     fetchUserData();
   }, []);
@@ -89,16 +79,17 @@ function Profile() {
       getFollowingsData();
     }
   }, [user]); // user state'i değiştiğinde çalışacak
-
-
-
-
   return (
-    <div>  {showChangePopUp && (
-        <ChangePhoto></ChangePhoto>
-      )}
+    <div> 
       <div className="DetailContainer">
         <div className="ppDetail">
+          {userloading && (
+            <div className="loading">
+              <Stack spacing={2} direction="row">
+                <CircularProgress sx={{ color: "#596ed3" }} size={100} />
+              </Stack>
+            </div>
+          )}
           {user && (
             <div>
               <NavLink to="/updateprofile">
@@ -109,27 +100,7 @@ function Profile() {
                 style={{
                   backgroundImage: `url(${user.imageUrl})`,
                 }}
-                onMouseEnter={handleHover}
-                onMouseLeave={handleHover}
               >
-                {isHovered && (
-                  <p
-                    onClick={handleOpenChangePopUp}
-                    style={{
-                      margin: "0",
-                      fontSize: "13px",
-                      background: "#0000005c",
-                      color: "black",
-                      display: "inline-flex",
-                      padding: "33px 0px",
-                      borderRadius: "49px",
-                      textTransform: "uppercase",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Change Profile Photo
-                  </p>
-                )}
               </div>
 
               <label className="name">
@@ -230,6 +201,13 @@ function Profile() {
       <div className="listhead">
         <h1>Your Collections</h1>
       </div>
+      {collectionisloading && (
+          <div className="loading">
+            <Stack spacing={2} direction="row">
+              <CircularProgress sx={{ color: "#596ed3" }} size={100} />
+            </Stack>
+          </div>
+        )}
       <div className="cardsForProfile">
         {collectionsself &&
           collectionsself.map((collection, index) => (

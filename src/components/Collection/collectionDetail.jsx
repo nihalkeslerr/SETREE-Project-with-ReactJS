@@ -5,6 +5,8 @@ import axios from "axios";
 import image from "../ASSETS/icons/image.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 function CollectionDetail() {
   const {
     token,
@@ -28,6 +30,10 @@ function CollectionDetail() {
   const [createTextPart, setCreateTextPart] = useState(null);
   const [createImagePart, setCreateImagePart] = useState(null);
 
+  const [itemIsloading, setItemIsloading] = useState(true);
+  const [collItemIsloading, setCollItemIsloading] = useState(true);
+  const [createisloading, setCreateisloading] = useState(true);
+
   const preset_key = "dbcxdjud";
   const cloud_name = "dlo8tndg7";
 
@@ -38,7 +44,9 @@ function CollectionDetail() {
   });
 
   const fetchCollectionDetail = async () => {
+    setCollDetail([]);
     try {
+      setCollItemIsloading(true);
       const reqUrl = `${API_URL}/getCollectionDetail/${collectionID}`;
 
       const response = await axios.get(reqUrl, {
@@ -51,11 +59,15 @@ function CollectionDetail() {
       console.log("collDetail", response.data.collections);
     } catch (error) {
       console.log(error);
+    } finally {
+      setCollItemIsloading(false);
     }
   };
 
   const fetchItemsByCollection = async () => {
+    setCollItem([]);
     try {
+      setItemIsloading(true);
       const reqUrl = `${API_URL}/getItemsByCollection/${collectionID}`;
 
       const response = await axios.get(reqUrl, {
@@ -70,6 +82,8 @@ function CollectionDetail() {
       );
     } catch (error) {
       console.log(error);
+    } finally {
+      setItemIsloading(false);
     }
   };
 
@@ -86,7 +100,7 @@ function CollectionDetail() {
     e.preventDefault();
     setCreateItem({ ...createItem, type: "title" });
     console.log("createItem", createItem);
-
+    setCreateisloading(true);
     axios
       .post(`${API_URL}/createCollectionItem`, createItem, {
         headers: {
@@ -111,6 +125,9 @@ function CollectionDetail() {
       .catch((error) => {
         console.error(error);
         toast.error("Connected Error");
+      })
+      .finally(() => {
+        setCreateisloading(false);
       });
   };
 
@@ -118,7 +135,7 @@ function CollectionDetail() {
     e.preventDefault();
     setCreateItem({ ...createItem, type: "text" });
     console.log("createItem", createItem);
-
+    setCreateisloading(true);
     axios
       .post(`${API_URL}/createCollectionItem`, createItem, {
         headers: {
@@ -143,6 +160,9 @@ function CollectionDetail() {
       .catch((error) => {
         console.error(error);
         toast.error("Connected Error");
+      })
+      .finally(() => {
+        setCreateisloading(false);
       });
   };
   const handleImage = (e) => {
@@ -150,6 +170,7 @@ function CollectionDetail() {
     setCreateItem({ ...createItem, type: "image" });
     console.log("createItem", createItem);
     setCreateItem({ ...createItem, content: imageDataURL });
+    setCreateisloading(true);
     axios
       .post(`${API_URL}/createCollectionItem`, createItem, {
         headers: {
@@ -174,6 +195,9 @@ function CollectionDetail() {
       .catch((error) => {
         console.error(error);
         toast.error("Connected Error");
+      })
+      .finally(() => {
+        setCreateisloading(false);
       });
   };
 
@@ -276,6 +300,13 @@ function CollectionDetail() {
             <div className="collectionHead">
               <p> {collDetail.title}</p>
               <p className="tag">Tag: {collDetail.tag}</p>
+              {collItemIsloading && (
+                <div className="loading">
+                  <Stack spacing={2} direction="row">
+                    <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                  </Stack>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -301,7 +332,7 @@ function CollectionDetail() {
 
           <div className="CreatingItem">
             {createTitlePart && (
-              <div>
+              <div className="import">
                 <label htmlFor="TitleCollecITem"></label>
                 <input
                   className="titleGoal TitleCollecITem"
@@ -316,10 +347,15 @@ function CollectionDetail() {
                   value="Create"
                   onClick={handleTitle}
                 />
+                {createisloading && (
+                  <Stack spacing={2} direction="row">
+                    <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                  </Stack>
+                )}
               </div>
             )}
             {createTextPart && (
-              <div>
+              <div className="importText">
                 <textarea
                   className=" textareColl"
                   onChange={onChangeTitle}
@@ -333,6 +369,11 @@ function CollectionDetail() {
                   value="Create"
                   onClick={handleText}
                 />
+                {createisloading && (
+                  <Stack spacing={2} direction="row">
+                    <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                  </Stack>
+                )}
               </div>
             )}
 
@@ -363,11 +404,23 @@ function CollectionDetail() {
                   value="Create"
                   onClick={handleImage}
                 />
+                                  {createisloading && (
+                    <Stack spacing={2} direction="row">
+                      <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                    </Stack>
+                  )}
               </div>
             )}
           </div>
 
           <div>
+            {itemIsloading && (
+              <div className="loading">
+                <Stack spacing={2} direction="row">
+                  <CircularProgress sx={{ color: "#596ed3" }} size={100} />
+                </Stack>
+              </div>
+            )}
             {collItem.map((item) => {
               if (item.type === "image") {
                 return (

@@ -38,7 +38,7 @@ function SocialDetail() {
   const followingId = location.state?.followingId;
   console.log("ID", ID);
   const [userloading, setUserloading] = useState(true);
-  const [followloading, setFollowloading] = useState(true);
+  const [followloading, setFollowloading] = useState(false);
 
   useEffect(() => {
     setUser(null);

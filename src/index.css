@@ -880,9 +880,19 @@ p.tag {
 }
 .CreatingItem div {
   width: 100%;
+
+}
+.CreatingItem div.import {
+  display: flex;
+  align-items: center;
+
 }
 input.imageFile {
   width: 300px !important;
+}
+.importText {
+  display: flex;
+  align-items: flex-end;
 }
 textarea.textareColl {
   border: none;

@@ -15,6 +15,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
+import eyeIcon from "../ASSETS/icons/eye.png";
+import heartIcon from "../ASSETS/icons/heart.png";
 
 function SocialDetail() {
   const {
@@ -181,29 +183,31 @@ function SocialDetail() {
                   <span>{user.followings.length}</span>Followings
                 </p>
               </div>
-              <div className="buttonLoad">
-                <div>
-                  <button
-                    className={
-                      user.followers.includes(parseInt(ID))
-                        ? "followed"
-                        : "follow"
-                    }
-                    onClick={toggleFollow}
-                  >
-                    {user.followers.includes(parseInt(ID))
-                      ? "Following"
-                      : "Follow"}
-                  </button>
+              {!(user.id == ID) && (
+                <div className="buttonLoad">
+                  <div>
+                    <button
+                      className={
+                        user.followers.includes(parseInt(ID))
+                          ? "followed"
+                          : "follow"
+                      }
+                      onClick={toggleFollow}
+                    >
+                      {user.followers.includes(parseInt(ID))
+                        ? "Following"
+                        : "Follow"}
+                    </button>
+                  </div>
+                  <div className="loading">
+                    {followloading && (
+                      <Stack spacing={2} direction="row">
+                        <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                      </Stack>
+                    )}
+                  </div>
                 </div>
-                <div className="loading">
-                  {followloading && (
-                    <Stack spacing={2} direction="row">
-                      <CircularProgress sx={{ color: "#596ed3" }} size={20} />
-                    </Stack>
-                  )}
-                </div>
-              </div>
+              )}
             </div>
           )}
           <ToastContainer
@@ -239,7 +243,7 @@ function SocialDetail() {
                     <SwiperSlide key={follower.id}>
                       <NavLink
                         to={{
-                          pathname: "/SocialDetail",
+                          pathname: (follower.id == ID) ? "/profile" : "/SocialDetail",
                           state: { followingId: follower.id },
                         }}
                       >
@@ -307,28 +311,51 @@ function SocialDetail() {
         <div className="cardsForProfile">
           {collections &&
             collections.map((collection, index) => (
-              <a href="#" key={collection.id}>
+              <NavLink
+                to={{
+                  pathname: "/collectionDetail",
+                  state: { collectionID: collection.id },
+                }}
+                key={collection.id}
+              >
                 {" "}
                 <div
-                  className="ppDetailCard"
+                  className="cardContainerDetail"
                   style={{
-                    background: `url(${collection.imageUrl})`,
-                    backgroundSize: "501px",
-                    backgroundPosition: "59% 20%",
-                    boxShadow: `9px 9px ${getRandomColor(index)}`,
+                    backgroundColor: `${getRandomColor(index)}`,
                   }}
                 >
                   <div
-                    className="count"
-                    style={{ backgroundColor: "rgb(255 202 166)" }}
+                    className="ppDetailCard"
+                    style={{
+                      background: `url(${collection.imageUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "59% 20%",
+                      backgroundRepeat: "no-repeat",
+                    }}
                   >
-                    <label>{collection.itemCount}</label>
+                    <div
+                      className="count"
+                      style={{
+                        backgroundColor: `${getRandomColor(index)}`,
+                      }}
+                    >
+                      <label>{collection.itemCount}</label>
+                    </div>
+                    <div className="label" style={{ marginTop: "100px" }}>
+                      <label>{collection.title}</label>
+                    </div>
                   </div>
-                  <div className="label" style={{ marginTop: "100px" }}>
-                    <label>{collection.title}</label>
+                  <div className="CollIcon">
+                    <img src={heartIcon} alt="" />
+                    <span style={{ marginRight: "15px" }}>
+                      {collection.likeCount}
+                    </span>
+                    <img src={eyeIcon} alt="" />
+                    <span>{collection.viewCount}</span>
                   </div>
                 </div>
-              </a>
+              </NavLink>
             ))}
         </div>
       </div>

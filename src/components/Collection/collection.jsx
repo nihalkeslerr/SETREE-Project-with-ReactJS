@@ -6,8 +6,8 @@ import { GlobalContext } from "../Context/GlobalContext";
 import plusIcon from "../ASSETS/icons/plusIcon.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import eyeIcon from "../ASSETS/icons/eye.png"
-import heartIcon from "../ASSETS/icons/heart.png"
+import eyeIcon from "../ASSETS/icons/eye.png";
+import heartIcon from "../ASSETS/icons/heart.png";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 import {
@@ -45,7 +45,7 @@ function Collection() {
   const cloud_name = "dlo8tndg7";
   const [imageDataURL, setImageDataURL] = useState(null);
   const [showCreateCollection, setShowCreateCollection] = useState(false);
-    const [createisloading, setCreateisloading] = useState(false);
+  const [createisloading, setCreateisloading] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async (userid = null) => {
@@ -130,7 +130,7 @@ function Collection() {
 
   const createCollection = (e) => {
     e.preventDefault();
-     setCreateisloading(true);
+    setCreateisloading(true);
     axios
       .post(
         `${API_URL}/createCollection`,
@@ -161,8 +161,8 @@ function Collection() {
         toast.error("Connected Error");
       })
       .finally(() => {
-          setCreateisloading(false);
-      })
+        setCreateisloading(false);
+      });
   };
 
   const toggleCreateCollection = () => {
@@ -246,21 +246,21 @@ function Collection() {
                 className="crecolBtn"
               />
               {createisloading && (
-          <Stack spacing={2} direction="row">
-            <CircularProgress sx={{ color: "#596ed3" }} size={20} />
-          </Stack>
-      )}
+                <Stack spacing={2} direction="row">
+                  <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                </Stack>
+              )}
             </div>
           </div>
         )}
       </div>
-              {collectionisloading && (
-          <div className="loading">
-            <Stack spacing={2} direction="row">
-              <CircularProgress sx={{ color: "#596ed3" }} size={80} />
-            </Stack>
-          </div>
-        )}
+      {collectionisloading && (
+        <div className="loading">
+          <Stack spacing={2} direction="row">
+            <CircularProgress sx={{ color: "#596ed3" }} size={80} />
+          </Stack>
+        </div>
+      )}
       <div className="container collection">
         <div className="cards">
           {!showCreateCollection &&
@@ -273,38 +273,42 @@ function Collection() {
                 }}
                 key={collection.id}
               >
-               <div className="cardContainer" style={{
-                  backgroundColor: `${getRandomColor(index)}`,
-                }}>
-                   <div
-                  className="card health"
+                <div
+                  className="cardContainer"
                   style={{
-                    background: `url(${collection.imageUrl})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "59% 20%",
-                    backgroundRepeat: "no-repeat",
+                    backgroundColor: `${getRandomColor(index)}`,
                   }}
-                > 
+                >
                   <div
-                    className="count"
+                    className="card health"
                     style={{
-                  backgroundColor: `${getRandomColor(index)}`,
-                }}
+                      background: `url(${collection.imageUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "59% 20%",
+                      backgroundRepeat: "no-repeat",
+                    }}
                   >
-                    <label >{collection.itemCount}</label>
-                  </div>
-                  <div className="label ">
-                    <label>{collection.title}</label>
-                  </div>
+                    <div
+                      className="count"
+                      style={{
+                        backgroundColor: `${getRandomColor(index)}`,
+                      }}
+                    >
+                      <label>{collection.itemCount}</label>
+                    </div>
+                    <div className="label ">
+                      <label>{collection.title}</label>
+                    </div>
                   </div>
                   <div className="CollIcon">
                     <img src={heartIcon} alt="" />
-                    <span style={{marginRight:"15px"}}>{collection.likeCount }</span>
+                    <span style={{ marginRight: "15px" }}>
+                      {collection.likeCount}
+                    </span>
                     <img src={eyeIcon} alt="" />
-                     <span>{collection.viewCount }</span>
+                    <span>{collection.viewCount}</span>
                   </div>
-
-               </div>
+                </div>
               </NavLink>
             ))}
         </div>

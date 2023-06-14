@@ -7,11 +7,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
+import heartIcon from "../ASSETS/icons/heart.png";
+import heartColorIcon from "../ASSETS/icons/heartColor.png";
 function CollectionDetail() {
   const {
     token,
     ID,
     API_URL,
+    user,
+    setUser,
     personalID,
     setPersonalID,
     collItem,
@@ -23,7 +27,6 @@ function CollectionDetail() {
   const location = useLocation();
   const collectionID = location.state?.collectionID;
 
-  const [titleItem, setTitleItem] = useState(null);
   const [imageDataURL, setImageDataURL] = useState(null);
 
   const [createTitlePart, setCreateTitlePart] = useState(null);
@@ -32,16 +35,25 @@ function CollectionDetail() {
 
   const [itemIsloading, setItemIsloading] = useState(true);
   const [collItemIsloading, setCollItemIsloading] = useState(true);
-  const [createisloading, setCreateisloading] = useState(true);
-
-  const preset_key = "dbcxdjud";
+  const [createisloading, setCreateisloading] = useState(false);
+  const [likeloading, setLikeloading] = useState(false);
   const cloud_name = "dlo8tndg7";
-
+  const [myData, setMyData] = useState(null);
   const [createItem, setCreateItem] = useState({
     content: "",
     type: "",
     collectionId: collectionID,
   });
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
 
   const fetchCollectionDetail = async () => {
     setCollDetail([]);
@@ -289,6 +301,112 @@ function CollectionDetail() {
     }
   };
 
+  useEffect(() => {
+    setMyData(null);
+    const fetchMyData = async () => {
+      try {
+        let reqUrl = `${API_URL}/getUser/`;
+        const response = await axios.get(reqUrl, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(response.data.user);
+        setMyData(response.data.user);
+        console.log("myData:", myData);
+        
+      } catch (error) {
+        console.log(error);
+      } 
+    };
+    fetchMyData();
+  }, []);
+
+  useEffect(() => {
+    console.log("myData:", myData);
+  })
+
+  const toggleLikeCollection = () => {
+      // Update the local state immediately
+  setMyData((prevUser) => {
+    if (prevUser.likedCollections.includes(collDetail.id)) {
+      // If the collection is already liked, remove it
+      return {
+        ...prevUser,
+        likedCollections: prevUser.likedCollections.filter(
+          (likeCollId) => likeCollId !== collDetail.id
+        ),
+      };
+    } else {
+      // If the collection is not liked, add it
+      return {
+        ...prevUser,
+        likedCollections: [...prevUser.likedCollections, collDetail.id],
+      };
+    }
+  });
+    
+    setLikeloading(true);
+    axios
+      .get(`${API_URL}/likeACollection/${collDetail.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("LIKE Cevabı Geldi.", response);
+        const succeeded = response.data.succeeded;
+        console.log("succeeded:", succeeded);
+        
+        if (succeeded === true) {
+          console.log("LIKE isteği başarılı");
+          toast.info("Liked!");
+          setMyData((prevUser) => {
+            return {
+              ...prevUser,
+              likedCollections: [...prevUser.likedCollections, parseInt(ID)],
+            };
+          });
+        } else {
+          setLikeloading(true);
+          axios
+            .get(`${API_URL}/dislikeACollection/${collDetail.id}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((response) => {
+              toast.info("Disliked!");
+              console.log("DISLIKED Cevabı Geldi.", response);
+              console.log(
+                "succeeded status for DISLIKED:",
+                response.data.succeeded
+              );
+              setMyData((prevUser) => {
+                return {
+                  ...prevUser,
+                  likedCollections: prevUser.likedCollections.filter(
+                    (likeCollId) => likeCollId !== parseInt(ID)
+                  ),
+                };
+              });
+            })
+            .catch((error) => {
+              console.error("Dislike olurken bir HATA oluştu.", error);
+            })
+            .finally(() => {
+              setLikeloading(false);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error("Takip ederken bir HATA oluştu.", error);
+      })
+      .finally(() => {
+        setLikeloading(false);
+      });
+  };
+
   return (
     <div>
       <div className="collectionContainer">
@@ -298,8 +416,23 @@ function CollectionDetail() {
         >
           <div className="bgOpacity">
             <div className="collectionHead">
+              <div className="likeBtn">
+                <button
+                  onClick={toggleLikeCollection}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <img src={myData && (
+                    myData.likedCollections.includes(collDetail.id)
+                      ? heartColorIcon
+                      : heartIcon
+                  )
+                    } alt="" />
+                </button>
+                
+              </div>
               <p> {collDetail.title}</p>
-              <p className="tag">Tag: {collDetail.tag}</p>
+              <p className="tag"># {collDetail.tag}</p>
               {collItemIsloading && (
                 <div className="loading">
                   <Stack spacing={2} direction="row">
@@ -312,7 +445,8 @@ function CollectionDetail() {
         </div>
 
         <div className="CollExplanation">
-          <div className="itemBtn">
+          {collDetail.userId == ID && (
+            <div className="itemBtn">
             <button
               className="titleBtn"
               type="button"
@@ -329,6 +463,8 @@ function CollectionDetail() {
               onClick={toggleImage}
             ></button>
           </div>
+       )}
+          
 
           <div className="CreatingItem">
             {createTitlePart && (
@@ -404,11 +540,11 @@ function CollectionDetail() {
                   value="Create"
                   onClick={handleImage}
                 />
-                                  {createisloading && (
-                    <Stack spacing={2} direction="row">
-                      <CircularProgress sx={{ color: "#596ed3" }} size={20} />
-                    </Stack>
-                  )}
+                {createisloading && (
+                  <Stack spacing={2} direction="row">
+                    <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                  </Stack>
+                )}
               </div>
             )}
           </div>

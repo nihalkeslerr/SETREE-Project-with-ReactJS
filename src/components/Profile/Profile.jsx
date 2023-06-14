@@ -19,6 +19,8 @@ import {
 } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
+import eyeIcon from "../ASSETS/icons/eye.png";
+import heartIcon from "../ASSETS/icons/heart.png";
 
 function Profile() {
   const {
@@ -34,7 +36,7 @@ function Profile() {
     getFollowingsData,
     getRandomColor,
     collectionsself,
-    collectionisloading
+    collectionisloading,
   } = useContext(GlobalContext);
 
   const [userloading, setUserloading] = useState(true);
@@ -46,7 +48,7 @@ function Profile() {
 
   useEffect(() => {
     setUser(null);
-        setUserloading(true);
+    setUserloading(true);
     const fetchUserData = async (userid = null) => {
       try {
         let reqUrl = `${API_URL}/getUser/`;
@@ -64,8 +66,7 @@ function Profile() {
         setUser(response.data.user);
       } catch (error) {
         console.log(error);
-      }
-      finally {
+      } finally {
         setUserloading(false);
       }
     };
@@ -80,7 +81,7 @@ function Profile() {
     }
   }, [user]); // user state'i değiştiğinde çalışacak
   return (
-    <div> 
+    <div>
       <div className="DetailContainer">
         <div className="ppDetail">
           {userloading && (
@@ -100,8 +101,7 @@ function Profile() {
                 style={{
                   backgroundImage: `url(${user.imageUrl})`,
                 }}
-              >
-              </div>
+              ></div>
 
               <label className="name">
                 {user.firstName} {user.lastName}
@@ -121,11 +121,9 @@ function Profile() {
           )}
         </div>
       </div>
-    
+
       <div className="FollowInfo">
-
         <div className="followhead">
-
           <h1>Followers</h1>
 
           <div className="followers">
@@ -202,37 +200,60 @@ function Profile() {
         <h1>Your Collections</h1>
       </div>
       {collectionisloading && (
-          <div className="loading">
-            <Stack spacing={2} direction="row">
-              <CircularProgress sx={{ color: "#596ed3" }} size={100} />
-            </Stack>
-          </div>
-        )}
+        <div className="loading">
+          <Stack spacing={2} direction="row">
+            <CircularProgress sx={{ color: "#596ed3" }} size={100} />
+          </Stack>
+        </div>
+      )}
       <div className="cardsForProfile">
         {collectionsself &&
           collectionsself.map((collection, index) => (
-            <a href="#" key={collection.id}>
-              {" "}
+            <NavLink
+              to={{
+                pathname: "/collectionDetail",
+                state: { collectionID: collection.id },
+              }}
+              key={collection.id}
+            >
               <div
-                className="ppDetailCard health"
+                className="cardContainerDetail"
                 style={{
-                  background: `url(${collection.imageUrl})`,
-                  backgroundSize: "501px",
-                  backgroundPosition: "59% 20%",
-                  boxShadow: `9px 9px ${getRandomColor(index)}`,
+                  backgroundColor: `${getRandomColor(index)}`,
                 }}
               >
+                {" "}
                 <div
-                  className="count"
-                  style={{ backgroundColor: "rgb(255 202 166)" }}
+                  className="ppDetailCard health"
+                  style={{
+                    background: `url(${collection.imageUrl})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "59% 20%",
+                    backgroundRepeat: "no-repeat",
+                  }}
                 >
-                  <label>{collection.itemCount}</label>
+                  <div
+                    className="count"
+                    style={{
+                      backgroundColor: `${getRandomColor(index)}`,
+                    }}
+                  >
+                    <label>{collection.itemCount}</label>
+                  </div>
+                  <div className="label" style={{ marginTop: "100px" }}>
+                    <label>{collection.title}</label>
+                  </div>
                 </div>
-                <div className="label" style={{ marginTop: "100px" }}>
-                  <label>{collection.title}</label>
+                <div className="CollIcon">
+                  <img src={heartIcon} alt="" />
+                  <span style={{ marginRight: "15px" }}>
+                    {collection.likeCount}
+                  </span>
+                  <img src={eyeIcon} alt="" />
+                  <span>{collection.viewCount}</span>
                 </div>
               </div>
-            </a>
+            </NavLink>
           ))}
       </div>
     </div>

@@ -1381,3 +1381,8 @@ input.crecolBtn {
 .likeBtn button img {
   width: 40px;
 }
+.ContainerWheel {
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-start;
+}

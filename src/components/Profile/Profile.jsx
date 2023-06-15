@@ -21,6 +21,7 @@ import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 import eyeIcon from "../ASSETS/icons/eye.png";
 import heartIcon from "../ASSETS/icons/heart.png";
+import heartColorIcon from "../ASSETS/icons/heartColor.png";
 
 function Profile() {
   const {
@@ -39,8 +40,54 @@ function Profile() {
     collectionisloading,
   } = useContext(GlobalContext);
 
+  const [openFav, setopenFav] = useState(false);
   const [userloading, setUserloading] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [favCollections, setFavCollections] = useState(null);
+  const [favColloading,setFavColloading] =  useState(false);
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
 
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+  const OpenFavs = () => {
+    setopenFav((prev) => !prev);
+   
+    
+  };
+
+ useEffect(() => {
+   console.log("favCollections:", favCollections);
+ }, [favCollections]);
+  
+  useEffect(() => {
+     setFavColloading(true);
+   axios
+      .get(`${API_URL}/getLikedCollections/${user.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.success === true) {
+          console.log(
+            "Liked Collections:---------------------- ",
+            response.data
+          );
+          setFavCollections(response.data.collections);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setFavColloading(false);
+      });
+ }, []);
+  
+  
   useEffect(() => {
     setCollections(null);
     setUser(null);
@@ -197,7 +244,16 @@ function Profile() {
       </div>
 
       <div className="listhead">
-        <h1>Your Collections</h1>
+        
+        <h1>{openFav ? "Favorites" : "Your Collections"} /</h1>
+        <button
+          onClick={OpenFavs}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <p>{!openFav ? "Favorites" : "My Collections"}</p>
+          <img src={isHovered ? heartIcon : heartColorIcon} alt="" />
+        </button>
       </div>
       {collectionisloading && (
         <div className="loading">
@@ -206,56 +262,97 @@ function Profile() {
           </Stack>
         </div>
       )}
-      <div className="cardsForProfile">
-        {collectionsself &&
-          collectionsself.map((collection, index) => (
-            <NavLink
-              to={{
-                pathname: "/collectionDetail",
-                state: { collectionID: collection.id },
-              }}
-              key={collection.id}
-            >
-              <div
-                className="cardContainerDetail"
-                style={{
-                  backgroundColor: `${getRandomColor(index)}`,
+
+      {openFav && (
+        <div className="cardsForProfile">
+          {favCollections &&
+            favCollections.map((collection, index) => (
+              <NavLink
+                to={{
+                  pathname: "/collectionDetail",
+                  state: { collectionID: collection.id },
                 }}
+                key={collection.id}
               >
-                {" "}
                 <div
-                  className="ppDetailCard health"
+                  className="cardContainerDetail"
                   style={{
-                    background: `url(${collection.imageUrl})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "59% 20%",
-                    backgroundRepeat: "no-repeat",
+                    backgroundColor: `${getRandomColor(index)}`,
                   }}
                 >
+                  {" "}
                   <div
-                    className="count"
+                    className="ppDetailCard health"
                     style={{
-                      backgroundColor: `${getRandomColor(index)}`,
+                      background: `url(${collection.imageUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "59% 20%",
+                      backgroundRepeat: "no-repeat",
                     }}
                   >
-                    <label>{collection.itemCount}</label>
+                    
+                    <div className="label" style={{ marginTop: "150px" }}>
+                      <label>{collection.title}</label>
+                    </div>
                   </div>
-                  <div className="label" style={{ marginTop: "100px" }}>
-                    <label>{collection.title}</label>
+                  <div className="CollIcon">
+                    <img src={heartIcon} alt="" />
+                    <span style={{ marginRight: "15px" }}>
+                      {collection.likeCount}
+                    </span>
+                    <img src={eyeIcon} alt="" />
+                    <span>{collection.viewCount}</span>
                   </div>
                 </div>
-                <div className="CollIcon">
-                  <img src={heartIcon} alt="" />
-                  <span style={{ marginRight: "15px" }}>
-                    {collection.likeCount}
-                  </span>
-                  <img src={eyeIcon} alt="" />
-                  <span>{collection.viewCount}</span>
+              </NavLink>
+            ))}
+        </div>
+      )}
+
+      {!openFav && (
+        <div className="cardsForProfile">
+          {collectionsself &&
+            collectionsself.map((collection, index) => (
+              <NavLink
+                to={{
+                  pathname: "/collectionDetail",
+                  state: { collectionID: collection.id },
+                }}
+                key={collection.id}
+              >
+                <div
+                  className="cardContainerDetail"
+                  style={{
+                    backgroundColor: `${getRandomColor(index)}`,
+                  }}
+                >
+                  {" "}
+                  <div
+                    className="ppDetailCard health"
+                    style={{
+                      background: `url(${collection.imageUrl})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "59% 20%",
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  >
+                    <div className="label" style={{ marginTop: "150px" }}>
+                      <label>{collection.title}</label>
+                    </div>
+                  </div>
+                  <div className="CollIcon">
+                    <img src={heartIcon} alt="" />
+                    <span style={{ marginRight: "15px" }}>
+                      {collection.likeCount}
+                    </span>
+                    <img src={eyeIcon} alt="" />
+                    <span>{collection.viewCount}</span>
+                  </div>
                 </div>
-              </div>
-            </NavLink>
-          ))}
-      </div>
+              </NavLink>
+            ))}
+        </div>
+      )}
     </div>
   );
 }

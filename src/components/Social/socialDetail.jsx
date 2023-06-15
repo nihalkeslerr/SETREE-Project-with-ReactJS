@@ -334,14 +334,6 @@ function SocialDetail() {
                       backgroundRepeat: "no-repeat",
                     }}
                   >
-                    <div
-                      className="count"
-                      style={{
-                        backgroundColor: `${getRandomColor(index)}`,
-                      }}
-                    >
-                      <label>{collection.itemCount}</label>
-                    </div>
                     <div className="label" style={{ marginTop: "100px" }}>
                       <label>{collection.title}</label>
                     </div>

@@ -316,8 +316,36 @@ div.count {
   color: #5e6ba8;
   font-size: 25px;
   margin-top: 35px;
+      margin-bottom: 35px;
   text-transform: uppercase;
   text-shadow: 1px 2px 2px #a3a9c4;
+}
+.listhead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.listhead button {
+    display: flex;
+      transition: all 0.3s ease 0s;
+      align-items: center;
+      background: bottom;
+      border: none;
+      color: #fd8f6e;
+      margin-left: 14px;
+      padding: 5px 15px;
+      border-radius: 4px;
+      box-shadow: 0px 0px 5px #fd8f6e;
+      cursor: pointer;
+}
+.listhead button:hover {
+  background: #fd8f6e;
+    transition: all 0.3s ease 0s;
+  color: white;
+}
+.listhead button p {
+    margin: 0 2px;
+    cursor: pointer;
 }
 .followhead {
   width: 50%;
@@ -347,6 +375,10 @@ ul.results p {
 }
 .searchTag img {
   width: 45px;
+}
+.searchTag p:last-child {
+  color: #979797;
+  font-size: 12px;
 }
 .searchInfo {
   margin-left: 15px;

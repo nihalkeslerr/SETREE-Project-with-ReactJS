@@ -204,7 +204,7 @@ function UpdateProfle() {
       )
       .then((response) => {
         console.log(response);
-        setImageDataURL(response.data.url);
+        setImageDataURL(response.data.secure_url);
         console.log("ImageDataURL:", imageDataURL);
       })
       .catch((err) => console.log(err));

@@ -5,7 +5,11 @@ function Wheel() {
     const {
     token,
         API_URL,
-    getColor
+      getColor,
+    goals,
+    setGoals,
+    fetchGoals,
+    toggleGoalItems,
     } = useContext(GlobalContext);
     
   const segments = [

@@ -288,14 +288,6 @@ function Collection() {
                       backgroundRepeat: "no-repeat",
                     }}
                   >
-                    <div
-                      className="count"
-                      style={{
-                        backgroundColor: `${getRandomColor(index)}`,
-                      }}
-                    >
-                      <label>{collection.itemCount}</label>
-                    </div>
                     <div className="label ">
                       <label>{collection.title}</label>
                     </div>

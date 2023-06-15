@@ -170,6 +170,9 @@ function Social() {
                           <img src={Tag} />
                           <div>
                             <p>{tag.title}</p>
+                             <p>
+                            <span>{tag.collectionIdsCount}</span> Collections
+                          </p>
                           </div>
                         </div>
                       </NavLink>

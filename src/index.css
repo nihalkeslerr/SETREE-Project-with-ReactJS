@@ -999,6 +999,9 @@ label.labelText.nameColl {
   display: flex;
   text-align: center;
 }
+.wheel-container {
+  font-size: 24px;
+}
 .UploadImage {
   /*   display: flex;
   align-items: center;

@@ -1,43 +1,125 @@
-import React, { Component,useContext } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import WheelComponent from "react-wheel-of-prizes";
 import { GlobalContext } from "../Context/GlobalContext";
+
 function Wheel() {
-    const {
-    token,
-        API_URL,
-      getColor,
-    goals,
-    setGoals,
-    fetchGoals,
-    toggleGoalItems,
-    } = useContext(GlobalContext);
-    
-  const segments = [
-    "better luck next time",
-    "won 70",
-    "won 10",
-    "better luck next time",
-    "won 2",
-    "won uber pass",
-    "better luck next time",
-    "won a voucher",
-  ];
+  const { goals, fetchGoals } = useContext(GlobalContext);
+
+  const [selectedTitle, setSelectedTitle] = useState("");
+  const [filteredContent, setFilteredContent] = useState([]);
+  const [winningSegment, setWinningSegment] = useState("");
+
   const segColors = [
     "#FFCFC0",
     "#BDDFFF",
-      "#BCFFBF",
-        "#ffb299",
+    "#BCFFBF",
+    "#ffb299",
     "#a7d1f9",
     "#C9C0FF",
-      "#FFBDF8",
-        "#91d5e2",
+    "#FFBDF8",
+    "#91d5e2",
     "#8ad4a2",
     "#c9c1fa",
     "#efb8e9",
   ];
+  const content = [
+    "Do homework",
+    "Clean the house",
+    "Drink water",
+    "Cook dinner",
+    "Go to dentist",
+  ];
+  const dataFetchedRef = useRef(false);
+
   const onFinished = (winner) => {
     console.log(winner);
   };
+
+  useEffect(() => {
+    if (!dataFetchedRef.current) {
+      fetchGoals();
+      dataFetchedRef.current = true;
+    }
+  }, []);
+
+  useEffect(() => {
+    filterContent(selectedTitle);
+  }, [selectedTitle, goals]);
+
+  useEffect(() => {
+    console.log("filteredContent:", filteredContent);
+    if (filteredContent.length > 0) {
+      const randomIndex = Math.floor(Math.random() * filteredContent.length);
+      const winningSegment = filteredContent[randomIndex];
+      setWinningSegment(winningSegment);
+    }
+  }, [filteredContent]);
+
+  const handleTitleChange = (event) => {
+    const selectedTitle = event.target.value;
+    setSelectedTitle(selectedTitle);
+  };
+
+  const filterContent = (selectedTitle) => {
+    if (selectedTitle) {
+      const goal = goals.find((goal) => goal.title === selectedTitle);
+      if (goal) {
+        setFilteredContent(goal.goalItems.map((item) => item.content));
+        return;
+      }
+    }
+    setFilteredContent([]);
+  };
+
+  const LoadWheel = () => {
+    filterContent(selectedTitle);
+    setSelectedTitle(""); // Clear the selected title
+  };
+
+  const WheelWrapper = () => {
+    if (filteredContent.length > 1) {
+      return (
+        <div className="wheel-container">
+          <WheelComponent
+            segments={filteredContent}
+            segColors={segColors}
+            winningSegment={winningSegment}
+            onFinished={(winner) => onFinished(winner)}
+            primaryColor="#b7b7b7"
+            contrastColor="white"
+            buttonText="Spin"
+            isOnlyOnce={false}
+            size={290}
+            upDuration={200}
+            downDuration={1200}
+            fontFamily="Abel, sans-serif"
+            textFontSize={100}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="wheel-container">
+          <WheelComponent
+            segments={content}
+            segColors={segColors}
+            winningSegment={winningSegment}
+            onFinished={(winner) => onFinished(winner)}
+            primaryColor="#b7b7b7"
+            contrastColor="white"
+            buttonText="Spin"
+            isOnlyOnce={false}
+            size={290}
+            upDuration={200}
+            downDuration={1200}
+            fontFamily="Abel, sans-serif"
+            textFontSize={100}
+          />
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="ContainerWheel">
       <div className="table">
@@ -48,31 +130,27 @@ function Wheel() {
           </p>
         </div>
         <div className="articles">
+          <select value={selectedTitle} onChange={handleTitleChange}>
+            <option value="">Choose a Goal Title</option>
+            {goals.map((goal) => (
+              <option key={goal.id} value={goal.title}>
+                {goal.title}
+              </option>
+            ))}
+          </select>
           <ul>
-            <li> Go stay in Poland for at least 2 weeks</li>
-            <li> Join a workshop as a part of a team</li>
-            <li> Learn a new programming language</li>
-            <li> Membership to a gym</li>
-            <li> Have a dog/cat</li>
-            <li> Start a dairy</li>
+            {filteredContent.length > 1 ? (
+              filteredContent.map((item, id) => <li key={id}>{item}</li>)
+            ) : filteredContent.length === 1 ? (
+              <p>There is only one item!</p>
+            ) : (
+              <p>There is no item for the chosen goal!</p>
+            )}
           </ul>
         </div>
       </div>
       <div>
-        <WheelComponent
-          segments={segments}
-          segColors={segColors}
-          winningSegment="won 10"
-          onFinished={(winner) => onFinished(winner)}
-          primaryColor="black"
-          contrastColor="white"
-          buttonText="Spin"
-          isOnlyOnce={false}
-          size={290}
-          upDuration={100}
-          downDuration={1000}
-          fontFamily="Arial"
-        />
+        <WheelWrapper />
       </div>
     </div>
   );

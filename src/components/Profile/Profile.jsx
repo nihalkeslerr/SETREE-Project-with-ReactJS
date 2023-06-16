@@ -27,8 +27,10 @@ function Profile() {
   const {
     token,
     API_URL,
+    ID,
     user,
     setUser,
+    personalID,
     setCollections,
     followerObjects,
     followingsObjects,
@@ -44,7 +46,7 @@ function Profile() {
   const [userloading, setUserloading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const [favCollections, setFavCollections] = useState(null);
-  const [favColloading,setFavColloading] =  useState(false);
+  const [favColloading, setFavColloading] = useState(false);
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -54,40 +56,43 @@ function Profile() {
   };
   const OpenFavs = () => {
     setopenFav((prev) => !prev);
-   
-    
   };
 
- useEffect(() => {
-   console.log("favCollections:", favCollections);
- }, [favCollections]);
-  
   useEffect(() => {
-     setFavColloading(true);
-   axios
-      .get(`${API_URL}/getLikedCollections/${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        if (response.data.success === true) {
-          console.log(
-            "Liked Collections:---------------------- ",
-            response.data
-          );
-          setFavCollections(response.data.collections);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setFavColloading(false);
-      });
- }, []);
+    console.log("favCollections:", favCollections);
+  }, [favCollections]);
+
+
+  const getLikedCollections = () => {
+      setFavColloading(true);
+  axios
+    .get(`${API_URL}/getLikedCollections/${user.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      if (response.data.success === true) {
+        console.log("Liked Collections:---------------------- ", response.data);
+        setFavCollections(response.data.collections);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .finally(() => {
+      setFavColloading(false);
+    });
+}
   
-  
+
+  useEffect(() => {
+    {
+      user && (
+      getLikedCollections()
+    )}
+  }, [user]);
+
   useEffect(() => {
     setCollections(null);
     setUser(null);
@@ -244,7 +249,6 @@ function Profile() {
       </div>
 
       <div className="listhead">
-        
         <h1>{openFav ? "Favorites" : "Your Collections"} /</h1>
         <button
           onClick={OpenFavs}
@@ -290,7 +294,6 @@ function Profile() {
                       backgroundRepeat: "no-repeat",
                     }}
                   >
-                    
                     <div className="label" style={{ marginTop: "150px" }}>
                       <label>{collection.title}</label>
                     </div>

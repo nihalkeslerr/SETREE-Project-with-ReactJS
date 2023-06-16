@@ -8,8 +8,6 @@ import {
   NavLink,
 } from "react-router-dom";
 import { GlobalContext } from "../Context/GlobalContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Tag from "../ASSETS/icons/tag.png";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -165,7 +163,11 @@ function Social() {
                   results.tags.length > 0 &&
                   results.tags.map((tag) => (
                     <li key={tag.id}>
-                      <NavLink to="/SocialDetail">
+                      <NavLink className="prop"
+                        to={{
+                          pathname: "/CollectionsByTag",
+                          state: { tagTitle: tag.title },
+                        }}>
                         <div className="searchTag">
                           <img src={Tag} />
                           <div>

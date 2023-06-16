@@ -93,3 +93,16 @@ button.btnSign:hover {
   position: absolute;
   right: 21px;
 }
+
+.mainContent {
+  position: absolute;
+  left: 0;
+  display: flex;
+}
+
+.mainPage {
+    background: url(https://images.ctfassets.net/rz1oowkt5gyp/7lTGeXbBRNRLaVk2MdBjtJ/99c266e…/white-wave-bg.svg) center bottom -0.5px / 100% 14% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(72, 106, 255), rgb(255 116 71)) 0% 0% / auto repeat scroll padding-box border-box rgb(72, 106, 255);
+      background-blend-mode: normal, normal;
+      color: rgb(255, 255, 255);
+      height: 500px;
+}

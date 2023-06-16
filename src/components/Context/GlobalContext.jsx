@@ -19,6 +19,7 @@ export const GlobalProvider = ({ children }) => {
   const [Goalisloading, setGoalisloading] = useState(true);
   const [followingsisloading, setFollowingsisloading] = useState(true);
   const [collectionisloading, setCollectionisloading] = useState(true);
+  const [collectionsByTag, setCollectionsByTag] = useState([]);
   const colors = [
     "#FFCFC0",
     "#BDDFFF",
@@ -67,8 +68,7 @@ export const GlobalProvider = ({ children }) => {
     } catch (error) {
       console.log("hataa: ");
       console.log(error);
-    }
-    finally {
+    } finally {
       setCollectionisloading(false);
     }
   };
@@ -206,6 +206,30 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const getCollectionsByTag = (title) => {
+    setCollectionisloading(true);
+    axios
+      .get(`${API_URL}/getCollectionsByTag/${title}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        if (response.data.success === true) {
+          console.log("collections By Tag: ", response.data.collections);
+          setCollectionsByTag(response.data.collections);
+          console.log("CollectionsByTag: ", collectionsByTag);
+        }
+        
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    .finally(() => {
+        setCollectionisloading(false);
+      });
+  };
+
   const getRandomColor = (index) => {
     const renkIndex = index % colors.length;
     return colors[renkIndex];
@@ -260,7 +284,10 @@ export const GlobalProvider = ({ children }) => {
     followingsisloading,
     setFollowingsisloading,
     collectionisloading,
-    setCollectionisloading
+    setCollectionisloading,
+    collectionsByTag,
+    setCollectionsByTag,
+    getCollectionsByTag
   };
 
   return (

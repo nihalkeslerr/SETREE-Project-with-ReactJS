@@ -278,7 +278,7 @@ function Goal() {
                     <button
                       className="DeleteItem"
                       onClick={() => deleteItem(goal.id, item.id)}
-                    ></button>
+                    >X</button>
                   </label>
                 ))}
 

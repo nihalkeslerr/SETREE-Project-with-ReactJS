@@ -10,6 +10,7 @@ import CollectionDetail from "../Collection/collectionDetail";
 import Wheel from "../Wheel/wheel";
 import Profile from "../Profile/Profile";
 import UpdateProfle from "../Profile/UpdateProfle";
+import CollectionsByTag from "../Social/collectionsByTag";
 import logo from "../ASSETS/images/logo.png";
 import { GlobalProvider } from "../Context/GlobalContext";
 import {
@@ -44,6 +45,7 @@ function Body() {
             ></Route>
             <Route path="/profile" component={Profile}></Route>
             <Route path="/updateprofile" component={UpdateProfle} />
+            <Route path="/CollectionsByTag" component={CollectionsByTag} />
           </Switch>
           <Footer></Footer>
         </div>

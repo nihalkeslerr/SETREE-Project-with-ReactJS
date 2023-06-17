@@ -1,6 +1,5 @@
-body{
-        font-family: 'Abel',
-                sans-serif;
+body {
+  font-family: "Abel", sans-serif;
 }
 .containerMain {
   display: inline-flex;
@@ -11,23 +10,23 @@ body{
 }
 .btnLog,
 .btnSign {
-  padding: 12px;
-  background-color: white;
-  width: 142px;
-  font-size: 17px;
-  margin-left: 15px;
-  border-radius: 11px;
-  text-transform: uppercase;
-  box-shadow: 0px 0px 6px #9facef;
-  border: none;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  cursor: pointer;
+    padding: 12px;
+      background-color: white;
+      width: 142px;
+      font-size: 14px;
+      margin-left: 15px;
+      border-radius: 11px;
+      text-transform: uppercase;
+      box-shadow: 0px 0px 6px #9facef;
+      border: none;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      cursor: pointer;
+    
 }
 button.btnLog {
   color: #9eacef;
 }
-
 
 button.btnSign {
   background-color: #9eacef;
@@ -41,9 +40,9 @@ form input {
   line-height: 14px;
   width: 450px;
   /*margin-top: 23px;*/
-      font-family: "Abel", sans-serif;
+  font-family: "Abel", sans-serif;
   padding-left: 10px;
-    color: #585858 !important;
+  color: #585858 !important;
 }
 h1.h1Head {
   font-size: 42px;
@@ -62,8 +61,7 @@ button.btn {
   color: white;
   box-shadow: 0px 0px 6px #9facef;
   border-radius: 6px;
-    font-family: 'Abel',
-            sans-serif;
+  font-family: "Abel", sans-serif;
 }
 button.btn:hover {
   background-color: white;
@@ -71,22 +69,21 @@ button.btn:hover {
   transition: 0.5s;
 }
 form input::placeholder {
-    color: #b1b1b1;
-    font-family: 'Abel',
-        sans-serif;
+  color: #b1b1b1;
+  font-family: "Abel", sans-serif;
 }
 form input:focus {
-    outline: none;
+  outline: none;
 }
 button.btnLog:hover {
-    background-color: #9eacef;
-    color: white;
-    transition: 1s;
+  background-color: #9eacef;
+  color: white;
+  transition: 1s;
 }
 button.btnSign:hover {
-    background-color: white;
-    color: #9facef;
-    transition: 1s;
+  background-color: white;
+  color: #9facef;
+  transition: 1s;
 }
 
 .Auth {
@@ -101,8 +98,69 @@ button.btnSign:hover {
 }
 
 .mainPage {
-    background: url(https://images.ctfassets.net/rz1oowkt5gyp/7lTGeXbBRNRLaVk2MdBjtJ/99c266e…/white-wave-bg.svg) center bottom -0.5px / 100% 14% no-repeat scroll padding-box border-box, linear-gradient(60deg, rgb(72, 106, 255), rgb(255 116 71)) 0% 0% / auto repeat scroll padding-box border-box rgb(72, 106, 255);
-      background-blend-mode: normal, normal;
-      color: rgb(255, 255, 255);
-      height: 500px;
+  background: url(https://images.ctfassets.net/rz1oowkt5gyp/7lTGeXbBRNRLaVk2MdBjtJ/99c266e…/white-wave-bg.svg)
+      center bottom -0.5px / 100% 14% no-repeat scroll padding-box border-box,
+    linear-gradient(60deg, rgb(72, 106, 255), rgb(255 116 71)) 0% 0% / auto
+      repeat scroll padding-box border-box rgb(72, 106, 255);
+  background-blend-mode: normal, normal;
+  color: rgb(255, 255, 255);
+  height:max-content;
+      display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+}
+
+.mainArticle p:first-child {
+font-size: 55px;
+  /* margin-bottom: 25px; */
+  margin-top: 0px;
+  width: 600px;
+  font-weight: bold;
+}
+.mainArticle p:last-child {
+font-weight: bold;
+  font-size: 19px;
+  width: 550px;
+  margin: 0 auto;
+}
+.mainImg img {
+  margin-top: 20px;
+}
+.mainContent ul li {
+    list-style: none;
+    display: inline-flex;
+    margin-right: 10px;
+    background: #cec6ff;
+    padding: 7px 17px;
+    width: 80px;
+    border-radius: 15px;
+    justify-content: center;
+}
+.mainContent ul li a {
+    color: white;
+}
+
+.mainImg img {
+  width: 100%;
+      margin-bottom: 30px;
+}
+.featureContainer {
+  text-align: initial;
+  margin: 0 auto;
+  width: 80%;
+}
+.cardTitle {
+    background: #eeeeee;
+      width: 16%;
+      color: #262626;
+      height: 100px;
+      margin-right: 15px;
+      display: inline-flex;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 20px;
+      text-transform: uppercase;
+      align-items: center;
+      justify-content: center;
 }

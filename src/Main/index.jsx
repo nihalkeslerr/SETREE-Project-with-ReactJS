@@ -1,39 +1,40 @@
 import React from 'react'
-
+import mainPicture from "./ASSESTS/result.png"
 function Index() {
   return (
     <div>
       <div className='mainContainer'>
         <div className='mainPage'>
-          <div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod cum dolore libero sapiente praesentium eius laboriosam, non, possimus enim est voluptatem fugiat culpa similique consectetur voluptates nobis molestias ipsum magnam?</p>
-            <p>Slogan</p>
+          <div className='mainArticle'>
+            <p>Setree, thoughts and ideas, brings together tasks and plans in a harmonious unity.</p>
+            <p>Take Notes Your Wishes and Keep Everything in the Same Place</p>
           </div>
-          <div>
-            <img src="" alt="" />images
+          <div className='mainImg'>
+            <img src={mainPicture} alt="" />
           </div>
 
         </div>
-        <div>
-          <div>
-            <h1>Features</h1>
+        <div className='featureContainer'>
+          <div className='featureTitle'>
+            <h2>Setree Features</h2>
+            <h1>Daily essentials, goals, and inspiration.</h1>
           </div>
           <div className='Content'>
             <div className='mainCards'>
-              <div>
-                <p>Collection {">"}</p>
+              <div className='cardTitle'>
+                <p>Collection </p>
               </div>
-              <div>
-                <p>Goals {">"}</p>
+              <div className='cardTitle'>
+                <p>Goals </p>
               </div>
-              <div>
-                <p>Wheel {">"}</p>
+              <div className='cardTitle'>
+                <p>Wheel </p>
               </div>
-              <div>
-                <p>Social {">"}</p>
+              <div className='cardTitle'>
+                <p>Social </p>
               </div>
-              <div>
-                <p>Profile{">"}</p>
+              <div className='cardTitle'>
+                <p>Profile</p>
               </div>
             </div>
 

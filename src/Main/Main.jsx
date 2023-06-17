@@ -23,7 +23,6 @@ function Main() {
               </Link></li>
               </ul>
              
-             
             </div>
             <div className="logoMain">
               <Link to={"/"}>

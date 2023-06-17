@@ -28,7 +28,7 @@ function Sidebar() {
     localStorage.removeItem("token"); // Token'ı localStorage'dan sil
 
     // Login sayfasına yönlendir
-    window.location.href = "/login";
+    window.location.href = "/main";
     toast.success("Log Out Successful!");
   };
 

@@ -35,7 +35,7 @@ button.btnSign {
 form input {
   border: none;
   border-bottom: 1px solid #c1c1c1;
-  height: 40px;
+  height: 60px;
   font-size: 20px;
   line-height: 14px;
   width: 450px;
@@ -95,6 +95,7 @@ button.btnSign:hover {
   position: absolute;
   left: 0;
   display: flex;
+      align-items: center;
 }
 
 .mainPage {
@@ -145,22 +146,163 @@ font-weight: bold;
   width: 100%;
       margin-bottom: 30px;
 }
-.featureContainer {
+.featureContainer,.workcontainer {
   text-align: initial;
   margin: 0 auto;
   width: 80%;
 }
 .cardTitle {
-    background: #eeeeee;
-      width: 16%;
-      color: #262626;
-      height: 100px;
-      margin-right: 15px;
-      display: inline-flex;
-      border-radius: 7px;
-      cursor: pointer;
-      font-size: 20px;
+  background: #f8f8f8c2;
+  width: 85%;
+  color: #262626;
+  height: max-content;
+  border-radius: 7px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.mainCards {
+  /* text-align: center; */
+  text-align: center;
+  width: 60%;
+}
+
+.cardTitle p:first-child {
+  padding-top: 11px;
+  margin: 0px;
+  margin-left: 30px;
+  text-align: initial;
+  text-transform: uppercase;
+        cursor: pointer;
+
+}
+.cardTitle p:last-child {
+  font-size: 20px;
+  padding: 15px 20px;
+  margin-top: 0;
+        cursor: pointer;
+}
+
+.contntContainer {
+  background: linear-gradient(30deg, rgb(224 221 243), rgb(255, 255, 255)) 0% 0% / auto repeat scroll padding-box border-box rgb(206 198 255);
+  background-blend-mode: normal;
+  color: rgb(16 28 88);
+}
+
+.Content {
+  display: inline-flex;
+  align-items: center;
+}
+.cardImage img {
+border-radius: 15px;
+  box-shadow: 0px 0px 15px #7c6cb6;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+}
+.cardImage {
+ width: 100%;
+  padding-bottom: 30px;
+}q
+.workBtn button {
+  width: 129px;
+  margin-right: 10px;
+  background: transparent;
+  border: 1px solid #7969b4;
+  box-shadow: 1px 1px 2px #7969b4;
+  padding: 10px 0px;
+  text-transform: uppercase;
+  color: #5e5e5e;
+  border-radius: 4px;
+}
+.cardTitle.selectedCard {
+  box-shadow: 0px 0px 7px #c4c4c4;
+  border-top:9px solid #dc7271
+}
+.featureTitle h2 {
+  margin: 0;
+  padding-top: 25px;
+}
+
+.workBtn button {
+    width: 140px;
+      margin-right: 10px;
+      background: none;
+      padding: 9px 0px;
+      color: #222222;
+      border: 1px solid #7d6db7;
       text-transform: uppercase;
-      align-items: center;
+      box-shadow: 1px 1px 2px #342890;
+      border-radius: 4px;
+        transition: all 0.3s ease 0s;
+}
+.workBtn button:hover {
+  background-color: #574ab7;
+  color: white;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.workSteps {
+    display: flex;
       justify-content: center;
+      margin-top: 50px;
+      align-items: center;
+    
+}
+
+.step {
+    background: #efefef;
+      width: 100%;
+      margin-right: 25px;
+      border-radius: 20px;
+    height: 500px;
+          text-align: center;
+}
+.step img {
+  width: 300px;
+}
+.step p {
+  padding: 0px 15px;
+  margin: 0;
+  margin-top: 15px;
+  font-size: 20px;
+      color: #4c4c4c;
+}
+.start {
+  width: 40%;
+  margin: 80px auto;
+  background: #8a9cff;
+  border-radius: 10px;
+  padding: 21px 10px;
+      box-shadow: 2px 2px 11px #8a9cff;
+}
+
+.start p {
+  font-size: 20px;
+}
+
+.start button {
+  width: 200px;
+  background: white;
+  color: #8a9cff;
+  padding: 10px 12px;
+  box-shadow: 1px 1px #161f54;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+}
+.start button:hover {
+    background: #243593;
+      color: white;
+}
+.start h1 {
+  color: white;
+}
+.workTitle h1,.step h1 {
+  color: #0f1c58;
+}
+img.appStore {
+  width: 130px;
 }

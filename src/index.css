@@ -233,16 +233,16 @@ div.label {
 }
 
 div.count {
-  /*position: absolute; */
-  /* top: 0; */
-  /* right: 0px; */
-  border-radius: 50%;
-  width: 8%;
-  float: right;
-  padding: 11px 16px;
-  background-color: antiquewhite;
-  color: white;
-  font-weight: bold;
+    /* position: absolute; */
+      /* top: 0; */
+      /* right: 0px; */
+      border-radius: 50%;
+      width: 2%;
+      float: right;
+      padding: 5px 12px;
+      background-color: antiquewhite;
+      color: white;
+      font-weight: bold;
 }
 .head p {
   background: #5370ffa8;
@@ -291,6 +291,7 @@ div.count {
   background-position: center;
   border-radius: 45px;
   width: 85px;
+      margin-right: 30px;
 }
 
 .profile {
@@ -679,6 +680,22 @@ button.DeleteItem {
 label.containerTarget:hover button.DeleteItem {
   visibility: visible;
 }
+button.DeleteCollItem {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: red;
+  visibility: hidden;
+  font-size: 20px;
+}
+
+div.ItemHover:hover button.DeleteCollItem {
+  visibility: visible;
+}
+.ItemHover {
+  display: flex;
+  align-items: center;
+}
 
 /* When the checkbox is checked, add a blue background */
 /* .containerTarget input:checked ~ .checkmark {
@@ -930,7 +947,7 @@ p.tag {
   align-items: center;
 }
 input.imageFile {
-  width: 300px !important;
+    width: 150px !important;
 }
 .importText {
   display: flex;
@@ -1009,7 +1026,6 @@ label.labelText.nameColl {
   justify-content: center; */
   display: inline-flex;
   align-items: center;
-  margin-top: 10px;
 }
 .createCollection input[type="text"] {
   /*   border: none;
@@ -1073,17 +1089,19 @@ div#imagePreviewColl {
 }
 
 .changePhoto button {
-  border: none;
-  padding: 12px 10px;
-  color: white;
-  border-radius: 6px;
-  box-shadow: 0px 0 2px #9facef;
-  background-color: #9facef;
-  transition: all 0.3s ease 0s;
+    border: none;
+      padding: 12px 10px;
+      color: #9facef;
+      cursor: pointer;
+      border-radius: 6px;
+      box-shadow: 0px 0 2px #9facef;
+      background-color: #ffffff;
+      transition: all 0.3s ease 0s;
 }
 .changePhoto button:hover {
-  color: #9facef;
-  background-color: #fff;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #9facef;
   transition: all 0.3s ease 0s;
 }
 .imageFile::file-selector-button {
@@ -1347,7 +1365,7 @@ input.crecolBtn {
 .editButon button {
   width: 200px;
   text-transform: uppercase;
-  color: #707070;
+    color: #9facef;
   height: 53px;
   font-size: 16px;
   font-family: "Abel", sans-serif;
@@ -1446,3 +1464,51 @@ input.crecolBtn {
 .containerTag {
   text-align: initial;
 }
+
+select {
+  width: 200px;
+  height: 40px;
+  padding-left: 12px;
+  font-size: 16px;
+  font-family: "Abel", sans-serif;
+  color: #280000;
+  background: #ffcfc0;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 6px;
+  box-shadow: 0px 0px 4px #ffcfc0;
+}
+select:focus {
+  outline: none;
+}
+
+.title button {
+  margin-left: 100px;
+  width: 70px;
+  background: transparent;
+  border: 1px solid #fff7f5;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  padding: 5px 0px;
+}
+.title button:hover {
+  background:white ;
+  color: #a2b2ff;
+}
+.count button {
+  margin-left: -8px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.itemBtn button:last-child {
+  float: right;
+  width: 100px;
+  background: #ff9f91;
+  color: white;
+  border-radius: 4px;
+}
+

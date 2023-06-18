@@ -136,6 +136,7 @@ function UpdateProfle() {
       });
   };
 
+
   const toggleProfile = () => {
     seteditProfile(true);
     setChangePassword(false);
@@ -222,7 +223,7 @@ function UpdateProfle() {
     <div className="container">
       <div className="UpdateContain">
         <div className="editButon">
-          <button className="profileBtn" onClick={toggleProfile}>
+          <button style={{backgroundColor: "#9facef" , color: "#fff"}} className="profileBtn" onClick={toggleProfile}>
             Edit Profile
           </button>
           <button className="passwordBtn" onClick={togglePassword}>
@@ -241,7 +242,12 @@ function UpdateProfle() {
                   }}
                 ></div>
                 <div className="UploadImage">
-                  <input type="file" name="image" onChange={handleFileChange} />
+                  <input
+                    className="imageFile editfile"
+                    type="file"
+                    name="image"
+                    onChange={handleFileChange}
+                  />
                 </div>
                 <div>
                   <button onClick={handleChangePhoto}>Change Photo</button>
@@ -290,7 +296,7 @@ function UpdateProfle() {
                   onChange={handleInputChange}
                 />
                 <label className="labelradio" htmlFor="female">
-                  Kadın
+                  Female
                 </label>
                 <input
                   type="radio"
@@ -301,7 +307,7 @@ function UpdateProfle() {
                   onChange={handleInputChange}
                 />
                 <label className="labelradio" htmlFor="male">
-                  Erkek
+                  Male
                 </label>
                 <br />
                 <div className="buttonLoad">
@@ -335,13 +341,13 @@ function UpdateProfle() {
               <br />
               <br />
               <div className="buttonLoad">
-                  <button className="btn">Change Password</button>
-                  {updateloading && (
-                    <Stack spacing={2} direction="row">
-                      <CircularProgress sx={{ color: "#596ed3" }} size={20} />
-                    </Stack>
-                  )}
-                </div>
+                <button className="btn">Change Password</button>
+                {updateloading && (
+                  <Stack spacing={2} direction="row">
+                    <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+                  </Stack>
+                )}
+              </div>
             </form>
           )}
         </div>

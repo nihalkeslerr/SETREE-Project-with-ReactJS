@@ -47,7 +47,7 @@ function Main() {
                 <img className="appStore" src={appstore} alt="" />
             </div>
             <div className="logoMain">
-              <Link to={"/main"}>
+              <Link to={"/"}>
                 <img className="imglogo" src={logo} alt=""></img>
               </Link>
             </div>
@@ -66,7 +66,7 @@ function Main() {
         <Switch>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/main" component={Index} />
+          <Route path="/" component={Index} />
         </Switch>
       </Router>
     </GlobalProvider>

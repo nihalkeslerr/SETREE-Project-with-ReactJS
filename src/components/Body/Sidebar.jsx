@@ -28,7 +28,7 @@ function Sidebar() {
     localStorage.removeItem("token"); // Token'ı localStorage'dan sil
 
     // Login sayfasına yönlendir
-    window.location.href = "/main";
+    window.location.href = "/";
     toast.success("Log Out Successful!");
   };
 
@@ -73,10 +73,10 @@ function Sidebar() {
 
           <li>
             <NavLink
-              to="/"
+              to="/collection"
               isActive={(match, location) => {
                 return (
-                  location.pathname === "/" 
+                  location.pathname === "/collection" 
                 );
               }}
             >

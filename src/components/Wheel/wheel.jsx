@@ -1,6 +1,10 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import WheelComponent from "react-wheel-of-prizes";
 import { GlobalContext } from "../Context/GlobalContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Stack from "@mui/material/Stack";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Wheel() {
   const { goals, fetchGoals } = useContext(GlobalContext);
@@ -8,7 +12,7 @@ function Wheel() {
   const [selectedTitle, setSelectedTitle] = useState("");
   const [filteredContent, setFilteredContent] = useState([]);
   const [winningSegment, setWinningSegment] = useState("");
-
+  const [goalloading, setGoalloading] = useState(false);
   const segColors = [
     "#FFCFC0",
     "#BDDFFF",
@@ -55,6 +59,16 @@ function Wheel() {
     }
   }, [filteredContent]);
 
+/*   useEffect(() => {
+    if (filteredContent.length === 1) {
+      toast.error("There is only one item!");
+    } else if (filteredContent.length === 0) {
+      toast.error("There is no item for the chosen goal");
+    } else {
+      toast.error("No chosen yet");
+    }
+  }, [filteredContent]); */
+
   const handleTitleChange = (event) => {
     const selectedTitle = event.target.value;
     setSelectedTitle(selectedTitle);
@@ -69,11 +83,6 @@ function Wheel() {
       }
     }
     setFilteredContent([]);
-  };
-
-  const LoadWheel = () => {
-    filterContent(selectedTitle);
-    setSelectedTitle(""); // Clear the selected title
   };
 
   const WheelWrapper = () => {
@@ -120,6 +129,11 @@ function Wheel() {
     }
   };
 
+  useEffect(() => {
+    const initialTitle = goals.length > 0 ? goals[0].title : "";
+    setSelectedTitle(initialTitle);
+  }, [goals]);
+
   return (
     <div className="ContainerWheel">
       <div className="table">
@@ -142,9 +156,9 @@ function Wheel() {
             {filteredContent.length > 1 ? (
               filteredContent.map((item, id) => <li key={id}>{item}</li>)
             ) : filteredContent.length === 1 ? (
-              <p>There is only one item!</p>
+              <p style={{color: "red"}}>There is only one item!</p>
             ) : (
-              <p>There is no item for the chosen goal!</p>
+              <p style={{color: "red"}}>There is no item for the chosen goal!</p>
             )}
           </ul>
         </div>
@@ -152,6 +166,18 @@ function Wheel() {
       <div>
         <WheelWrapper />
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

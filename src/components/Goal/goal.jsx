@@ -33,6 +33,11 @@ function Goal() {
   console.log("checked: ", checked);
   const [createisloading, setCreateisloading] = useState(false);
 
+  const [deleteGoalSt, setDeleteGoalSt] = useState({
+    status: "inactive",
+    id: 0,
+  });
+
   useEffect(() => {
     if (!dataFetchedRef.current) {
       fetchGoals();
@@ -71,7 +76,7 @@ function Goal() {
       })
       .finally(() => {
         setCreateisloading(false);
-      })
+      });
     document.getElementsByClassName("titleGoal").value = " ";
   };
 
@@ -140,6 +145,41 @@ function Goal() {
         });
 
         setGoals(updatedGoals);
+      })
+      .catch((error) => {
+        console.error("Hedef öğesi silinirken bir hata oluştu:", error);
+      });
+  };
+
+  const deleteGoal = (goalid) => {
+    setDeleteGoalSt((prevState) => {
+      return {
+        ...prevState,
+        id: goalid,
+      };
+    });
+    console.log("deleteGoalSt:", deleteGoalSt);
+    axios
+      .post(
+        `${API_URL}/deleteGoal`,
+        { deleteGoalSt },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        
+        if (response.data.succeded === true) {
+          console.log("Hedef öğesi başarıyla silindi:", response);
+          toast.success("Goal Successfully Deleted!");
+        }
+        else {
+          console.log("hata meydana geldi:");
+          toast.error(response.data.message);
+        }
+               fetchGoals();
       })
       .catch((error) => {
         console.error("Hedef öğesi silinirken bir hata oluştu:", error);
@@ -217,12 +257,10 @@ function Goal() {
               onClick={handleCreateGoal}
             />
             {createisloading && (
-          <Stack spacing={2} direction="row">
-            <CircularProgress sx={{ color: "#596ed3" }} size={20} />
-          </Stack>
-      )}
-      
-       
+              <Stack spacing={2} direction="row">
+                <CircularProgress sx={{ color: "#596ed3" }} size={20} />
+              </Stack>
+            )}
           </div>
         )}
       </div>
@@ -267,18 +305,14 @@ function Goal() {
                       <img src={tickIcon} alt="tick" />
                     </span>
                     <label htmlFor="matter" className="matter">
-                      <input
-                        className="contentInpt"
-                        value={item.content}
-                        onChange={(e) =>
-                          setItem({ ...item, content: e.target.value })
-                        }
-                      />
+                      {item.content}
                     </label>
                     <button
                       className="DeleteItem"
                       onClick={() => deleteItem(goal.id, item.id)}
-                    >X</button>
+                    >
+                      X
+                    </button>
                   </label>
                 ))}
 
@@ -303,6 +337,7 @@ function Goal() {
                 style={{ backgroundColor: `${getColor(index)}` }}
               >
                 <label>{goal.title}</label>
+                <button onClick={() => deleteGoal(goal.id)}>Delete</button>
                 <div
                   className="goalcount"
                   style={{

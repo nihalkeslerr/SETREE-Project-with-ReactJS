@@ -22,7 +22,7 @@ function Login() {
           toast.success("Login Successful!"); 
           localStorage.setItem("token", response.data.token);
           setToken(localStorage.getItem("token"));
-          window.location.href = "/";
+          window.location.href = "/collection";
         } else {
           toast.error(response.data.error);
         }

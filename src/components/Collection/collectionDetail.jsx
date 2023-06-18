@@ -22,8 +22,12 @@ function CollectionDetail() {
     setCollItem,
     collDetail,
     setCollDetail,
+    getRandomColor
   } = useContext(GlobalContext);
-
+  const [deleteCollSt, setDeleteCollSt] = useState({
+    id: 0,
+  status: "inactive"
+  });
   const location = useLocation();
   const collectionID = location.state?.collectionID;
 
@@ -406,6 +410,71 @@ function CollectionDetail() {
         setLikeloading(false);
       });
   };
+  useEffect(()=>{
+    setDeleteCollSt((prevState) => {
+      return {
+        status:"inactive",
+        id: collectionID,
+      };
+    });
+  },[])
+
+  const deleteCollection = (collectionID) => {
+    console.log("collectionID:", collectionID);
+   
+    console.log("deleteCollSt:", deleteCollSt);
+    axios
+      .post(
+        `${API_URL}/deleteCollection`,
+        deleteCollSt,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        
+        if (response.data.succeded === true) {
+          console.log("Hedef öğesi başarıyla silindi:", response);
+          window.location.href = "/collection";
+          toast.success("Collection Successfully Deleted!");
+        }
+        else {
+          console.log("hata meydana geldi:");
+          toast.error(response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Hedef öğesi silinirken bir hata oluştu:", error);
+      });
+  };
+
+  const deleteCollItem =(CollItemID)=>{
+    axios
+      .get(`${API_URL}/deleteCollectionItem/${CollItemID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        if(response.data.succeded==true){
+          console.log("Hedef öğesi başarıyla silindi:", response);
+          toast.success("Collection Item Successfully Deleted!");
+          const updatedColl = collItem.filter((item) => item.id !== CollItemID);
+  
+          setCollItem(updatedColl);
+        }
+        else{
+          console.log(response.data.message);
+        }
+
+      })
+      .catch((error) => {
+        console.error("Hedef öğesi silinirken bir hata oluştu:", error);
+      });
+  }
+
 
   return (
     <div>
@@ -416,6 +485,7 @@ function CollectionDetail() {
         >
           <div className="bgOpacity">
             <div className="collectionHead">
+           
               <div className="likeBtn">
                 <button
                   onClick={toggleLikeCollection}
@@ -462,6 +532,7 @@ function CollectionDetail() {
               type="button"
               onClick={toggleImage}
             ></button>
+                   <button onClick={() => deleteCollection(collDetail.id)}>DELETE </button>
           </div>
        )}
           
@@ -560,17 +631,55 @@ function CollectionDetail() {
             {collItem.map((item) => {
               if (item.type === "image") {
                 return (
-                  <img
+                 <div className="ItemHover">
+                   <img
                     className="itemImage"
                     key={item.id}
                     src={item.content}
                     alt="Image"
                   />
+                  {
+                    collDetail.userId == ID && (
+                      <button
+                      className="DeleteCollItem"
+                    >
+                      X
+                    </button>
+                    )
+                  }
+                
+                 </div>
                 );
               } else if (item.type === "text") {
-                return <p key={item.id}>{item.content}</p>;
+                return (
+                  <div className="ItemHover">
+                     <p key={item.id}>{item.content}</p>
+                     {
+                    collDetail.userId == ID && (
+                      <button
+                      className="DeleteCollItem"
+                    >
+                      X
+                    </button>
+                    )
+                  }
+                  </div>
+                );
               } else if (item.type === "title") {
-                return <h1 key={item.id}>{item.content}</h1>;
+                return (
+                  <div className="ItemHover">
+                    <h1 key={item.id}>{item.content}</h1>
+                    {
+                    collDetail.userId == ID && (
+                      <button
+                      className="DeleteCollItem"
+                    >
+                      X
+                    </button>
+                    )
+                  }
+                  </div>
+                );
               }
               return null;
             })}

@@ -110,7 +110,7 @@ function Social() {
         <div>
           <div className="search">
             <input
-              placeholder="Search Friends"
+              placeholder="Search friends or #tag"
               onChange={searchInputChange}
               autoFocus
               value={searchQuery.keyword}

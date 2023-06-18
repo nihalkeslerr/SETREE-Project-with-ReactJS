@@ -36,7 +36,7 @@ function Body() {
           <Switch>
             <Route path="/goal" component={Goal}></Route>
             <Route path="/social" component={Social}></Route>
-            <Route exact path="/" component={Collection}></Route>
+            <Route exact path="/collection" component={Collection}></Route>
             <Route path="/socialDetail" component={SocialDetail}></Route>
             <Route path="/wheel" component={Wheel}></Route>
             <Route

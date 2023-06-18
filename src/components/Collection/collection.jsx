@@ -46,7 +46,12 @@ function Collection() {
   const [imageDataURL, setImageDataURL] = useState(null);
   const [showCreateCollection, setShowCreateCollection] = useState(false);
   const [createisloading, setCreateisloading] = useState(false);
-
+  const [ishover, setIshover] = useState(false);
+    const [deleteCollSt, setDeleteCollSt] = useState({
+      id: 0,
+    status: "inactive"
+    });
+  
   useEffect(() => {
     const fetchUserData = async (userid = null) => {
       try {
@@ -169,6 +174,70 @@ function Collection() {
     setShowCreateCollection(!showCreateCollection);
   };
 
+  const deleteCollection = (collectionID) => {
+
+    setDeleteCollSt((prevState) => {
+      return {
+        ...prevState,
+        id: collectionID,
+      };
+    });
+    console.log("deleteCollSt:", deleteCollSt);
+    axios
+      .post(
+        `${API_URL}/deleteCollection`,
+        { deleteCollSt },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        
+        if (response.data.succeded === true) {
+          console.log("Hedef öğesi başarıyla silindi:", response);
+          toast.success("Collection Successfully Deleted!");
+        }
+        else {
+          console.log("hata meydana geldi:");
+          toast.error(response.data.message);
+        }
+               fetchCollectionsData();
+      })
+      .catch((error) => {
+        console.error("Hedef öğesi silinirken bir hata oluştu:", error);
+      });
+  };
+
+/*   const getPicFromPix = () => {
+    if (createCollData.title !== "") {
+      const head = createCollData.title;
+      axios
+        .get("https://pixabay.com/api/", {
+          params: {
+            key: "36718863-7c7bc14f294dfcbafe1c2234e",
+            q: head,
+            image_type: "photo",
+            pretty: true,
+            per_page: 3,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log("Hedef öğesi başarıyla silindi:", response);
+        })
+        .catch((error) => {
+          console.error("Hedef öğesi silinirken bir hata oluştu:", error);
+        });
+    } else {
+      console.log("no title");
+    }
+  }; */
+
+
   return (
     <div className="forBack">
       <div className="createGoal">
@@ -204,12 +273,15 @@ function Collection() {
                   )}
                   {!imageDataURL && "Preview"}
                 </div>
+                <div>
                 <input
                   className="imageFile"
                   type="file"
                   name="image"
                   onChange={handleFileChange}
-                />
+                /> 
+              {/*   <input onClick={getPicFromPix} type="button" value="Try Chance"/> */}
+                </div>
               </div>
               <br />
             </div>
@@ -288,6 +360,16 @@ function Collection() {
                       backgroundRepeat: "no-repeat",
                     }}
                   >
+
+                    <div
+                      className="count"
+                      style={{
+                        backgroundColor: `${getRandomColor(index)}`,
+                      }}
+                      onClick={() => deleteCollection(collection.id)}
+                    >
+                    <button>X</button>
+                    </div>
                     <div className="label ">
                       <label>{collection.title}</label>
                     </div>

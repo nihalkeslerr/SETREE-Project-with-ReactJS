@@ -23,7 +23,7 @@ function Register() {
         if (response.data.succeeded === true) {
           console.log("API response:", response.data);
           toast.success("Register Successful!");
-          //window.location.href = "/login";
+          window.location.href = "/login";
         } else {
           toast.error(response.data.message);
           console.log("API response:", response.data);

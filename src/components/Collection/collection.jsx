@@ -273,15 +273,12 @@ function Collection() {
                   )}
                   {!imageDataURL && "Preview"}
                 </div>
-                <div>
                 <input
                   className="imageFile"
                   type="file"
                   name="image"
                   onChange={handleFileChange}
                 /> 
-              {/*   <input onClick={getPicFromPix} type="button" value="Try Chance"/> */}
-                </div>
               </div>
               <br />
             </div>
@@ -360,16 +357,6 @@ function Collection() {
                       backgroundRepeat: "no-repeat",
                     }}
                   >
-
-                    <div
-                      className="count"
-                      style={{
-                        backgroundColor: `${getRandomColor(index)}`,
-                      }}
-                      onClick={() => deleteCollection(collection.id)}
-                    >
-                    <button>X</button>
-                    </div>
                     <div className="label ">
                       <label>{collection.title}</label>
                     </div>

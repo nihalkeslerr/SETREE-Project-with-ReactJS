@@ -661,6 +661,7 @@ input.contentInpt:focus {
 }
 label.matter {
   margin-left: 10px;
+  text-align: initial;
 }
 /* On mouse-over, add a grey background color */
 .containerTarget:hover input ~ .checkmark {
@@ -1026,6 +1027,19 @@ label.labelText.nameColl {
   justify-content: center; */
   display: inline-flex;
   align-items: center;
+}
+.UploadImage div:last-child {
+  display: grid;
+}
+.UploadImage div:last-child input:last-child {
+  margin-top: 15px;
+  width: 142px;
+  padding: 11px 10px;
+  border: none;
+  background: #ffd4a7;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
 }
 .createCollection input[type="text"] {
   /*   border: none;
